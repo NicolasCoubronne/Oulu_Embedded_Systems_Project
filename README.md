@@ -1,3 +1,19 @@
 # Oulu_Embedded_Systems_Project
 
-Hello - Jussi
+Clone :
+
+git clone https://github.com/NicolasCoubronne/Oulu_Embedded_Systems_Project.git
+
+
+Pull :
+
+git pull
+
+
+Push : 
+
+git add *
+
+git commit -m "name of commit"
+
+git push origin main
