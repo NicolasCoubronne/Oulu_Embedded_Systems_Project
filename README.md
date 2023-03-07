@@ -16,4 +16,8 @@ git add *
 
 git commit -m "name of commit"
 
+<<<<<<< HEAD
 git push origin main
+=======
+git push origin main
+>>>>>>> 29aacac8a4f2100fd199b27751b34c95d99f8d8b

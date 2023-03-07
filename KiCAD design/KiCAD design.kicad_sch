@@ -1,0 +1,27 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid 424183b7-2a62-4151-9af8-522a9add9169)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 25.654 25.654) (size 51.562 50.292) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 351b992e-9d0c-41fd-a6c4-f130ac0d9617)
+    (property "Sheet name" "Connectors" (id 0) (at 25.654 24.9424 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "connectors.kicad_sch" (id 1) (at 25.654 76.5306 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617" (page "2"))
+  )
+)
