@@ -778,13 +778,13 @@
       (reference "C402") (unit 1) (value "1nF") (footprint "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/6cd77127-9612-46e2-8a8a-cbbf962ef9f1"
-      (reference "D401") (unit 1) (value "GREEN") (footprint "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder")
+      (reference "D401") (unit 1) (value "GREEN") (footprint "LED_SMD:LED_1206_3216Metric")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/9333579e-8ea9-4511-a188-32430a19a3ba"
-      (reference "D402") (unit 1) (value "RED") (footprint "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder")
+      (reference "D402") (unit 1) (value "RED") (footprint "LED_SMD:LED_1206_3216Metric")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/d40e39d0-cd05-416c-ac9c-29041b0898e7"
-      (reference "D403") (unit 1) (value "RED") (footprint "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder")
+      (reference "D403") (unit 1) (value "RED") (footprint "LED_SMD:LED_1206_3216Metric")
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/73cd9a15-3818-472e-a397-2c2e429393a2"
       (reference "J201") (unit 1) (value "Conn_02x19_Odd_Even") (footprint "Connector_JST:JST_PUD_B38B-PUDSS_2x19_P2.00mm_Vertical")

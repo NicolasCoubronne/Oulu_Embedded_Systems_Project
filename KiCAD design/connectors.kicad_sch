@@ -1662,7 +1662,7 @@
     (property "PurchaseLoc" "https://www.digikey.fi/en/products/detail/assmann-wsw-components/AW-127-06-G-T/16906693" (id 5) (at 257.175 59.055 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Price" "0.27" (id 5) (at 257.175 59.055 0)
+    (property "Price" "0.27" (id 6) (at 257.175 59.055 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 98be2060-3a15-43c5-92eb-e415fa86965a))
