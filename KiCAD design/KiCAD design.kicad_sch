@@ -5,53 +5,6 @@
   (paper "A4")
 
   (lib_symbols
-    (symbol "Graphic:SYM_Flash_Large" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
-      (property "Reference" "#SYM" (id 0) (at -3.81 0 90)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Value" "SYM_Flash_Large" (id 1) (at 3.302 0 90)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Footprint" "" (id 2) (at -0.254 -2.286 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (id 3) (at 10.16 -2.54 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "graphic symbol flash VAC 220VAC 110VAC power" (id 4) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Flash symbol, large" (id 5) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "SYM_Flash_Large_0_1"
-        (polyline
-          (pts
-            (xy 0.127 -3.556)
-            (xy -1.524 -2.921)
-            (xy -1.778 -5.588)
-            (xy 0.127 -3.556)
-          )
-          (stroke (width 0.2032) (type default) (color 0 0 0 0))
-          (fill (type outline))
-        )
-        (polyline
-          (pts
-            (xy -0.508 4.445)
-            (xy 1.397 4.445)
-            (xy 0 1.016)
-            (xy 2.286 1.905)
-            (xy -0.508 -3.937)
-            (xy -1.397 -3.556)
-            (xy 0.254 -0.254)
-            (xy -2.159 -1.143)
-            (xy -0.508 4.445)
-          )
-          (stroke (width 0.2032) (type default) (color 0 0 0 0))
-          (fill (type outline))
-        )
-      )
-    )
     (symbol "MCU_Module:NUCLEO64-F411RE" (pin_numbers hide) (pin_names hide) (in_bom yes) (on_board yes)
       (property "Reference" "U" (id 0) (at -17.78 50.165 0)
         (effects (font (size 1.27 1.27)) (justify right))
@@ -516,48 +469,6 @@
     (uuid e0abd22a-86bd-4d9a-bf3e-97e8a51771d8)
   )
 
-  (symbol (lib_id "Graphic:SYM_Flash_Large") (at 207.01 127 0) (unit 1)
-    (in_bom yes) (on_board yes) (fields_autoplaced)
-    (uuid 11dd6d81-7255-48cc-8812-0f9f86181d16)
-    (property "Reference" "LiPo_bat401" (id 0) (at 203.2 127 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "Li-Po battery placeholder" (id 1) (at 210.312 127 90))
-    (property "Footprint" "" (id 2) (at 206.756 129.286 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 217.17 129.54 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "PurchaseLoc" "https://hobbyking.com/en_us/zippy-compact-1800mah-3s-25c-lipo-pack.html" (id 4) (at 207.01 127 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Price" "13.42" (id 5) (at 207.01 127 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
-  (symbol (lib_id "Graphic:SYM_Flash_Large") (at 229.87 125.73 0) (unit 1)
-    (in_bom yes) (on_board yes) (fields_autoplaced)
-    (uuid 300626cb-8874-43dc-8300-c3f8e2249cd7)
-    (property "Reference" "LiPo_charger401" (id 0) (at 226.06 125.73 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "Li-Po battery CHARGER placeholder" (id 1) (at 233.172 125.73 90))
-    (property "Footprint" "" (id 2) (at 229.616 128.016 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 240.03 128.27 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "PurchaseLoc" "https://hobbyking.com/en_us/turnigy-e3-compact-2s-3s-lipo-charger-100-240v-eu-plug.html" (id 4) (at 229.87 125.73 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Price" "14.39" (id 5) (at 229.87 125.73 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-  )
-
   (symbol (lib_id "MCU_Module:NUCLEO64-F411RE") (at 93.98 149.86 90) (unit 1)
     (in_bom no) (on_board yes)
     (uuid 53ab80cb-680d-47b5-9042-b10ff93ac434)
@@ -731,11 +642,24 @@
     )
   )
 
+  (sheet (at 209.55 109.22) (size 52.07 43.18) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 84eed88b-177a-45c5-a159-b80e42fc88fa)
+    (property "Sheet name" "External Components for BOM creation" (id 0) (at 209.55 108.5084 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "ext_components.kicad_sch" (id 1) (at 209.55 152.9846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
   (sheet_instances
     (path "/" (page "1"))
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617" (page "2"))
     (path "/465a2d22-51a7-48d6-b1e0-fc75f581e914" (page "3"))
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df" (page "4"))
+    (path "/84eed88b-177a-45c5-a159-b80e42fc88fa" (page "5"))
   )
 
   (symbol_instances
@@ -832,6 +756,9 @@
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/55678dc2-b1d7-4c52-bd84-5bd5c85fbf73"
       (reference "#PWR0403") (unit 1) (value "GND") (footprint "")
     )
+    (path "/84eed88b-177a-45c5-a159-b80e42fc88fa/e609e455-2f92-47cd-a338-cdee205ff5a8"
+      (reference "Bluetooth") (unit 1) (value "HC-05") (footprint "")
+    )
     (path "/465a2d22-51a7-48d6-b1e0-fc75f581e914/661a7e05-4c89-4c14-ad6b-8ac48096fd6e"
       (reference "C301") (unit 1) (value "10uF") (footprint "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder")
     )
@@ -883,11 +810,11 @@
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/77ef5647-5fd0-45a7-8f1c-57b486318a65"
       (reference "J208") (unit 1) (value "JST SENS TOF 1") (footprint "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
     )
-    (path "/11dd6d81-7255-48cc-8812-0f9f86181d16"
-      (reference "LiPo_bat401") (unit 1) (value "Li-Po battery placeholder") (footprint "")
+    (path "/84eed88b-177a-45c5-a159-b80e42fc88fa/0329014d-46ad-4dfa-8935-5abae3a17d71"
+      (reference "LiPo_bat?") (unit 1) (value "Li-Po battery placeholder") (footprint "")
     )
-    (path "/300626cb-8874-43dc-8300-c3f8e2249cd7"
-      (reference "LiPo_charger401") (unit 1) (value "Li-Po battery CHARGER placeholder") (footprint "")
+    (path "/84eed88b-177a-45c5-a159-b80e42fc88fa/09caa74d-e3f7-4a3b-b30b-4c0c21f50184"
+      (reference "LiPo_charger?") (unit 1) (value "Li-Po battery CHARGER placeholder") (footprint "")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/babb38ec-e470-4f2b-ac32-e46727abe3d3"
       (reference "R401") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder")
@@ -906,6 +833,12 @@
     )
     (path "/465a2d22-51a7-48d6-b1e0-fc75f581e914/f474059f-5e64-4ec2-8fdf-47fcddcb3229"
       (reference "SW301") (unit 1) (value "~") (footprint "composants_projet_footprint:1A11-NF5STSE-B")
+    )
+    (path "/84eed88b-177a-45c5-a159-b80e42fc88fa/1effef2d-bafc-46de-9853-a1755d0a3819"
+      (reference "TOF1") (unit 1) (value "SEN0245") (footprint "")
+    )
+    (path "/84eed88b-177a-45c5-a159-b80e42fc88fa/5ccb8a2d-2973-4981-a068-a4deaf76301f"
+      (reference "TOF2") (unit 1) (value "SEN0245") (footprint "")
     )
     (path "/53ab80cb-680d-47b5-9042-b10ff93ac434"
       (reference "U101") (unit 1) (value "NUCLEO64-F411RE") (footprint "Module:ST_Morpho_Connector_144_STLink")

@@ -436,6 +436,10 @@
     [
       "3203fe18-fa26-4a56-94ee-1c822c5de1df",
       "ON_BOARD_COMPONENTS"
+    ],
+    [
+      "84eed88b-177a-45c5-a159-b80e42fc88fa",
+      "External Components for BOM creation"
     ]
   ],
   "text_variables": {}
