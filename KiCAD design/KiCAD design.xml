@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Users\tim\Documents\uni\esp\Oulu_Embedded_Systems_Project\KiCAD design\KiCAD design.kicad_sch</source>
-    <date>2023-03-19 23:27:52</date>
+    <date>2023-03-21 10:39:14</date>
     <tool>Eeschema (6.0.11)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -76,40 +76,36 @@
         <comment number="9" value=""/>
       </title_block>
     </sheet>
+    <sheet number="5" name="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>ext_components.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
   </design>
   <components>
-    <comp ref="LiPo_bat401">
-      <value>Li-Po battery placeholder</value>
-      <fields>
-        <field name="Price">13.42</field>
-        <field name="PurchaseLoc">https://hobbyking.com/en_us/zippy-compact-1800mah-3s-25c-lipo-pack.html</field>
-      </fields>
-      <libsource lib="Graphic" part="SYM_Flash_Large" description="Flash symbol, large"/>
-      <property name="PurchaseLoc" value="https://hobbyking.com/en_us/zippy-compact-1800mah-3s-25c-lipo-pack.html"/>
-      <property name="Price" value="13.42"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="KiCAD design.kicad_sch"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>11dd6d81-7255-48cc-8812-0f9f86181d16</tstamps>
-    </comp>
-    <comp ref="LiPo_charger401">
-      <value>Li-Po battery CHARGER placeholder</value>
-      <fields>
-        <field name="Price">14.39</field>
-        <field name="PurchaseLoc">https://hobbyking.com/en_us/turnigy-e3-compact-2s-3s-lipo-charger-100-240v-eu-plug.html</field>
-      </fields>
-      <libsource lib="Graphic" part="SYM_Flash_Large" description="Flash symbol, large"/>
-      <property name="PurchaseLoc" value="https://hobbyking.com/en_us/turnigy-e3-compact-2s-3s-lipo-charger-100-240v-eu-plug.html"/>
-      <property name="Price" value="14.39"/>
-      <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="KiCAD design.kicad_sch"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamps>300626cb-8874-43dc-8300-c3f8e2249cd7</tstamps>
-    </comp>
     <comp ref="J201">
       <value>Conn_02x19_Odd_Even</value>
       <footprint>Connector_JST:JST_PUD_B38B-PUDSS_2x19_P2.00mm_Vertical</footprint>
+      <fields>
+        <field name="Price">2.11</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/sullins-connector-solutions/PPPC192LFBN-RC/810258</field>
+      </fields>
       <libsource lib="Connector_Generic" part="Conn_02x19_Odd_Even" description="Generic connector, double row, 02x19, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/sullins-connector-solutions/PPPC192LFBN-RC/810258"/>
+      <property name="Price" value="2.11"/>
       <property name="Sheetname" value="CONNECTORS"/>
       <property name="Sheetfile" value="connectors.kicad_sch"/>
       <sheetpath names="/CONNECTORS/" tstamps="/351b992e-9d0c-41fd-a6c4-f130ac0d9617/"/>
@@ -118,7 +114,13 @@
     <comp ref="J202">
       <value>Conn_01x03_Female</value>
       <footprint>Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical</footprint>
+      <fields>
+        <field name="Price">0.24</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/molex/0022035035/403302?s=N4IgTCBcDa5gDAZgKxOSAugXyA</field>
+      </fields>
       <libsource lib="Connector" part="Conn_01x03_Female" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/molex/0022035035/403302?s=N4IgTCBcDa5gDAZgKxOSAugXyA"/>
+      <property name="Price" value="0.24"/>
       <property name="Sheetname" value="CONNECTORS"/>
       <property name="Sheetfile" value="connectors.kicad_sch"/>
       <sheetpath names="/CONNECTORS/" tstamps="/351b992e-9d0c-41fd-a6c4-f130ac0d9617/"/>
@@ -127,7 +129,13 @@
     <comp ref="J203">
       <value>Conn_01x03_Female</value>
       <footprint>Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical</footprint>
+      <fields>
+        <field name="Price">0.24</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/molex/0022035035/403302?s=N4IgTCBcDa5gDAZgKxOSAugXyA</field>
+      </fields>
       <libsource lib="Connector" part="Conn_01x03_Female" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/molex/0022035035/403302?s=N4IgTCBcDa5gDAZgKxOSAugXyA"/>
+      <property name="Price" value="0.24"/>
       <property name="Sheetname" value="CONNECTORS"/>
       <property name="Sheetfile" value="connectors.kicad_sch"/>
       <sheetpath names="/CONNECTORS/" tstamps="/351b992e-9d0c-41fd-a6c4-f130ac0d9617/"/>
@@ -136,7 +144,13 @@
     <comp ref="J204">
       <value>Conn_02x19_Odd_Even</value>
       <footprint>Connector_JST:JST_PUD_B38B-PUDSS_2x19_P2.00mm_Vertical</footprint>
+      <fields>
+        <field name="Price">2.11</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/sullins-connector-solutions/PPPC192LFBN-RC/810258</field>
+      </fields>
       <libsource lib="Connector_Generic" part="Conn_02x19_Odd_Even" description="Generic connector, double row, 02x19, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/sullins-connector-solutions/PPPC192LFBN-RC/810258"/>
+      <property name="Price" value="2.11"/>
       <property name="Sheetname" value="CONNECTORS"/>
       <property name="Sheetfile" value="connectors.kicad_sch"/>
       <sheetpath names="/CONNECTORS/" tstamps="/351b992e-9d0c-41fd-a6c4-f130ac0d9617/"/>
@@ -145,7 +159,13 @@
     <comp ref="J205">
       <value>JST BATTERY</value>
       <footprint>Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical</footprint>
+      <fields>
+        <field name="Price">1.5</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/sparkfun-electronics/PRT-10474/8258064</field>
+      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x02" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/sparkfun-electronics/PRT-10474/8258064"/>
+      <property name="Price" value="1.5"/>
       <property name="Sheetname" value="CONNECTORS"/>
       <property name="Sheetfile" value="connectors.kicad_sch"/>
       <sheetpath names="/CONNECTORS/" tstamps="/351b992e-9d0c-41fd-a6c4-f130ac0d9617/"/>
@@ -154,7 +174,13 @@
     <comp ref="J206">
       <value>JST SENS TOF 2</value>
       <footprint>Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical</footprint>
+      <fields>
+        <field name="Price">0.27</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/assmann-wsw-components/AW-127-06-G-T/16906693</field>
+      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x06" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/assmann-wsw-components/AW-127-06-G-T/16906693"/>
+      <property name="Price" value="0.27"/>
       <property name="Sheetname" value="CONNECTORS"/>
       <property name="Sheetfile" value="connectors.kicad_sch"/>
       <sheetpath names="/CONNECTORS/" tstamps="/351b992e-9d0c-41fd-a6c4-f130ac0d9617/"/>
@@ -163,7 +189,13 @@
     <comp ref="J207">
       <value>Conn_01x06_Female</value>
       <footprint>Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical</footprint>
+      <fields>
+        <field name="Price">0.27</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/assmann-wsw-components/AW-127-06-G-T/16906693</field>
+      </fields>
       <libsource lib="Connector" part="Conn_01x06_Female" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/assmann-wsw-components/AW-127-06-G-T/16906693"/>
+      <property name="Price" value="0.27"/>
       <property name="Sheetname" value="CONNECTORS"/>
       <property name="Sheetfile" value="connectors.kicad_sch"/>
       <sheetpath names="/CONNECTORS/" tstamps="/351b992e-9d0c-41fd-a6c4-f130ac0d9617/"/>
@@ -172,7 +204,13 @@
     <comp ref="J208">
       <value>JST SENS TOF 1</value>
       <footprint>Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical</footprint>
+      <fields>
+        <field name="Price">0.27</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/assmann-wsw-components/AW-127-06-G-T/16906693</field>
+      </fields>
       <libsource lib="Connector_Generic" part="Conn_01x06" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/assmann-wsw-components/AW-127-06-G-T/16906693"/>
+      <property name="Price" value="0.27"/>
       <property name="Sheetname" value="CONNECTORS"/>
       <property name="Sheetfile" value="connectors.kicad_sch"/>
       <sheetpath names="/CONNECTORS/" tstamps="/351b992e-9d0c-41fd-a6c4-f130ac0d9617/"/>
@@ -275,8 +313,15 @@
     </comp>
     <comp ref="D401">
       <value>GREEN</value>
-      <footprint>LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <footprint>LED_SMD:LED_1206_3216Metric</footprint>
+      <datasheet>https://www.lumex.com/spec/SML-LX1206GC-TR.pdf</datasheet>
+      <fields>
+        <field name="Price">0.35</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/lumex-opto-components-inc/SML-LX1206GC-TR/229139</field>
+      </fields>
       <libsource lib="Device" part="LED_Small" description="Light emitting diode, small symbol"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/lumex-opto-components-inc/SML-LX1206GC-TR/229139"/>
+      <property name="Price" value="0.35"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
@@ -284,8 +329,15 @@
     </comp>
     <comp ref="D402">
       <value>RED</value>
-      <footprint>LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <footprint>LED_SMD:LED_1206_3216Metric</footprint>
+      <datasheet>https://www.lumex.com/spec/SML-LX1206IC-TR.pdf</datasheet>
+      <fields>
+        <field name="Price">0.36</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/lumex-opto-components-inc/SML-LX1206IC-TR/229140</field>
+      </fields>
       <libsource lib="Device" part="LED_Small" description="Light emitting diode, small symbol"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/lumex-opto-components-inc/SML-LX1206IC-TR/229140"/>
+      <property name="Price" value="0.36"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
@@ -293,8 +345,15 @@
     </comp>
     <comp ref="D403">
       <value>RED</value>
-      <footprint>LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder</footprint>
+      <footprint>LED_SMD:LED_1206_3216Metric</footprint>
+      <datasheet>https://www.lumex.com/spec/SML-LX1206IC-TR.pdf</datasheet>
+      <fields>
+        <field name="Price">0.36</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/lumex-opto-components-inc/SML-LX1206IC-TR/229140</field>
+      </fields>
       <libsource lib="Device" part="LED_Small" description="Light emitting diode, small symbol"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/lumex-opto-components-inc/SML-LX1206IC-TR/229140"/>
+      <property name="Price" value="0.36"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
@@ -360,6 +419,76 @@
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
       <tstamps>84332fea-e161-4973-b0c5-55b79670b50e</tstamps>
+    </comp>
+    <comp ref="Bluetooth401">
+      <value>PMOD BLE</value>
+      <fields>
+        <field name="Price">23.38</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/digilent-inc/410-359/8605090</field>
+      </fields>
+      <libsource lib="Graphic" part="SYM_LASER_Large" description="Laser radiation warning symbol, large"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/digilent-inc/410-359/8605090"/>
+      <property name="Price" value="23.38"/>
+      <property name="Sheetname" value="External Components for BOM creation"/>
+      <property name="Sheetfile" value="ext_components.kicad_sch"/>
+      <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>
+      <tstamps>e609e455-2f92-47cd-a338-cdee205ff5a8</tstamps>
+    </comp>
+    <comp ref="LiPo_bat401">
+      <value>Li-Po battery placeholder</value>
+      <fields>
+        <field name="Price">13.42</field>
+        <field name="PurchaseLoc">https://hobbyking.com/en_us/zippy-compact-1800mah-3s-25c-lipo-pack.html</field>
+      </fields>
+      <libsource lib="Graphic" part="SYM_Flash_Large" description="Flash symbol, large"/>
+      <property name="PurchaseLoc" value="https://hobbyking.com/en_us/zippy-compact-1800mah-3s-25c-lipo-pack.html"/>
+      <property name="Price" value="13.42"/>
+      <property name="Sheetname" value="External Components for BOM creation"/>
+      <property name="Sheetfile" value="ext_components.kicad_sch"/>
+      <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>
+      <tstamps>0329014d-46ad-4dfa-8935-5abae3a17d71</tstamps>
+    </comp>
+    <comp ref="LiPo_charger401">
+      <value>Li-Po battery CHARGER placeholder</value>
+      <fields>
+        <field name="Price">14.39</field>
+        <field name="PurchaseLoc">https://hobbyking.com/en_us/turnigy-e3-compact-2s-3s-lipo-charger-100-240v-eu-plug.html</field>
+      </fields>
+      <libsource lib="Graphic" part="SYM_Flash_Large" description="Flash symbol, large"/>
+      <property name="PurchaseLoc" value="https://hobbyking.com/en_us/turnigy-e3-compact-2s-3s-lipo-charger-100-240v-eu-plug.html"/>
+      <property name="Price" value="14.39"/>
+      <property name="Sheetname" value="External Components for BOM creation"/>
+      <property name="Sheetfile" value="ext_components.kicad_sch"/>
+      <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>
+      <tstamps>09caa74d-e3f7-4a3b-b30b-4c0c21f50184</tstamps>
+    </comp>
+    <comp ref="TOF1">
+      <value>SEN0245</value>
+      <fields>
+        <field name="Price">12.07</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA</field>
+      </fields>
+      <libsource lib="Graphic" part="SYM_LASER_Large" description="Laser radiation warning symbol, large"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA"/>
+      <property name="Price" value="12.07"/>
+      <property name="Sheetname" value="External Components for BOM creation"/>
+      <property name="Sheetfile" value="ext_components.kicad_sch"/>
+      <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>
+      <tstamps>1effef2d-bafc-46de-9853-a1755d0a3819</tstamps>
+    </comp>
+    <comp ref="TOF2">
+      <value>SEN0245</value>
+      <fields>
+        <field name="Price">12.07</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA</field>
+      </fields>
+      <libsource lib="Graphic" part="SYM_LASER_Large" description="Laser radiation warning symbol, large"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA"/>
+      <property name="Price" value="12.07"/>
+      <property name="Sheetname" value="External Components for BOM creation"/>
+      <property name="Sheetfile" value="ext_components.kicad_sch"/>
+      <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>
+      <tstamps>5ccb8a2d-2973-4981-a068-a4deaf76301f</tstamps>
     </comp>
   </components>
   <libparts>
@@ -560,6 +689,15 @@
       <fields>
         <field name="Reference">#SYM</field>
         <field name="Value">SYM_Flash_Large</field>
+        <field name="Datasheet">~</field>
+      </fields>
+    </libpart>
+    <libpart lib="Graphic" part="SYM_LASER_Large">
+      <description>Laser radiation warning symbol, large</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">#SYM</field>
+        <field name="Value">SYM_LASER_Large</field>
         <field name="Datasheet">~</field>
       </fields>
     </libpart>
