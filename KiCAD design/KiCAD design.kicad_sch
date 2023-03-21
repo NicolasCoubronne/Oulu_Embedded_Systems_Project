@@ -690,8 +690,14 @@
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/a34fc15a-6dcb-433f-a1b5-80b61ced9023"
       (reference "#PWR0109") (unit 1) (value "+3.3V") (footprint "")
     )
+    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/58112a5d-d4e8-4ead-8cee-efce2ae519d0"
+      (reference "#PWR0110") (unit 1) (value "GND") (footprint "")
+    )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/3c03b5ba-3fbb-489a-b4cb-d6815fedc453"
       (reference "#PWR0111") (unit 1) (value "+12V") (footprint "")
+    )
+    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/119442a7-ed5c-484c-a3af-f4766f947324"
+      (reference "#PWR0112") (unit 1) (value "GND") (footprint "")
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/ee57b0d0-fc53-46a4-955b-95d218665177"
       (reference "#PWR0201") (unit 1) (value "GND") (footprint "")
@@ -756,6 +762,12 @@
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/55678dc2-b1d7-4c52-bd84-5bd5c85fbf73"
       (reference "#PWR0403") (unit 1) (value "GND") (footprint "")
     )
+    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/84020db4-ca8e-46d4-8408-e8a76bbc447b"
+      (reference "#PWR?") (unit 1) (value "+3.3V") (footprint "")
+    )
+    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/be517e37-0e82-4836-8baa-01967a6d0fc0"
+      (reference "#PWR?") (unit 1) (value "+3.3V") (footprint "")
+    )
     (path "/84eed88b-177a-45c5-a159-b80e42fc88fa/e609e455-2f92-47cd-a338-cdee205ff5a8"
       (reference "Bluetooth401") (unit 1) (value "PMOD BLE") (footprint "")
     )
@@ -809,6 +821,9 @@
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/77ef5647-5fd0-45a7-8f1c-57b486318a65"
       (reference "J208") (unit 1) (value "JST SENS TOF 1") (footprint "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
+    )
+    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/d838b790-e28f-4ba5-a0b5-f1eb535022bc"
+      (reference "J401") (unit 1) (value "Conn_02x06_Top_Bottom") (footprint "")
     )
     (path "/84eed88b-177a-45c5-a159-b80e42fc88fa/0329014d-46ad-4dfa-8935-5abae3a17d71"
       (reference "LiPo_bat401") (unit 1) (value "Li-Po battery placeholder") (footprint "")
