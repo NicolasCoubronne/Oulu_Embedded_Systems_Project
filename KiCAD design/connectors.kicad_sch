@@ -1277,6 +1277,11 @@
     (effects (font (size 3.81 3.81)) (justify left bottom))
     (uuid c4658a00-df5e-49c5-9781-c64855682c04)
   )
+  (text "Left connector is now HC05, right side is Pmod BLE.\nWe need to delete the other once we know which we will use."
+    (at 191.77 158.75 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid fc5d86ef-e3db-4f11-98df-94c8a1dc8ead)
+  )
 
   (label "BOOT0" (at 38.1 40.64 180)
     (effects (font (size 1.27 1.27)) (justify right bottom))
