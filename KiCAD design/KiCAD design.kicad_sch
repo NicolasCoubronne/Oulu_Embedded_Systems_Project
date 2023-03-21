@@ -744,12 +744,6 @@
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/eb1fdbc1-a19d-4e16-8798-fd170e1f1937"
       (reference "#PWR0216") (unit 1) (value "+5V") (footprint "")
     )
-    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/9904e22c-3549-4c0d-b860-2e67a8ac1a73"
-      (reference "#PWR0217") (unit 1) (value "+5V") (footprint "")
-    )
-    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/c1c1d6bb-bc46-4d66-b311-90105413a07b"
-      (reference "#PWR0218") (unit 1) (value "GND") (footprint "")
-    )
     (path "/465a2d22-51a7-48d6-b1e0-fc75f581e914/1c0e433f-bd67-4e71-86bd-6ea91dbc25b2"
       (reference "#PWR0302") (unit 1) (value "GND") (footprint "")
     )
@@ -821,9 +815,6 @@
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/6a8b86f3-5197-4f17-9c95-637d257eaa6f"
       (reference "J206") (unit 1) (value "JST SENS TOF 2") (footprint "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
-    )
-    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/fdd55bf3-8721-430d-b756-5f86881de1a0"
-      (reference "J207") (unit 1) (value "Conn_01x06_Female") (footprint "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/77ef5647-5fd0-45a7-8f1c-57b486318a65"
       (reference "J208") (unit 1) (value "JST SENS TOF 1") (footprint "Connector_JST:JST_XH_B6B-XH-A_1x06_P2.50mm_Vertical")
