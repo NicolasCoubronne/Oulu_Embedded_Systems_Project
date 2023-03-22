@@ -705,6 +705,12 @@
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/119442a7-ed5c-484c-a3af-f4766f947324"
       (reference "#PWR0112") (unit 1) (value "GND") (footprint "")
     )
+    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/84020db4-ca8e-46d4-8408-e8a76bbc447b"
+      (reference "#PWR0113") (unit 1) (value "+3.3V") (footprint "")
+    )
+    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/be517e37-0e82-4836-8baa-01967a6d0fc0"
+      (reference "#PWR0114") (unit 1) (value "+3.3V") (footprint "")
+    )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/ee57b0d0-fc53-46a4-955b-95d218665177"
       (reference "#PWR0201") (unit 1) (value "GND") (footprint "")
     )
@@ -761,12 +767,6 @@
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/55678dc2-b1d7-4c52-bd84-5bd5c85fbf73"
       (reference "#PWR0403") (unit 1) (value "GND") (footprint "")
-    )
-    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/84020db4-ca8e-46d4-8408-e8a76bbc447b"
-      (reference "#PWR?") (unit 1) (value "+3.3V") (footprint "")
-    )
-    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/be517e37-0e82-4836-8baa-01967a6d0fc0"
-      (reference "#PWR?") (unit 1) (value "+3.3V") (footprint "")
     )
     (path "/84eed88b-177a-45c5-a159-b80e42fc88fa/e609e455-2f92-47cd-a338-cdee205ff5a8"
       (reference "Bluetooth401") (unit 1) (value "PMOD BLE") (footprint "")
