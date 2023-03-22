@@ -829,13 +829,13 @@
       (reference "LiPo_charger401") (unit 1) (value "Li-Po battery CHARGER placeholder") (footprint "")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/babb38ec-e470-4f2b-ac32-e46727abe3d3"
-      (reference "R401") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder")
+      (reference "R401") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/b06519ab-f774-4546-8d76-6f6d04340ea0"
-      (reference "R402") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder")
+      (reference "R402") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/63adce37-17d1-447b-b2e7-5bc943889597"
-      (reference "R403") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder")
+      (reference "R403") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/603a190d-2e11-4b9c-97b4-29631f63e4c2"
       (reference "R404") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")
