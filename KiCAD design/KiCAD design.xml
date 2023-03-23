@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Users\tim\Documents\uni\esp\Oulu_Embedded_Systems_Project\KiCAD design\KiCAD design.kicad_sch</source>
-    <date>2023-03-22 8:03:00</date>
+    <date>2023-03-22 12:05:19</date>
     <tool>Eeschema (6.0.11)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -408,14 +408,15 @@
     </comp>
     <comp ref="R401">
       <value>1k</value>
-      <footprint>Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder</footprint>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf</datasheet>
       <fields>
-        <field name="Price">0.27</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/stackpole-electronics-inc/RNCP0805FTD1K00/2240229</field>
+        <field name="Price">0.09</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444</field>
       </fields>
       <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
-      <property name="Price" value="0.27"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/stackpole-electronics-inc/RNCP0805FTD1K00/2240229"/>
+      <property name="Price" value="0.09"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
@@ -423,14 +424,15 @@
     </comp>
     <comp ref="R402">
       <value>1k</value>
-      <footprint>Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder</footprint>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf</datasheet>
       <fields>
-        <field name="Price">0.27</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/stackpole-electronics-inc/RNCP0805FTD1K00/2240229</field>
+        <field name="Price">0.09</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444</field>
       </fields>
       <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
-      <property name="Price" value="0.27"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/stackpole-electronics-inc/RNCP0805FTD1K00/2240229"/>
+      <property name="Price" value="0.09"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
@@ -438,14 +440,15 @@
     </comp>
     <comp ref="R403">
       <value>1k</value>
-      <footprint>Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder</footprint>
+      <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
+      <datasheet>https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf</datasheet>
       <fields>
-        <field name="Price">0.27</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/stackpole-electronics-inc/RNCP0805FTD1K00/2240229</field>
+        <field name="Price">0.09</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444</field>
       </fields>
       <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
-      <property name="Price" value="0.27"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/stackpole-electronics-inc/RNCP0805FTD1K00/2240229"/>
+      <property name="Price" value="0.09"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
@@ -544,12 +547,12 @@
     <comp ref="TOF1">
       <value>SEN0245</value>
       <fields>
-        <field name="Price">24.14</field>
+        <field name="Price">12.07</field>
         <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA</field>
       </fields>
       <libsource lib="Graphic" part="SYM_LASER_Large" description="Laser radiation warning symbol, large"/>
       <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA"/>
-      <property name="Price" value="24.14"/>
+      <property name="Price" value="12.07"/>
       <property name="Sheetname" value="External Components for BOM creation"/>
       <property name="Sheetfile" value="ext_components.kicad_sch"/>
       <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>
@@ -558,12 +561,12 @@
     <comp ref="TOF2">
       <value>SEN0245</value>
       <fields>
-        <field name="Price">24.14</field>
+        <field name="Price">12.07</field>
         <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA</field>
       </fields>
       <libsource lib="Graphic" part="SYM_LASER_Large" description="Laser radiation warning symbol, large"/>
       <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA"/>
-      <property name="Price" value="24.14"/>
+      <property name="Price" value="12.07"/>
       <property name="Sheetname" value="External Components for BOM creation"/>
       <property name="Sheetfile" value="ext_components.kicad_sch"/>
       <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>
