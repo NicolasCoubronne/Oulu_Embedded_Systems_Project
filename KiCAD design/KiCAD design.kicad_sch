@@ -838,10 +838,10 @@
       (reference "R403") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/603a190d-2e11-4b9c-97b4-29631f63e4c2"
-      (reference "R404") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric")
+      (reference "R404") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/b81a8c14-d81e-4d46-807d-57ca9a13a788"
-      (reference "R405") (unit 1) (value "1.91k") (footprint "Resistor_SMD:R_0805_2012Metric")
+      (reference "R405") (unit 1) (value "19.1k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/465a2d22-51a7-48d6-b1e0-fc75f581e914/f474059f-5e64-4ec2-8fdf-47fcddcb3229"
       (reference "SW301") (unit 1) (value "~") (footprint "composants_projet_footprint:1A11-NF5STSE-B")
