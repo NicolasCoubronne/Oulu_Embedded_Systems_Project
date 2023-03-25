@@ -1,5 +1,7 @@
 # Oulu_Embedded_Systems_Project
 
+## Embedded System Project 2023, group 2
+
 Clone :
 
 git clone https://github.com/NicolasCoubronne/Oulu_Embedded_Systems_Project.git
