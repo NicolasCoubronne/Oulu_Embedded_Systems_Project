@@ -600,7 +600,7 @@
     (effects (font (size 3.81 3.81)) (justify left bottom))
     (uuid 1f54090a-11ae-4158-a867-d0d8d167637b)
   )
-  (text "Current sensor output is 0..5 V,\nNucleo ADC pin input is 0..3.3 V.\nNeeds voltage divider"
+  (text "Current sensor output is 0..5 V,\nNucleo ADC pin input is 0..3.3 V.\nVoltage divider is required."
     (at 77.47 55.88 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 5c460c42-f157-45b8-adb9-1410af88d7e8)
@@ -612,6 +612,15 @@
   (text "Bypass capacitors" (at 212.09 19.685 0)
     (effects (font (size 3.81 3.81)) (justify left bottom))
     (uuid 90854769-a909-4075-9323-5f339019c08c)
+  )
+  (text "Operational and error LEDs." (at 134.62 81.28 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 9dfd5423-95c4-4a41-b2b2-7c1e40b3c6b5)
+  )
+  (text "Current sensor for measuring the power draw of the robot."
+    (at 13.97 83.82 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid fd65424c-bc12-4238-a3e1-dbe6284e4e6b)
   )
 
   (hierarchical_label "IP+" (shape passive) (at 44.45 52.07 180)

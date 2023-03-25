@@ -156,7 +156,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 0ae00b33-b01f-41ef-8583-0ada6837a63b)
   )
-  (text "This sheet has dummy components for BOM creation only. Don't create connections ever!"
+  (text "This sheet has dummy components for BOM creation only. Don't create connections here."
     (at 97.79 62.23 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 6156d919-91e9-4834-90d7-f2411e4cbd5a)
@@ -166,8 +166,8 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid bd1aa619-b2ed-4af7-992f-3e1db025ddb3)
   )
-  (text "Li-Po 3S is good battery for Servomotors as they require 11.1 and high amps"
-    (at 179.07 120.65 0)
+  (text "Li-Po 3S is good battery for Servomotors as they require 11.1 and high amperage (servomotor stall torque current 1.5 A)."
+    (at 156.21 120.65 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid df5ce274-3bc5-4d61-9751-e410d60819bd)
   )

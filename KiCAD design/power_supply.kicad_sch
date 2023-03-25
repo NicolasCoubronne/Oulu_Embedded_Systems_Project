@@ -621,6 +621,10 @@
     (uuid fac672d6-aeb7-4b2a-9947-c68ca8291d06)
   )
 
+  (text "Main power switch." (at 182.88 72.39 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 07b7e037-e0c3-433a-8fbe-14f1f8c23cf0)
+  )
   (text "SWITCH" (at 168.275 20.32 0)
     (effects (font (size 3.81 3.81)) (justify left bottom))
     (uuid 1bad8b8f-6034-4959-ae02-5882f917e22e)
@@ -628,6 +632,16 @@
   (text "5V Power supply" (at 14.605 19.685 0)
     (effects (font (size 3.81 3.81)) (justify left bottom))
     (uuid 354029ba-89ea-46ea-8be1-8f0f64736738)
+  )
+  (text "5 V voltage will be used to power the TOF sensors,\nthe current sensor, and the Nucleo board."
+    (at 16.51 78.74 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 5368fadd-71df-47c2-97d8-279043e6efdd)
+  )
+  (text "3.3 V will be used to power the Pmod BLE bluetooth module."
+    (at 99.06 77.47 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 6b3fb824-378f-4195-b705-11cf56810128)
   )
   (text "Bypass capacitor\nas close to the LDO (pin 1 VIN) as possible\n"
     (at 104.521 38.354 0)
