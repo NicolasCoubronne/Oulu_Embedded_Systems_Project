@@ -1,3 +1,5 @@
 (fp_lib_table
   (lib (name "composants_projet_footprint")(type "KiCad")(uri "${KIPRJMOD}/SYMBOLS/composants_projet_footprint.pretty")(options "")(descr ""))
+  (lib (name "SWITCH lib")(type "KiCad")(uri "${KIPRJMOD}/SWITCH lib.pretty")(options "")(descr ""))
+  (lib (name "NUCLEO.lib")(type "KiCad")(uri "${KIPRJMOD}/NUCLEO.lib.pretty")(options "")(descr ""))
 )

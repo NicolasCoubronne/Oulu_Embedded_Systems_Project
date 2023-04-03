@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name "composants_projet")(type "KiCad")(uri "${KIPRJMOD}/SYMBOLS/composants_projet.kicad_sym")(options "")(descr ""))
+  (lib (name "NUCLEO-F401RE")(type "KiCad")(uri "${KIPRJMOD}/NUCLEO.lib.pretty/NUCLEO-F401RE.kicad_sym")(options "")(descr ""))
 )
