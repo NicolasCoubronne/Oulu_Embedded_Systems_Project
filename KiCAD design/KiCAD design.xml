@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Users\tim\Documents\uni\esp\Oulu_Embedded_Systems_Project\KiCAD design\KiCAD design.kicad_sch</source>
-    <date>2023-04-04 15:40:49</date>
+    <date>2023-04-04 15:50:34</date>
     <tool>Eeschema (6.0.11)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -172,7 +172,7 @@
       <tstamps>96e895de-633b-4f92-b3ff-7845046ea630</tstamps>
     </comp>
     <comp ref="J206">
-      <value>JST SENS TOF 2</value>
+      <value>JST SENS TOF</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical</footprint>
       <fields>
         <field name="Price">0.27</field>
@@ -187,7 +187,7 @@
       <tstamps>6a8b86f3-5197-4f17-9c95-637d257eaa6f</tstamps>
     </comp>
     <comp ref="J208">
-      <value>JST SENS TOF 1</value>
+      <value>JST SENS TOF</value>
       <footprint>Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical</footprint>
       <fields>
         <field name="Price">0.27</field>
