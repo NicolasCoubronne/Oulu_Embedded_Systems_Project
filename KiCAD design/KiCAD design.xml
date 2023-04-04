@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Users\tim\Documents\uni\esp\Oulu_Embedded_Systems_Project\KiCAD design\KiCAD design.kicad_sch</source>
-    <date>2023-04-04 15:58:26</date>
+    <date>2023-04-04 18:22:53</date>
     <tool>Eeschema (6.0.11)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -548,12 +548,12 @@
     <comp ref="TOF1">
       <value>SEN0245</value>
       <fields>
-        <field name="Price">12.07</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA</field>
+        <field name="Price">13.75</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/adafruit-industries-llc/3317/6569762</field>
       </fields>
       <libsource lib="Graphic" part="SYM_LASER_Large" description="Laser radiation warning symbol, large"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA"/>
-      <property name="Price" value="12.07"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/adafruit-industries-llc/3317/6569762"/>
+      <property name="Price" value="13.75"/>
       <property name="Sheetname" value="External Components for BOM creation"/>
       <property name="Sheetfile" value="ext_components.kicad_sch"/>
       <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>
@@ -562,12 +562,12 @@
     <comp ref="TOF2">
       <value>SEN0245</value>
       <fields>
-        <field name="Price">12.07</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA</field>
+        <field name="Price">13.75</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/adafruit-industries-llc/3317/6569762</field>
       </fields>
       <libsource lib="Graphic" part="SYM_LASER_Large" description="Laser radiation warning symbol, large"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/dfrobot/SEN0245/8827827?s=N4IgTCBcDaIG4BsCsBmBAGAHiAugXyA"/>
-      <property name="Price" value="12.07"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/adafruit-industries-llc/3317/6569762"/>
+      <property name="Price" value="13.75"/>
       <property name="Sheetname" value="External Components for BOM creation"/>
       <property name="Sheetfile" value="ext_components.kicad_sch"/>
       <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>
