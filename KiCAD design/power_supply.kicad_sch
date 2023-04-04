@@ -811,7 +811,7 @@
     (property "PurchaseLoc" "https://www.digikey.fi/en/products/detail/microchip-technology/MCP1804T-5002I-DB/2171415?s=N4IgTCBcDaILIGEAKBGAHABgCwBUC0ArBhmAJID0AIgEIgC6AvkA" (id 4) (at 56.134 55.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Price" "0.94" (id 5) (at 56.134 55.88 0)
+    (property "Price" "0.93" (id 5) (at 56.134 55.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid b8953bd5-64b7-4f57-9699-7d523c957a07))
