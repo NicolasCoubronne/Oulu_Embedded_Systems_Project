@@ -2,7 +2,7 @@
 <export version="E">
   <design>
     <source>C:\Users\tim\Documents\uni\esp\Oulu_Embedded_Systems_Project\KiCAD design\KiCAD design.kicad_sch</source>
-    <date>2023-04-04 15:50:34</date>
+    <date>2023-04-04 15:58:26</date>
     <tool>Eeschema (6.0.11)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -520,12 +520,12 @@
     <comp ref="LiPo_bat401">
       <value>Li-Po battery placeholder</value>
       <fields>
-        <field name="Price">13.42</field>
-        <field name="PurchaseLoc">https://hobbyking.com/en_us/zippy-compact-1800mah-3s-25c-lipo-pack.html</field>
+        <field name="Price">12.31</field>
+        <field name="PurchaseLoc">https://hobbyking.com/en_us/turnigy-2200mah-3s-25c-lipo-pack.html</field>
       </fields>
       <libsource lib="Graphic" part="SYM_Flash_Large" description="Flash symbol, large"/>
-      <property name="PurchaseLoc" value="https://hobbyking.com/en_us/zippy-compact-1800mah-3s-25c-lipo-pack.html"/>
-      <property name="Price" value="13.42"/>
+      <property name="PurchaseLoc" value="https://hobbyking.com/en_us/turnigy-2200mah-3s-25c-lipo-pack.html"/>
+      <property name="Price" value="12.31"/>
       <property name="Sheetname" value="External Components for BOM creation"/>
       <property name="Sheetfile" value="ext_components.kicad_sch"/>
       <sheetpath names="/External Components for BOM creation/" tstamps="/84eed88b-177a-45c5-a159-b80e42fc88fa/"/>

@@ -18,7 +18,7 @@
 "9","1","J205","JST BATTERY","1.50","1.50","https://www.digikey.fi/en/products/detail/sparkfun-electronics/PRT-10474/8258064"
 "10","2","J206, J208","JST SENS TOF","0.27","0.54","https://www.digikey.fi/en/products/detail/assmann-wsw-components/AW-127-06-G-T/16906693"
 "11","1","J401","Conn_02x06_Top_Bottom","0.74","0.74","https://www.digikey.fi/en/products/detail/sullins-connector-solutions/PPTC062LFBN-RC/810212"
-"12","1","LiPo_bat401","Li-Po battery placeholder","13.42","13.42","https://hobbyking.com/en_us/zippy-compact-1800mah-3s-25c-lipo-pack.html"
+"12","1","LiPo_bat401","Li-Po battery placeholder","12.31","12.31","https://hobbyking.com/en_us/turnigy-2200mah-3s-25c-lipo-pack.html"
 "13","1","LiPo_charger401","Li-Po battery CHARGER placeholder","14.39","14.39","https://hobbyking.com/en_us/turnigy-e3-compact-2s-3s-lipo-charger-100-240v-eu-plug.html"
 "14","3","R401, R402, R403","330","0.09","0.27","https://www.digikey.fi/en/products/detail/yageo/Rc0805Jr-07330RL/728311"
 "15","1","R404","10k","0.09","0.09","https://www.digikey.fi/en/products/detail/yageo/RC0805JR-0710KL/728241"
@@ -29,4 +29,4 @@
 "20","1","U302","MIC5317","0.21","0.21","https://www.digikey.fi/fi/products/detail/microchip-technology/MIC5317-3-3YM5-TR/5049120"
 "21","1","U401","ACS712xLCTR-20A","4.01","4.01","https://www.digikey.fi/en/products/detail/allegro-microsystems/ACS712ELCTR-20A-T/1284594"
 
-"Total Price","","","","","91.23","euros"
+"Total Price","","","","","90.12","euros"
