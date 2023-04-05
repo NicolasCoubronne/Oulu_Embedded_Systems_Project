@@ -580,7 +580,7 @@
   )
 
   (symbol (lib_id "Mechanical:MountingHole_Pad") (at 177.8 106.68 0) (unit 1)
-    (in_bom no) (on_board yes)
+    (in_bom yes) (on_board yes)
     (uuid 1327a356-e8db-4ffb-895c-129e588e195c)
     (property "Reference" "H104" (id 0) (at 167.64 99.06 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
@@ -598,7 +598,7 @@
   )
 
   (symbol (lib_id "Mechanical:MountingHole_Pad") (at 154.94 106.68 0) (unit 1)
-    (in_bom no) (on_board yes)
+    (in_bom yes) (on_board yes)
     (uuid 359b6eae-d01f-4c07-a65f-0210ec982c6a)
     (property "Reference" "H101" (id 0) (at 144.78 99.06 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
@@ -719,7 +719,7 @@
   )
 
   (symbol (lib_id "Mechanical:MountingHole_Pad") (at 162.56 106.68 0) (unit 1)
-    (in_bom no) (on_board yes)
+    (in_bom yes) (on_board yes)
     (uuid 5c3fe545-b369-450e-a10b-a0b610268b87)
     (property "Reference" "H102" (id 0) (at 152.4 99.06 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
@@ -737,7 +737,7 @@
   )
 
   (symbol (lib_id "Mechanical:MountingHole_Pad") (at 170.18 106.68 0) (unit 1)
-    (in_bom no) (on_board yes)
+    (in_bom yes) (on_board yes)
     (uuid 882c6f9a-d699-4f16-be4b-a2264fdad17d)
     (property "Reference" "H103" (id 0) (at 160.02 99.06 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
@@ -969,6 +969,9 @@
     (path "/3203fe18-fa26-4a56-94ee-1c822c5de1df/55678dc2-b1d7-4c52-bd84-5bd5c85fbf73"
       (reference "#PWR0403") (unit 1) (value "GND") (footprint "")
     )
+    (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/0fa4013b-08dc-4836-ad16-8115d0c7be8b"
+      (reference "#PWR?") (unit 1) (value "+3.3V") (footprint "")
+    )
     (path "/84eed88b-177a-45c5-a159-b80e42fc88fa/e609e455-2f92-47cd-a338-cdee205ff5a8"
       (reference "Bluetooth401") (unit 1) (value "PMOD BLE") (footprint "")
     )
@@ -1027,10 +1030,10 @@
       (reference "J205") (unit 1) (value "JST BATTERY") (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical")
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/6a8b86f3-5197-4f17-9c95-637d257eaa6f"
-      (reference "J206") (unit 1) (value "JST SENS TOF") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+      (reference "J206") (unit 1) (value "JST SENS TOF 2") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/77ef5647-5fd0-45a7-8f1c-57b486318a65"
-      (reference "J208") (unit 1) (value "JST SENS TOF") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+      (reference "J208") (unit 1) (value "JST SENS TOF 1") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/d838b790-e28f-4ba5-a0b5-f1eb535022bc"
       (reference "J401") (unit 1) (value "Conn_02x06_Top_Bottom") (footprint "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical")
