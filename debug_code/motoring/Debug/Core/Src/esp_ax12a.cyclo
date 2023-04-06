@@ -1,0 +1,4 @@
+esp_ax12a.c:25:9:bio_chksm	2
+esp_ax12a.c:37:6:send_recv_uart	3
+esp_ax12a.c:81:6:set_led	1
+esp_ax12a.c:87:6:ping	1

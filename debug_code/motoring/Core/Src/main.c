@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
+
+#include "esp_ax12a.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,38 +76,6 @@ int _write(int file, char *ptr, int len)
 
 }
 
-void aprint(uint8_t *ar, int len) {
-	for (int i=0; i<len; i++) {
-		printf("%x ", ar[i]);
-	}
-	printf("\n");
-}
-
-void set_nucleo_baud(UART_HandleTypeDef *huart, uint32_t br)
-{
-  //HAL_Delay(100);
-
-  HAL_UART_DeInit(huart);
-  huart->Init.BaudRate = br;
-  if (HAL_UART_Init(huart) != HAL_OK) {
-	  printf("Failed to set baud rate %" PRIu32 "\n", br);
-  } else {
-	  printf("baud rate now %" PRIu32 "\n", br);
-  }
-
-  //HAL_Delay(100);
-}
-
-uint8_t bio_chksm(uint8_t* buffer)
-{
-	uint32_t sm = 0;
-	for (int i = 0; i < buffer[3] + 1; i++) {
-		sm += buffer[2 + i];
-	}
-	//printf("got checksum %x\n", ~((uint8_t)sm));
-	return ~((uint8_t)sm);
-}
-
 void set_servo_baud(UART_HandleTypeDef *huart)
 {
   uint8_t *test = (uint8_t*)calloc(8, sizeof(uint8_t));
@@ -124,15 +94,6 @@ void set_servo_baud(UART_HandleTypeDef *huart)
 	  printf("Failed to send set baud mode command via uart\n");
   } else {
 	  printf("Baud rate set via broadcast mode to %u\n", test[6]);
-  }
-}
-
-void baud_set_loop(UART_HandleTypeDef *huart)
-{
-  uint32_t br_v[] = {1000000, 500000, 400000, 250000, 200000, 115200, 57600, 19200, 9600};
-  for (int i = 0; i < 9; i++) {
-	  set_nucleo_baud(huart, br_v[i]);
-	  set_servo_baud(huart);
   }
 }
 
@@ -155,27 +116,6 @@ void move_servo(UART_HandleTypeDef *huart, uint8_t id)
 	  printf("Failed to send move command via uart\n");
   } else {
 	  printf("Move goal set via broadcast mode");
-  }
-}
-
-
-void set_servo_led(UART_HandleTypeDef *huart, uint8_t id)
-{
-  uint8_t *test = (uint8_t*)calloc(8, sizeof(uint8_t));
-  test[0] = 0xFF;
-  test[1] = 0xFF;
-  test[2] = id;
-  test[3] = 0x04;
-  test[4] = 0x03;
-  test[5] = 0x19;
-  test[6] = 0x01;
-  test[7] = bio_chksm(test);
-
-  HAL_HalfDuplex_EnableTransmitter(huart);
-  if (HAL_UART_Transmit(huart, test, 8, 2000) != HAL_OK) {
-	  printf("Failed to send set led command via uart\n");
-  } else {
-	  printf("Set led set via broadcast mode to %u\n", id);
   }
 }
 
@@ -218,14 +158,11 @@ void factory_reset(UART_HandleTypeDef *huart, uint8_t id)
 
   HAL_Delay(100);
 
-  uint8_t status[6];
-
   HAL_HalfDuplex_EnableReceiver(huart);
   if (HAL_UART_Receive(huart, test, 6, 2000) != HAL_OK) {
 	  printf("Failed to read command via uart\n");
   } else {
 	  printf("Read command\n");
-	  aprint(test, 6);
   }
 }
 
@@ -264,33 +201,9 @@ int main(void)
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
 
-  /*uint8_t *ret = (uint8_t*)calloc(9, sizeof(uint8_t));
-
-  HAL_HalfDuplex_EnableTransmitter(&huart4);
-  HAL_UART_Transmit (&huart4, test, 8, 2000);
-
-  HAL_HalfDuplex_EnableReceiver(&huart4);
-  HAL_UART_Receive(&huart4, ret, 9, 2000);*/
-
-  //baud_set_loop(&huart4);
-  //set_nucleo_baud(&huart4, 1000000);
-  //set_servo_id(&huart4);
-  //for (uint32_t b = 1500000; b > 2000; b -= 1000) {
-	//  set_nucleo_baud(&huart4, b);
-	 // set_servo_led(&huart4);
-	//  HAL_Delay(150);
-  //}
-  HAL_Delay(500);
-  //set_servo_id(&huart4, 1, 8);
-  //set_servo_led(&huart4, 8);
- // HAL_Delay(5000);
-
-
-  uint8_t ids[] = {2};
-  for (uint8_t i = 0; i < 256; i++) {
-	  //factory_reset(&huart4, i);
-	  set_servo_led(&huart4, i);
-	  HAL_Delay(2000);
+  for (uint8_t i = 0; i < 254; i++) {
+	  printf("Pinging id %u\n", i);
+	  ping(&huart4, i);
   }
 
   /* USER CODE END 2 */
@@ -299,7 +212,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
