@@ -1,4 +1,0 @@
-../Core/Src/esp_ax12a.c:25:9:bio_chksm	24	static
-../Core/Src/esp_ax12a.c:37:6:send_recv_uart	48	static
-../Core/Src/esp_ax12a.c:81:6:set_led	32	static
-../Core/Src/esp_ax12a.c:87:6:ping	24	static
