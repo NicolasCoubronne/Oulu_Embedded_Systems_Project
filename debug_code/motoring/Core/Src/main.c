@@ -74,6 +74,13 @@ int _write(int file, char *ptr, int len)
 
 }
 
+void aprint(uint8_t *ar, int len) {
+	for (int i=0; i<len; i++) {
+		printf("%x ", ar[i]);
+	}
+	printf("\n");
+}
+
 void set_nucleo_baud(UART_HandleTypeDef *huart, uint32_t br)
 {
   //HAL_Delay(100);
@@ -129,39 +136,18 @@ void baud_set_loop(UART_HandleTypeDef *huart)
   }
 }
 
-void set_servo_id(UART_HandleTypeDef *huart)
-{
-  uint8_t *test = (uint8_t*)calloc(8, sizeof(uint8_t));
-  test[0] = 0xFF;
-  test[1] = 0xFF;
-  test[2] = 0xFE;
-  test[3] = 0x04;
-  test[4] = 0x03;
-  test[5] = 0x03;
-  test[6] = 0x02;
-  test[7] = 0xF5;
-
-  HAL_HalfDuplex_EnableTransmitter(huart);
-
-  if (HAL_UART_Transmit(huart, test, 8, 2000) != HAL_OK) {
-	  printf("Failed to send set id command via uart\n");
-  } else {
-	  printf("ID set via broadcast mode to %u\n", test[6]);
-  }
-}
-
-void move_servo(UART_HandleTypeDef *huart)
+void move_servo(UART_HandleTypeDef *huart, uint8_t id)
 {
   uint8_t *test = (uint8_t*)calloc(9, sizeof(uint8_t));
   test[0] = 0xFF;
   test[1] = 0xFF;
-  test[2] = 0xFE;
+  test[2] = id;
   test[3] = 0x05;
   test[4] = 0x03;
   test[5] = 0x1E;
   test[6] = 0x00;
   test[7] = 0x00;
-  test[8] = 0xDB;
+  test[8] = bio_chksm(test);
 
   HAL_HalfDuplex_EnableTransmitter(huart);
 
@@ -173,12 +159,12 @@ void move_servo(UART_HandleTypeDef *huart)
 }
 
 
-void set_servo_led(UART_HandleTypeDef *huart)
+void set_servo_led(UART_HandleTypeDef *huart, uint8_t id)
 {
   uint8_t *test = (uint8_t*)calloc(8, sizeof(uint8_t));
   test[0] = 0xFF;
   test[1] = 0xFF;
-  test[2] = 0xFE;
+  test[2] = id;
   test[3] = 0x04;
   test[4] = 0x03;
   test[5] = 0x19;
@@ -189,7 +175,57 @@ void set_servo_led(UART_HandleTypeDef *huart)
   if (HAL_UART_Transmit(huart, test, 8, 2000) != HAL_OK) {
 	  printf("Failed to send set led command via uart\n");
   } else {
-	  printf("Set led set via broadcast mode\n");
+	  printf("Set led set via broadcast mode to %u\n", id);
+  }
+}
+
+void set_servo_id(UART_HandleTypeDef *huart, uint8_t old_id, uint8_t new_id)
+{
+  uint8_t *test = (uint8_t*)calloc(8, sizeof(uint8_t));
+  test[0] = 0xFF;
+  test[1] = 0xFF;
+  test[2] = old_id;
+  test[3] = 0x04;
+  test[4] = 0x03;
+  test[5] = 0x03;
+  test[6] = new_id;
+  test[7] = bio_chksm(test);
+
+  HAL_HalfDuplex_EnableTransmitter(huart);
+  if (HAL_UART_Transmit(huart, test, 8, 2000) != HAL_OK) {
+	  printf("Failed to send set led command via uart\n");
+  } else {
+	  printf("Set id from %u to %u\n", old_id, new_id);
+  }
+}
+
+void factory_reset(UART_HandleTypeDef *huart, uint8_t id)
+{
+  uint8_t *test = (uint8_t*)calloc(6, sizeof(uint8_t));
+  test[0] = 0xFF;
+  test[1] = 0xFF;
+  test[2] = id;
+  test[3] = 0x02;
+  test[4] = 0x06;
+  test[5] = bio_chksm(test);
+
+  HAL_HalfDuplex_EnableTransmitter(huart);
+  if (HAL_UART_Transmit(huart, test, 6, 2000) != HAL_OK) {
+	  printf("Failed to factory reset via uart\n");
+  } else {
+	  printf("Factory reset %u\n", id);
+  }
+
+  HAL_Delay(100);
+
+  uint8_t status[6];
+
+  HAL_HalfDuplex_EnableReceiver(huart);
+  if (HAL_UART_Receive(huart, test, 6, 2000) != HAL_OK) {
+	  printf("Failed to read command via uart\n");
+  } else {
+	  printf("Read command\n");
+	  aprint(test, 6);
   }
 }
 
@@ -245,8 +281,17 @@ int main(void)
 	//  HAL_Delay(150);
   //}
   HAL_Delay(500);
-  set_servo_led(&huart4);
-  HAL_Delay(500);
+  //set_servo_id(&huart4, 1, 8);
+  //set_servo_led(&huart4, 8);
+ // HAL_Delay(5000);
+
+
+  uint8_t ids[] = {2};
+  for (uint8_t i = 0; i < 256; i++) {
+	  //factory_reset(&huart4, i);
+	  set_servo_led(&huart4, i);
+	  HAL_Delay(2000);
+  }
 
   /* USER CODE END 2 */
 
