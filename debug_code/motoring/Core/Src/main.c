@@ -74,22 +74,11 @@ int _write(int file, char *ptr, int len)
 
 }
 
-void arprint(uint8_t* ar, uint8_t len)
-{
-	for (int i = 0; i < len; i++)
-	{
-		printf("%x ", ar[i]);
-	}
-	printf("\n");
-}
-
 void set_nucleo_baud(UART_HandleTypeDef *huart, uint32_t br)
 {
   //HAL_Delay(100);
 
-  if (HAL_UART_DeInit(huart) != HAL_OK) {
-	  printf("Failed to deinit UART\n");
-  }
+  HAL_UART_DeInit(huart);
   huart->Init.BaudRate = br;
   if (HAL_UART_Init(huart) != HAL_OK) {
 	  printf("Failed to set baud rate %" PRIu32 "\n", br);
@@ -166,13 +155,13 @@ void move_servo(UART_HandleTypeDef *huart)
   uint8_t *test = (uint8_t*)calloc(9, sizeof(uint8_t));
   test[0] = 0xFF;
   test[1] = 0xFF;
-  test[2] = 0x03;
+  test[2] = 0xFE;
   test[3] = 0x05;
   test[4] = 0x03;
   test[5] = 0x1E;
-  test[6] = 0x02;
+  test[6] = 0x00;
   test[7] = 0x00;
-  test[8] = bio_chksm(test);
+  test[8] = 0xDB;
 
   HAL_HalfDuplex_EnableTransmitter(huart);
 
@@ -184,41 +173,24 @@ void move_servo(UART_HandleTypeDef *huart)
 }
 
 
-void set_servo_led(UART_HandleTypeDef *huart, uint8_t* ret)
+void set_servo_led(UART_HandleTypeDef *huart)
 {
-
-  printf("value of ret before: ");
-  arprint(ret, 6);
-
   uint8_t *test = (uint8_t*)calloc(8, sizeof(uint8_t));
   test[0] = 0xFF;
   test[1] = 0xFF;
-  test[2] = 0x03;
+  test[2] = 0xFE;
   test[3] = 0x04;
   test[4] = 0x03;
   test[5] = 0x19;
   test[6] = 0x01;
   test[7] = bio_chksm(test);
 
-  arprint(test, 8);
-
   HAL_HalfDuplex_EnableTransmitter(huart);
   if (HAL_UART_Transmit(huart, test, 8, 2000) != HAL_OK) {
-	  //printf("Failed to send set led command via uart\n");
+	  printf("Failed to send set led command via uart\n");
   } else {
-	//  printf("Set led set via broadcast mode\n");
+	  printf("Set led set via broadcast mode\n");
   }
-  HAL_HalfDuplex_EnableReceiver(huart);
-  uint8_t retval;
-  if ((retval = HAL_UART_Receive(huart, ret, 6, 10000)) != HAL_OK) {
-	  printf("Failed to read data via uart: %u\n", retval);
-  } else {
-	  printf("Read data via uart\n");
-  }
-
-  printf("value of ret after: ");
-  arprint(ret, 6);
-
 }
 
 
@@ -272,20 +244,9 @@ int main(void)
 	 // set_servo_led(&huart4);
 	//  HAL_Delay(150);
   //}
-
-/*  uint32_t br_v[] = {1000000, 500000, 400000, 250000, 200000, 115200, 57600, 19200, 9600};
-  for (int i = 0; i < 9; i++) {
-	  set_nucleo_baud(&huart4, br_v[i]);
-	  HAL_Delay(2000);
-	  move_servo(&huart4);
-	  HAL_Delay(2000);
-  }*/
-
-  //set_nucleo_baud(&huart4, 1000000);
-  uint8_t *ret = (uint8_t*)calloc(6, sizeof(uint8_t));
-  set_servo_led(&huart4, ret);
-  HAL_Delay(2000);
-  move_servo(&huart4);
+  HAL_Delay(500);
+  set_servo_led(&huart4);
+  HAL_Delay(500);
 
   /* USER CODE END 2 */
 
