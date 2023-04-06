@@ -1,1 +1,11 @@
+# KiCAD ignores
 KiCAD design/#auto_saved_files#
+
+# Eclipse/STM32CubeIDE ignores
+
+.cproject
+.metadata
+.settings
+
+# Built files
+debug_code/motoring/Debug
