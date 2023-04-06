@@ -1030,10 +1030,10 @@
       (reference "J205") (unit 1) (value "JST BATTERY") (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical")
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/6a8b86f3-5197-4f17-9c95-637d257eaa6f"
-      (reference "J206") (unit 1) (value "JST SENS TOF 2") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+      (reference "J206") (unit 1) (value "JST SENS TOF") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/77ef5647-5fd0-45a7-8f1c-57b486318a65"
-      (reference "J208") (unit 1) (value "JST SENS TOF 1") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
+      (reference "J208") (unit 1) (value "JST SENS TOF") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical")
     )
     (path "/351b992e-9d0c-41fd-a6c4-f130ac0d9617/d838b790-e28f-4ba5-a0b5-f1eb535022bc"
       (reference "J401") (unit 1) (value "Conn_02x06_Top_Bottom") (footprint "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical")
