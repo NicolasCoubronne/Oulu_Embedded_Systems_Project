@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="E">
   <design>
-    <source>C:\Users\tim\Documents\uni\esp\Oulu_Embedded_Systems_Project\KiCAD design\KiCAD design.kicad_sch</source>
-    <date>2023-03-22 12:05:19</date>
-    <tool>Eeschema (6.0.11)</tool>
+    <source>C:\Users\nicol\Desktop\GitRep_Proj\Oulu_Embedded_Systems_Project\KiCAD design\KiCAD design.kicad_sch</source>
+    <date>3/24/2023 12:45:16 PM</date>
+    <tool>Eeschema (6.0.7)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title/>
@@ -407,63 +407,63 @@
       <tstamps>d40e39d0-cd05-416c-ac9c-29041b0898e7</tstamps>
     </comp>
     <comp ref="R401">
-      <value>1k</value>
+      <value>330</value>
       <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
       <datasheet>https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf</datasheet>
       <fields>
         <field name="Price">0.09</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/yageo/Rc0805Jr-07330RL/728311</field>
       </fields>
       <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
       <property name="Price" value="0.09"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/yageo/Rc0805Jr-07330RL/728311"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
       <tstamps>babb38ec-e470-4f2b-ac32-e46727abe3d3</tstamps>
     </comp>
     <comp ref="R402">
-      <value>1k</value>
+      <value>330</value>
       <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
       <datasheet>https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf</datasheet>
       <fields>
         <field name="Price">0.09</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/yageo/Rc0805Jr-07330RL/728311</field>
       </fields>
       <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
       <property name="Price" value="0.09"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/yageo/Rc0805Jr-07330RL/728311"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
       <tstamps>b06519ab-f774-4546-8d76-6f6d04340ea0</tstamps>
     </comp>
     <comp ref="R403">
-      <value>1k</value>
+      <value>330</value>
       <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
       <datasheet>https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf</datasheet>
       <fields>
         <field name="Price">0.09</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/yageo/Rc0805Jr-07330RL/728311</field>
       </fields>
       <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
       <property name="Price" value="0.09"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/yageo/Rc0805Jr-07330RL/728311"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
       <sheetpath names="/ON_BOARD_COMPONENTS/" tstamps="/3203fe18-fa26-4a56-94ee-1c822c5de1df/"/>
       <tstamps>63adce37-17d1-447b-b2e7-5bc943889597</tstamps>
     </comp>
     <comp ref="R404">
-      <value>1k</value>
+      <value>10k</value>
       <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
       <datasheet>https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf</datasheet>
       <fields>
         <field name="Price">0.09</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/yageo/RC0805JR-0710KL/728241</field>
       </fields>
       <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071KL/727444"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/yageo/RC0805JR-0710KL/728241"/>
       <property name="Price" value="0.09"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
@@ -471,15 +471,15 @@
       <tstamps>603a190d-2e11-4b9c-97b4-29631f63e4c2</tstamps>
     </comp>
     <comp ref="R405">
-      <value>1.91k</value>
+      <value>19.1k</value>
       <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
       <datasheet>https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf</datasheet>
       <fields>
         <field name="Price">0.09</field>
-        <field name="PurchaseLoc">https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071K91L/727529</field>
+        <field name="PurchaseLoc">https://www.digikey.fi/en/products/detail/yageo/RC0805FR-0719K1L/727656</field>
       </fields>
       <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
-      <property name="PurchaseLoc" value="https://www.digikey.fi/fi/products/detail/yageo/RC0805FR-071K91L/727529"/>
+      <property name="PurchaseLoc" value="https://www.digikey.fi/en/products/detail/yageo/RC0805FR-0719K1L/727656"/>
       <property name="Price" value="0.09"/>
       <property name="Sheetname" value="ON_BOARD_COMPONENTS"/>
       <property name="Sheetfile" value="on_board_components.kicad_sch"/>
@@ -997,22 +997,22 @@
     <net code="2" name="+5V">
       <node ref="C302" pin="1" pintype="passive"/>
       <node ref="C303" pin="1" pintype="passive"/>
+      <node ref="C401" pin="2" pintype="passive"/>
       <node ref="J201" pin="6" pinfunction="Pin_6" pintype="passive"/>
       <node ref="J206" pin="1" pinfunction="Pin_1" pintype="passive"/>
       <node ref="J208" pin="1" pinfunction="Pin_1" pintype="passive"/>
       <node ref="U301" pin="1" pinfunction="OUT" pintype="power_out"/>
       <node ref="U302" pin="1" pinfunction="VIN" pintype="power_in"/>
       <node ref="U302" pin="3" pinfunction="~{SHDN}" pintype="input"/>
+      <node ref="U401" pin="8" pinfunction="VCC" pintype="power_in"/>
     </net>
     <net code="3" name="+12V">
       <node ref="C301" pin="1" pintype="passive"/>
-      <node ref="C401" pin="2" pintype="passive"/>
       <node ref="J202" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="J203" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="U301" pin="3" pinfunction="IN" pintype="power_in"/>
       <node ref="U401" pin="3" pinfunction="IP-" pintype="passive"/>
       <node ref="U401" pin="4" pinfunction="IP-" pintype="passive"/>
-      <node ref="U401" pin="8" pinfunction="VCC" pintype="power_in"/>
     </net>
     <net code="4" name="/CONNECTORS/AVDD">
       <node ref="J204" pin="7" pinfunction="Pin_7" pintype="passive"/>
