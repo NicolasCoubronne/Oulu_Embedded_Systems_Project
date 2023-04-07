@@ -26,6 +26,7 @@
 #include <inttypes.h>
 
 #include "esp_ax12a.h"
+#include "util.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,76 +98,6 @@ void set_servo_baud(UART_HandleTypeDef *huart)
   }
 }
 
-void move_servo(UART_HandleTypeDef *huart, uint8_t id)
-{
-  uint8_t *test = (uint8_t*)calloc(9, sizeof(uint8_t));
-  test[0] = 0xFF;
-  test[1] = 0xFF;
-  test[2] = id;
-  test[3] = 0x05;
-  test[4] = 0x03;
-  test[5] = 0x1E;
-  test[6] = 0x00;
-  test[7] = 0x00;
-  test[8] = bio_chksm(test);
-
-  HAL_HalfDuplex_EnableTransmitter(huart);
-
-  if (HAL_UART_Transmit(huart, test, 9, 2000) != HAL_OK) {
-	  printf("Failed to send move command via uart\n");
-  } else {
-	  printf("Move goal set via broadcast mode");
-  }
-}
-
-void set_servo_id(UART_HandleTypeDef *huart, uint8_t old_id, uint8_t new_id)
-{
-  uint8_t *test = (uint8_t*)calloc(8, sizeof(uint8_t));
-  test[0] = 0xFF;
-  test[1] = 0xFF;
-  test[2] = old_id;
-  test[3] = 0x04;
-  test[4] = 0x03;
-  test[5] = 0x03;
-  test[6] = new_id;
-  test[7] = bio_chksm(test);
-
-  HAL_HalfDuplex_EnableTransmitter(huart);
-  if (HAL_UART_Transmit(huart, test, 8, 2000) != HAL_OK) {
-	  printf("Failed to send set led command via uart\n");
-  } else {
-	  printf("Set id from %u to %u\n", old_id, new_id);
-  }
-}
-
-void factory_reset(UART_HandleTypeDef *huart, uint8_t id)
-{
-  uint8_t *test = (uint8_t*)calloc(6, sizeof(uint8_t));
-  test[0] = 0xFF;
-  test[1] = 0xFF;
-  test[2] = id;
-  test[3] = 0x02;
-  test[4] = 0x06;
-  test[5] = bio_chksm(test);
-
-  HAL_HalfDuplex_EnableTransmitter(huart);
-  if (HAL_UART_Transmit(huart, test, 6, 2000) != HAL_OK) {
-	  printf("Failed to factory reset via uart\n");
-  } else {
-	  printf("Factory reset %u\n", id);
-  }
-
-  HAL_Delay(100);
-
-  HAL_HalfDuplex_EnableReceiver(huart);
-  if (HAL_UART_Receive(huart, test, 6, 2000) != HAL_OK) {
-	  printf("Failed to read command via uart\n");
-  } else {
-	  printf("Read command\n");
-  }
-}
-
-
 /* USER CODE END 0 */
 
 /**
@@ -200,10 +131,11 @@ int main(void)
   MX_USART2_UART_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
+  ax_init(&huart4, NULL);
 
   for (uint8_t i = 0; i < 254; i++) {
 	  printf("Pinging id %u\n", i);
-	  ping(&huart4, i);
+	  ax_ping(i);
   }
 
   /* USER CODE END 2 */

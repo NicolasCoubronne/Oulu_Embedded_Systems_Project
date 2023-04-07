@@ -8,11 +8,13 @@
 #ifndef INC_ESP_AX12A_H_
 #define INC_ESP_AX12A_H_
 
-
-uint8_t bio_chksm(uint8_t* buffer);
-void send_recv_uart(UART_HandleTypeDef *huart, uint8_t servo_id, uint8_t instruction, uint8_t *param_list, size_t param_len);
-void set_led(UART_HandleTypeDef *huart, uint8_t id, uint8_t mode);
-void ping(UART_HandleTypeDef *huart, uint8_t id);
+void ax_init(UART_HandleTypeDef *base_uart, UART_HandleTypeDef *arm_uart);
+void ax_deinit();
+void ax_set_led(uint8_t id, uint8_t mode);
+void ax_ping(uint8_t id);
+void ax_set_id(uint8_t old_id, uint8_t new_id);
+void ax_set_goal_raw(uint8_t id, uint16_t angle);
+void ax_set_goal_deg(uint8_t id, float angle);
 
 
 #endif /* INC_ESP_AX12A_H_ */

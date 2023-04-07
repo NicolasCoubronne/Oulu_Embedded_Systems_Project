@@ -5,14 +5,40 @@
  *      Author: Jussi Virtanen
  */
 
+#include <inttypes.h>
 #include <stdio.h>
+#include <string.h>
+
+#include "util.h"
 
 /*
- * Print array in hexadecimal (probably uart buffer for ax12)
+ * Convert array to hexadecimal string
  */
-void aprint(uint8_t *ar, int len)
+void array8_to_hex(uint8_t *ar, size_t len, char *buf)
 {
-	for (int i=0; i<len; i++) {
-		printf("%02x ", ar[i]);
+    char temp[3];
+    int j = 0;
+    for (int i = 0; i < len; i++) {
+        sprintf(temp, "%02X", ar[i]);
+        memcpy(&buf[j], temp, 2);
+        j += 2;
+        if (i < len-1) {
+            buf[j] = ' ';
+            j++;
+        }
+    }
+    buf[j] = '\0';
+}
+
+/*
+ * Dynamixel Protocl checksum
+ */
+uint8_t dmp_chksm(uint8_t* buffer)
+{
+	uint32_t checksum = 0;
+	// Length is the fourth field
+	for (int i = 0; i < buffer[3] + 1; i++) {
+		checksum += buffer[2 + i];
 	}
+	return ~((uint8_t)checksum);
 }

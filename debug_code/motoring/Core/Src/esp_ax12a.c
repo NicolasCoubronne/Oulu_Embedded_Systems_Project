@@ -6,6 +6,7 @@
  *
  * Interface for AX-12A servos for ESP
  */
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,77 +15,145 @@
 #include "esp_ax12a.h"
 #include "util.h"
 
-// Nucleo might not be fast enough to receive if you do anything (like printing) before receive!
-#define DEBUG_SEND 0
+#define DEBUG_SEND 1
 #define DEBUG_RECV 1
-#define UART_TIMEOUT 500
+
+#define UART_SEND_TIMEOUT 500
+#define UART_RECV_TIMEOUT 500
+#define SEND_BUF_SIZE 20
+#define RECV_BUF_SIZE 10
+
+typedef enum {
+	DMP_PING = 1,
+	DMP_READ = 2,
+	DMP_WRITE = 3,
+	DMP_RESET = 6
+} dmp_inst;
+
+// UART send and receive buffers
+uint8_t *ax_send_buffer;
+uint8_t *ax_recv_buffer;
+// UART interfaces for base (rotation) and rest of the arm, set at init
+UART_HandleTypeDef *base_uart;
+UART_HandleTypeDef *arm_uart;
 
 /*
- * Return uart packet checksum as described by Dynamixel protocol 1.0
+ * Initialize servos and UART buffers
  */
-uint8_t bio_chksm(uint8_t* buffer)
+void ax_init(UART_HandleTypeDef *base_uart, UART_HandleTypeDef *arm_uart)
 {
-	uint32_t checksum = 0;
-	for (int i = 0; i < buffer[3] + 1; i++) {
-		checksum += buffer[2 + i];
-	}
-	return ~((uint8_t)checksum);
+	// some initialization code here (set max movement speed, max torque, initialize position etc.)
+	base_uart = base_uart;
+	arm_uart = arm_uart;
+	ax_send_buffer = (uint8_t*)calloc(SEND_BUF_SIZE, sizeof(uint8_t));
+	ax_recv_buffer = (uint8_t*)calloc(RECV_BUF_SIZE, sizeof(uint8_t));
+}
+
+/*
+ * Deinitialize servos and UART buffers
+ */
+void ax_deinit()
+{
+	// Some deinit code (what is even needed? Will our program ever end, or do we just cut the power?)
+	free(ax_send_buffer);
+	free(ax_recv_buffer);
+}
+
+/*
+ * "Map" of servo id-> uart interface
+ */
+UART_HandleTypeDef* get_huart(uint8_t servo_id)
+{
+	// TODO
+	return base_uart;
 }
 
 /*
  * Send and receive uart data to servo
  */
-void send_recv_uart(UART_HandleTypeDef *huart, uint8_t servo_id, uint8_t instruction, uint8_t *param_list, size_t param_len) {
-	// Buffer length in bytes: header (2) + id + len + instruction type + param_amount + checksum
-	int send_buffer_len = 2 + 1 + 1 + 1 + param_len + 1;
-	uint8_t *send_buffer = (uint8_t*)calloc(send_buffer_len, sizeof(uint8_t));
-	uint8_t *recv_buffer = (uint8_t*)calloc(6, sizeof(uint8_t));
+void send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list, size_t param_len, size_t return_len)
+{
+	int packet_size;
+	UART_HandleTypeDef *huart;
+	HAL_StatusTypeDef uart_status_send;
+	HAL_StatusTypeDef uart_status_recv;
 
-	send_buffer[0] = 0xFF;
-	send_buffer[1] = 0xFF;
-	send_buffer[2] = servo_id;
-	send_buffer[3] = param_len + 2;
-	send_buffer[4] = instruction;
+	packet_size = 6 + param_len;
+
+	ax_send_buffer[0] = 0xFF;
+	ax_send_buffer[1] = 0xFF;
+	ax_send_buffer[2] = servo_id;
+	ax_send_buffer[3] = param_len + 2;
+	ax_send_buffer[4] = instruction;
 	for (int i = 0; i < param_len; i++) {
-		send_buffer[5+i] = param_list[i];
+		ax_send_buffer[5+i] = param_list[i];
 	}
-	send_buffer[5+param_len] = bio_chksm(send_buffer);
+	ax_send_buffer[packet_size-1] = dmp_chksm(ax_send_buffer);
 
+	huart = get_huart(servo_id);
+	/* Dont do anything except enable receiver between send and receive,
+	 * otherwise Nucleo might not be fast enough to catch return packet
+	 */
 	HAL_HalfDuplex_EnableTransmitter(huart);
-	if (HAL_UART_Transmit(huart, send_buffer, send_buffer_len, UART_TIMEOUT) != HAL_OK) {
-#if DEBUG_SEND // Probably need to lower baud rate and/or receive timing from servos to debug print without failing to read uart data back
-		printf("Failed to send packet ");
-		aprint(send_buffer, send_buffer_len);
-		printf("via UART\n");
-	} else {
-		printf("Sent packet ");
-		aprint(send_buffer, send_buffer_len);
-		printf("via UART\n");
-#endif
-	}
-
+	uart_status_send = HAL_UART_Transmit(huart, ax_send_buffer, packet_size, UART_SEND_TIMEOUT);
 	HAL_HalfDuplex_EnableReceiver(huart);
-	if (HAL_UART_Receive(huart, recv_buffer, 6, UART_TIMEOUT) != HAL_OK) {
+	uart_status_recv = HAL_UART_Receive(huart, ax_recv_buffer, return_len, UART_RECV_TIMEOUT);
+
+#if DEBUG_SEND || DEBUG_RECV
+	char temp[50];
+#endif
+
+#if DEBUG_SEND
+	array8_to_hex(ax_send_buffer, packet_size, temp);
+	if (uart_status_send != HAL_OK) {
+		printf("Failed to send packet %s via UART\n", temp);
+	} else {
+		printf("Sent packet %s via UART\n", temp);
+	}
+#endif
+
 #if DEBUG_RECV
+	array8_to_hex(ax_recv_buffer, return_len, temp);
+	if (uart_status_recv != HAL_OK) {
 		printf("Failed to receive status packet\n");
 	} else {
-		printf("Received status packet ");
-		aprint(recv_buffer, 6);
-		printf("via UART\n");
-#endif
+		printf("Received status packet %s via UART\n", temp);
 	}
-
-	free(send_buffer);
-	free(recv_buffer);
+#endif
 }
 
-void set_led(UART_HandleTypeDef *huart, uint8_t id, uint8_t mode)
+void ax_set_led(uint8_t id, uint8_t mode)
 {
-	uint8_t params[] = {0x19, mode};
-	send_recv_uart(huart, id, 3, params, 2);
+	uint8_t params[] = {25, mode}; // Led address = 25
+	send_recv_uart(id, DMP_WRITE, params, 2, 6);
 }
 
-void ping(UART_HandleTypeDef *huart, uint8_t id)
+void ax_ping(uint8_t id)
 {
-	send_recv_uart(huart, id, 1, NULL, 0);
+	send_recv_uart(id, DMP_PING, NULL, 0, 6);
+}
+
+void ax_reset(uint8_t id)
+{
+	send_recv_uart(id, DMP_RESET, NULL, 0, 6);
+}
+
+void ax_set_id(uint8_t old_id, uint8_t new_id)
+{
+	uint8_t params[] = {3, new_id}; // ID Address = 3
+	send_recv_uart(old_id, DMP_WRITE, params, 2, 6);
+}
+
+void ax_set_goal_raw(uint8_t id, uint16_t angle)
+{
+	uint8_t b0 = (uint8_t)(angle >> 2);
+	uint8_t b1 = (uint8_t)angle;
+	uint8_t params[] = {30, b0, b1};
+	send_recv_uart(id, DMP_WRITE, params, 3, 6);
+}
+
+void ax_set_goal_deg(uint8_t id, float angle)
+{
+	uint16_t raw_angle = (uint16_t)round(angle / 300.0f * 1023.0f);
+	ax_set_goal_raw(id, raw_angle);
 }
