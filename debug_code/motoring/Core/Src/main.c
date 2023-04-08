@@ -77,27 +77,6 @@ int _write(int file, char *ptr, int len)
 
 }
 
-void set_servo_baud(UART_HandleTypeDef *huart)
-{
-  uint8_t *test = (uint8_t*)calloc(8, sizeof(uint8_t));
-  test[0] = 0xFF;
-  test[1] = 0xFF;
-  test[2] = 0xFE;
-  test[3] = 0x04;
-  test[4] = 0x03;
-  test[5] = 0x04;
-  test[6] = 0x01;
-  test[7] = 0xF5;
-
-  HAL_HalfDuplex_EnableTransmitter(huart);
-
-  if (HAL_UART_Transmit(huart, test, 8, 2000) != HAL_OK) {
-	  printf("Failed to send set baud mode command via uart\n");
-  } else {
-	  printf("Baud rate set via broadcast mode to %u\n", test[6]);
-  }
-}
-
 /* USER CODE END 0 */
 
 /**
