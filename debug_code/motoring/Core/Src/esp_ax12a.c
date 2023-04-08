@@ -116,7 +116,7 @@ void ax_ping(uint8_t id)
 	send_recv_uart(id, DMP_PING, NULL, 0, 6);
 }
 
-void ax_reset(uint8_t id)
+void ax_factory_reset(uint8_t id)
 {
 	send_recv_uart(id, DMP_RESET, NULL, 0, 6);
 }

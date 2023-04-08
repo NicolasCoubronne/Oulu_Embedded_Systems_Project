@@ -28,7 +28,7 @@ typedef enum {
 void ax_init(UART_HandleTypeDef *base_uart, UART_HandleTypeDef *arm_uart);
 void ax_deinit();
 void ax_ping(uint8_t id);
-void ax_reset(uint8_t id);
+void ax_factory_reset(uint8_t id);
 void ax_set_id(uint8_t old_id, uint8_t new_id);
 void ax_set_angle_limit(uint8_t id, uint16_t angle, bool ccw);
 uint16_t ax_get_angle_limit(uint8_t id, bool ccw);
