@@ -7,6 +7,7 @@
  * Interface for AX-12A servos for ESP
  */
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -122,12 +123,6 @@ void send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list,
 #endif
 }
 
-void ax_set_led(uint8_t id, uint8_t mode)
-{
-	uint8_t params[] = {25, mode}; // Led address = 25
-	send_recv_uart(id, DMP_WRITE, params, 2, 6);
-}
-
 void ax_ping(uint8_t id)
 {
 	send_recv_uart(id, DMP_PING, NULL, 0, 6);
@@ -144,11 +139,62 @@ void ax_set_id(uint8_t old_id, uint8_t new_id)
 	send_recv_uart(old_id, DMP_WRITE, params, 2, 6);
 }
 
+void ax_set_angle_limit(uint8_t id, uint16_t angle, bool ccw)
+{
+	uint8_t address;
+	uint8_t b0 = (uint8_t)(angle >> 2);
+	uint8_t b1 = (uint8_t)angle;
+	if (ccw) {
+		address = 8;
+	} else {
+		address = 6;
+	}
+	uint8_t params[] = {address, b0, b1};
+	send_recv_uart(id, DMP_WRITE, params, 3, 6);
+}
+
+uint16_t ax_get_cw_limit(uint8_t id, uint16_t angle, bool ccw)
+{
+	uint8_t address;
+	uint16_t angle = 0;
+	if (ccw) {
+		address = 8;
+	} else {
+		address = 6;
+	}
+	uint8_t params[] = {address, 2};
+	send_recv_uart(id, DMP_READ, params, 2, 8);
+	angle =| ax_recv_buffer[5];
+	angle <<= 2;
+	angle |= ax_recv_buffer[6];
+	return angle;
+}
+
+void ax_set_led(uint8_t id, bool mode)
+{
+	uint8_t params[] = {25, mode}; // Led address = 25
+	send_recv_uart(id, DMP_WRITE, params, 2, 6);
+}
+
+bool ax_get_led(uint8_t id)
+{
+	uint8_t params[] = {25, 1}; // Led address = 25
+	send_recv_uart(id, DMP_READ, params, 2, 7);
+	return (bool)ax_recv_buffer[5];
+}
+
+void ax_toggle_led(uint8_t id)
+{
+	uint8_t mode = !ax_get_led(id);
+	uint8_t params[] = {25, mode}; // Led address = 25
+	send_recv_uart(id, DMP_WRITE, params, 2, 6);
+}
+
 void ax_set_goal_raw(uint8_t id, uint16_t angle)
 {
 	uint8_t b0 = (uint8_t)(angle >> 2);
 	uint8_t b1 = (uint8_t)angle;
-	uint8_t params[] = {30, b0, b1};
+	uint8_t params[] = {30, b0, b1}; // Goal address = 30
 	send_recv_uart(id, DMP_WRITE, params, 3, 6);
 }
 
