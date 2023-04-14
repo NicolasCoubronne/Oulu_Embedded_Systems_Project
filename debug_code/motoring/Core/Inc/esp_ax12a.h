@@ -25,7 +25,7 @@ typedef enum {
 	DMP_RESET = 6
 } dmp_inst;
 
-void ax_init(UART_HandleTypeDef *base_uart, UART_HandleTypeDef *arm_uart);
+void ax_init(UART_HandleTypeDef *base_uart_p, UART_HandleTypeDef *arm_uart_p);
 void ax_deinit();
 void ax_ping(uint8_t id);
 void ax_factory_reset(uint8_t id);
