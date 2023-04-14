@@ -399,3 +399,51 @@ uint16_t ax_get_current_load(uint8_t id)
 	load |= ax_recv_buffer[5];
 	return load;
 }
+
+/*
+ * Stop servo (=set goal position to current position)
+ *
+ * id: servo id
+ */
+void ax_stop(uint8_t id)
+{
+	ax_set_goal_raw(id, ax_get_current_position(id));
+}
+
+/*
+ * Set servo goal, blocks until pos near goal OR timeout is reached while position is not changing much
+ *
+ * id: servo id
+ * angle: goal angle
+ * timeout: when to stop blocking even if goal isn't reached (seconds)
+ */
+void ax_move_blocked(uint8_t id, uint16_t angle, float timeout)
+{
+	/* How close current position has to be to goal position
+	 * Also used as the threshold required to increase wait time
+	 * Wait time will be increased when max(last 10 positions)-min(last 10 positions) > threshold
+	 * If wait time > timeout, return
+	 */
+	int threshold = 5;
+	int pos_buf[10];
+	int pos_buf_len = sizeof(pos_buf) / sizeof(pos_buf[0]);
+	int i = 0;
+	int poll_period_ms = 500;
+	float waited;
+
+	ax_set_goal_raw(id, angle);
+	while (abs((int)ax_get_current_position(id) - (int)angle) > threshold || waited < timeout) {
+		HAL_Delay(poll_period_ms);
+		pos_buf[i] = (int)ax_get_current_position(id);
+		if ((max_of_array(pos_buf, pos_buf_len) - min_of_array(pos_buf, pos_buf_len)) < threshold) {
+			waited += poll_period_ms / 1000.0f;
+		} else {
+			waited = 0.0f;
+		}
+		if (i == pos_buf_len-1) {
+			i = 0;
+		} else {
+			i++;
+		}
+	}
+}
