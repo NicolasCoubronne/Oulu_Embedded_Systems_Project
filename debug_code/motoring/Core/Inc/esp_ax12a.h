@@ -46,7 +46,7 @@ unsigned int ax_get_current_position(uint8_t id);
 unsigned int ax_get_current_speed(uint8_t id);
 unsigned int ax_get_current_load(uint8_t id);
 void ax_stop(uint8_t id);
-void ax_move_blocked(uint8_t id, uint16_t angle, float timeout);
+void ax_move_blocked(uint8_t id, unsigned int angle, float timeout);
 
 
 #endif /* INC_ESP_AX12A_H_ */

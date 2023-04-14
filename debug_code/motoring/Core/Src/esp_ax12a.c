@@ -316,7 +316,7 @@ unsigned int ax_get_goal_raw(uint8_t id)
  */
 void ax_set_goal_deg(uint8_t id, float angle)
 {
-	uint16_t raw_angle = (uint16_t)round(angle / 300.0f * 1023.0f);
+	unsigned int raw_angle = (unsigned int)round(angle / 300.0f * 1023.0f);
 	ax_set_goal_raw(id, raw_angle);
 }
 
@@ -417,7 +417,7 @@ void ax_stop(uint8_t id)
  * angle: goal angle
  * timeout: when to stop blocking even if goal isn't reached (seconds)
  */
-void ax_move_blocked(uint8_t id, uint16_t angle, float timeout)
+void ax_move_blocked(uint8_t id, unsigned int angle, float timeout)
 {
 	/* How close current position has to be to goal position
 	 * Also used as the threshold required to increase wait time
