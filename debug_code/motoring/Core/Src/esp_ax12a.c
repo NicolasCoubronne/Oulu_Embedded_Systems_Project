@@ -17,8 +17,8 @@
 #include "util.h"
 
 // UART send and receive buffers
-uint8_t *ax_send_buffer;
-uint8_t *ax_recv_buffer;
+uint8_t ax_send_buffer[SEND_BUF_SIZE];
+uint8_t ax_recv_buffer[RECV_BUF_SIZE];
 // UART interfaces for base (rotation) and rest of the arm, set at init
 UART_HandleTypeDef *base_uart;
 UART_HandleTypeDef *arm_uart;
@@ -34,8 +34,6 @@ void ax_init(UART_HandleTypeDef *base_uart_p, UART_HandleTypeDef *arm_uart_p)
 	// some initialization code here (set max movement speed, max torque, initialize position etc.)
 	base_uart = base_uart_p;
 	arm_uart = arm_uart_p;
-	ax_send_buffer = (uint8_t*)calloc(SEND_BUF_SIZE, sizeof(uint8_t));
-	ax_recv_buffer = (uint8_t*)calloc(RECV_BUF_SIZE, sizeof(uint8_t));
 }
 
 /*
@@ -44,8 +42,6 @@ void ax_init(UART_HandleTypeDef *base_uart_p, UART_HandleTypeDef *arm_uart_p)
 void ax_deinit()
 {
 	// Some deinit code (what is even needed? Will our program ever end, or do we just cut the power?)
-	free(ax_send_buffer);
-	free(ax_recv_buffer);
 }
 
 /*
