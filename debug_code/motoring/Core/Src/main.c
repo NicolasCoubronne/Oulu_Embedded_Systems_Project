@@ -112,18 +112,18 @@ int main(void)
   /* USER CODE BEGIN 2 */
   ax_init(&huart4, NULL);
 
-  /*
-  ax_set_id(1, 3);
+/*
+  ax_set_id(1, 4);
   HAL_Delay(1000);
-  */
+*/
 
-  /*
+/*
   for (uint8_t i = 0; i < 254; i++) {
 	  printf("Pinging id %u\n", i);
 	  ax_ping(i);
 	  HAL_Delay(500);
   }
-  */
+*/
 
 
   /* USER CODE END 2 */
@@ -155,13 +155,16 @@ int main(void)
 
   //ax_set_id(1, tid);
 
+
+  //DEMO SOFTA
   uint16_t temp;
-  uint8_t ids[] = {8, 9, 2, 3};
-  uint16_t init_angles[] = {512, 300, 700, 512};
+  uint8_t ids[] = {3, 2, 9, 8, 4};
+  uint16_t init_angles[] = {512, 700, 300, 512, 512};
+  uint16_t init_speed[] = {50, 50, 50, 50, 25};
   uint8_t id;
 
   for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
-	  ax_set_move_speed(ids[i], 50);
+	  ax_set_move_speed(ids[i], init_speed[i]);
 	  HAL_Delay(1000);
 	  temp = ax_get_move_speed(ids[i]);
 	  //printf("move speed %u\n", temp);
@@ -169,6 +172,21 @@ int main(void)
 	  ax_set_goal_raw(ids[i], init_angles[i]);
 	  HAL_Delay(5000);
   }
+  id = 4;
+    ax_set_goal_raw(id, 100);
+    HAL_Delay(15000);
+    cpos = ax_get_current_position(id);
+    gpos = ax_get_goal_raw(id);
+    printf("current: %u, goal: %u\n", cpos, gpos);
+    HAL_Delay(1000);
+
+  id = 4;
+    ax_set_goal_raw(id, 900);
+	HAL_Delay(15000);
+	cpos = ax_get_current_position(id);
+	gpos = ax_get_goal_raw(id);
+	printf("current: %u, goal: %u\n", cpos, gpos);
+	HAL_Delay(1000);
 
   id = 3;
   ax_set_goal_raw(id, 700);
