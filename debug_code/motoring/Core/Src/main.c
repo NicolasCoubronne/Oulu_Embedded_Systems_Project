@@ -112,17 +112,107 @@ int main(void)
   /* USER CODE BEGIN 2 */
   ax_init(&huart4, NULL);
 
+  /*
+  ax_set_id(1, 3);
+  HAL_Delay(1000);
+  */
+
+  /*
   for (uint8_t i = 0; i < 254; i++) {
 	  printf("Pinging id %u\n", i);
 	  ax_ping(i);
+	  HAL_Delay(500);
   }
+  */
+
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint16_t cpos, gpos;
+  uint8_t tid = 8;
+
+  //ax_set_goal_raw(3, 200);
+  //HAL_Delay(500);
+  //cpos = ax_get_current_position(3);
+  //gpos = ax_get_goal_raw(3);
+  //printf("current: %u, goal: %u\n", cpos, gpos);
+  /*
+  ax_ping(3);
+  HAL_Delay(500);
+  ax_set_goal_raw(3, 200);
+  HAL_Delay(10000);
+  cpos = ax_get_current_position(3);
+  gpos = ax_get_goal_raw(3);
+  printf("current: %u, goal: %u\n", cpos, gpos);
+  ax_set_goal_raw(3, 400);
+  HAL_Delay(10000);
+  cpos = ax_get_current_position(3);
+  gpos = ax_get_goal_raw(3);
+  printf("current: %u, goal: %u\n", cpos, gpos);
+  */
+
+  //ax_set_id(1, tid);
+
+  uint16_t temp;
+  uint8_t ids[] = {8, 9, 2, 3};
+  uint16_t init_angles[] = {512, 300, 700, 512};
+  uint8_t id;
+
+  for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
+	  ax_set_move_speed(ids[i], 50);
+	  HAL_Delay(1000);
+	  temp = ax_get_move_speed(ids[i]);
+	  //printf("move speed %u\n", temp);
+	  HAL_Delay(1000);
+	  ax_set_goal_raw(ids[i], init_angles[i]);
+	  HAL_Delay(5000);
+  }
+
+  id = 3;
+  ax_set_goal_raw(id, 700);
+  HAL_Delay(5000);
+  cpos = ax_get_current_position(id);
+  gpos = ax_get_goal_raw(id);
+  printf("current: %u, goal: %u\n", cpos, gpos);
+  HAL_Delay(1000);
+
+  id = 2;
+  ax_set_goal_raw(id, 600);
+  HAL_Delay(5000);
+  cpos = ax_get_current_position(id);
+  gpos = ax_get_goal_raw(id);
+  printf("current: %u, goal: %u\n", cpos, gpos);
+  HAL_Delay(1000);
+
+  id = 9;
+  ax_set_goal_raw(id, 200);
+  HAL_Delay(5000);
+  cpos = ax_get_current_position(id);
+  gpos = ax_get_goal_raw(id);
+  printf("current: %u, goal: %u\n", cpos, gpos);
+  HAL_Delay(1000);
+
+  id = 8;
+  ax_set_goal_raw(id, 400);
+  HAL_Delay(5000);
+  cpos = ax_get_current_position(id);
+  gpos = ax_get_goal_raw(id);
+  printf("current: %u, goal: %u\n", cpos, gpos);
+  HAL_Delay(1000);
+
+  id = 8;
+  ax_set_goal_raw(id, 600);
+  HAL_Delay(5000);
+  cpos = ax_get_current_position(id);
+  gpos = ax_get_goal_raw(id);
+  printf("current: %u, goal: %u\n", cpos, gpos);
+  HAL_Delay(1000);
+
   while (1)
   {
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
