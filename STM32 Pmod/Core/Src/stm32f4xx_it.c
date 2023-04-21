@@ -248,16 +248,13 @@ void USART1_IRQHandler(void)
 void DMA2_Stream2_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA2_Stream2_IRQn 0 */
-	uint8_t* temp = buf_RX;
 
   /* USER CODE END DMA2_Stream2_IRQn 0 */
   HAL_DMA_IRQHandler(&hdma_usart1_rx);
   /* USER CODE BEGIN DMA2_Stream2_IRQn 1 */
 	HAL_UART_Transmit(&huart1, buf_RX,Size, HAL_MAX_DELAY);
-
 	memset(buf_RX, 0, sizeof(buf_RX));
-
-
+	HAL_UART_DMAStop(&huart1);
 	HAL_UART_Receive_DMA(&huart1, buf_RX, 9);
   /* USER CODE END DMA2_Stream2_IRQn 1 */
 }

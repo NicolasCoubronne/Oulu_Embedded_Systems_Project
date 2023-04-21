@@ -97,8 +97,6 @@ int main(void)
 
 	HAL_UART_Transmit(&huart1, (uint8_t*)"STM -> PMOD \r\n", sizeof("STM -> PMOD \r\n"), HAL_MAX_DELAY);
 
-	 //HAL_UART_Receive_IT(&huart1, buf_RX, Size);
-
 	//DMA
 	HAL_UART_Receive_DMA (&huart1, buf_RX, 9);
 
