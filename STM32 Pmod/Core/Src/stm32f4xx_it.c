@@ -22,6 +22,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -31,7 +32,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define Size 50
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -41,7 +42,9 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+extern  uint8_t* ptdata;
+ extern char buf_RX[Size];
+ extern char buf_TX[Size];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -204,10 +207,17 @@ void SysTick_Handler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
+
+	HAL_UART_Transmit(&huart1, (uint8_t*)"Data Recieved\r\n", sizeof("Data Recieved\r\n"),HAL_MAX_DELAY);
+	for (int i = 0; i < Size; i++) {
+	        buf_TX[i] = buf_RX[i];
+	    }
+	int buf_len = sprintf(buf_TX, "\r\n");
+	HAL_UART_Transmit(&huart1,  (uint8_t*) buf_TX,buf_len, HAL_MAX_DELAY);
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
-
+	HAL_UART_Receive_IT(&huart1, (uint8_t*) buf_RX, Size);
   /* USER CODE END USART1_IRQn 1 */
 }
 
