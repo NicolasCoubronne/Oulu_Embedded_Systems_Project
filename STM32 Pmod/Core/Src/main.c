@@ -42,15 +42,17 @@
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
+DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
- char buf_RX[Size];
- char buf_TX[Size];
+uint8_t buf_RX[Size];
+uint8_t buf_TX[Size];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
@@ -89,13 +91,16 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-	ptdata = malloc(Size);
 
 	HAL_UART_Transmit(&huart1, (uint8_t*)"STM -> PMOD \r\n", sizeof("STM -> PMOD \r\n"), HAL_MAX_DELAY);
 
-	HAL_UART_Receive_IT(&huart1, (uint8_t*) buf_RX, Size);
+	 //HAL_UART_Receive_IT(&huart1, buf_RX, Size);
+
+	//DMA
+	HAL_UART_Receive_DMA (&huart1, buf_RX, 9);
 
   /* USER CODE END 2 */
 
@@ -189,6 +194,22 @@ static void MX_USART1_UART_Init(void)
   /* USER CODE BEGIN USART1_Init 2 */
 
   /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA2_Stream2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
 
 }
 
