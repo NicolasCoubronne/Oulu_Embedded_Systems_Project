@@ -424,16 +424,20 @@ void ax_move_blocked(uint8_t id, unsigned int angle, float timeout)
 	 * Wait time will be increased when max(last 10 positions)-min(last 10 positions) > threshold
 	 * If wait time > timeout, return
 	 */
-	int threshold = 5;
+	int threshold = 8;
 	int pos_buf[10];
 	int pos_buf_len = sizeof(pos_buf) / sizeof(pos_buf[0]);
 	int i = 0;
 	int poll_period_ms = 500;
+	int diff;
+	unsigned int curr;
 	float waited;
 
 	ax_set_goal_raw(id, angle);
-	while (abs((int)ax_get_current_position(id) - (int)angle) > threshold || waited < timeout) {
-		HAL_Delay(poll_period_ms);
+	do {
+		curr = ax_get_current_position(id);
+		diff = abs((int)curr - (int)angle);
+		//printf("id %u current %u angle %i diff %u cmcw %u cmccw %u waited %f\n", id, curr, angle, diff, waited);
 		pos_buf[i] = (int)ax_get_current_position(id);
 		if ((max_of_array(pos_buf, pos_buf_len) - min_of_array(pos_buf, pos_buf_len)) < threshold) {
 			waited += poll_period_ms / 1000.0f;
@@ -445,5 +449,9 @@ void ax_move_blocked(uint8_t id, unsigned int angle, float timeout)
 		} else {
 			i++;
 		}
-	}
+		if (diff > threshold && waited < timeout)
+		{
+			HAL_Delay(poll_period_ms);
+		}
+	} while (temp > threshold && waited < timeout);
 }
