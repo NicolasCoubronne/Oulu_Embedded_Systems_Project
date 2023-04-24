@@ -1,3 +1,6 @@
+# Freecad backups
+*.FCStd1
+
 # KiCAD ignores
 KiCAD design/#auto_saved_files#
 
