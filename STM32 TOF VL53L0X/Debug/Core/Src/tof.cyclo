@@ -1,0 +1,4 @@
+tof.c:33:15:TOF1_VL53L0X_Init	2
+tof.c:62:15:TOF1_VL53L0X_Init_Single	3
+tof.c:93:15:TOF2_VL53L0X_Init	3
+tof.c:132:6:TOFX_VL53L0X_LongRangeSettings	7
