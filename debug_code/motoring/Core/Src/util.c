@@ -42,3 +42,25 @@ uint8_t dmp_chksm(uint8_t* buffer)
 	}
 	return ~((uint8_t)checksum);
 }
+
+int min_of_array(int *array, int len)
+{
+	int min = array[0];
+	for (int i = 0; i < len; i++) {
+		if (array[i] < min) {
+			min = array[i];
+		}
+	}
+	return min;
+}
+
+int max_of_array(int *array, int len)
+{
+	int max = array[0];
+	for (int i = 0; i < len; i++) {
+		if (array[i] > max) {
+			max = array[i];
+		}
+	}
+	return max;
+}

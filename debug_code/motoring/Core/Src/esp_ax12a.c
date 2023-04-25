@@ -166,7 +166,7 @@ void ax_set_id(uint8_t old_id, uint8_t new_id)
  * angle: new angle limit (range: 0..1023, corresponds to 0..300 degrees)
  * ccw: whether to set the clockwise (0) or counterclockwise (1) limit
  */
-void ax_set_angle_limit(uint8_t id, uint16_t angle, bool ccw)
+void ax_set_angle_limit(uint8_t id, unsigned int angle, bool ccw)
 {
 	uint8_t address;
 	uint8_t b0 = (uint8_t)(angle >> 8);
@@ -188,10 +188,10 @@ void ax_set_angle_limit(uint8_t id, uint16_t angle, bool ccw)
  *
  * returns: angle limit (0..1023)
  */
-uint16_t ax_get_angle_limit(uint8_t id, bool ccw)
+unsigned int ax_get_angle_limit(uint8_t id, bool ccw)
 {
 	uint8_t address;
-	uint16_t angle = 0;
+	unsigned int angle = 0;
 	if (ccw) {
 		address = 8;
 	} else {
@@ -211,7 +211,7 @@ uint16_t ax_get_angle_limit(uint8_t id, bool ccw)
  * id: servo id
  * torque: new max torque, range (0..1023), one unit corresponds to ~0.1% torque
  */
-void ax_set_max_torque(uint8_t id, uint16_t torque)
+void ax_set_max_torque(uint8_t id, unsigned int torque)
 {
 	uint8_t b0 = (uint8_t)(torque >> 8);
 	uint8_t b1 = (uint8_t)torque;
@@ -226,9 +226,9 @@ void ax_set_max_torque(uint8_t id, uint16_t torque)
  *
  * returns: max torque, range (0..1023), one unit corresponds to ~0.1% torque
  */
-uint16_t ax_get_max_torque(uint8_t id)
+unsigned int ax_get_max_torque(uint8_t id)
 {
-	uint16_t max_torque = 0;
+	unsigned int max_torque = 0;
 	uint8_t params[] = {14, 2};
 	send_recv_uart(id, DMP_READ, params, 2, 8);
 	max_torque |= ax_recv_buffer[6];
@@ -281,7 +281,7 @@ void ax_toggle_led(uint8_t id)
  * id: servo id
  * angle: new goal position, range is (0..1023) (internal units, corresponds to 0..300 degrees)
  */
-void ax_set_goal_raw(uint8_t id, uint16_t angle)
+void ax_set_goal_raw(uint8_t id, unsigned int angle)
 {
 	uint8_t b0 = (uint8_t)(angle >> 8);
 	uint8_t b1 = (uint8_t)angle;
@@ -297,9 +297,9 @@ void ax_set_goal_raw(uint8_t id, uint16_t angle)
  *
  * returns: goal position, range is (0..1023)
  */
-uint16_t ax_get_goal_raw(uint8_t id)
+unsigned int ax_get_goal_raw(uint8_t id)
 {
-	uint16_t angle = 0;
+	unsigned int angle = 0;
 	uint8_t params[] = {30, 2};
 	send_recv_uart(id, DMP_READ, params, 2, 8);
 	angle |= ax_recv_buffer[6];
@@ -316,7 +316,7 @@ uint16_t ax_get_goal_raw(uint8_t id)
  */
 void ax_set_goal_deg(uint8_t id, float angle)
 {
-	uint16_t raw_angle = (uint16_t)round(angle / 300.0f * 1023.0f);
+	unsigned int raw_angle = (unsigned int)round(angle / 300.0f * 1023.0f);
 	ax_set_goal_raw(id, raw_angle);
 }
 
@@ -326,7 +326,7 @@ void ax_set_goal_deg(uint8_t id, float angle)
  * id: servo id
  * speed: move speed, range is (0..1023), corresponds to ~0.1% of max speed
  */
-void ax_set_move_speed(uint8_t id, uint16_t speed)
+void ax_set_move_speed(uint8_t id, unsigned int speed)
 {
 	uint8_t b0 = (uint8_t)(speed >> 8);
 	uint8_t b1 = (uint8_t)speed;
@@ -342,9 +342,9 @@ void ax_set_move_speed(uint8_t id, uint16_t speed)
  *
  * returns: move speed, range is (0..1023), corresponds to ~0.1% of max speed
  */
-uint16_t ax_get_move_speed(uint8_t id)
+unsigned int ax_get_move_speed(uint8_t id)
 {
-	uint16_t speed = 0;
+	unsigned int speed = 0;
 	uint8_t params[] = {32, 2};
 	send_recv_uart(id, DMP_READ, params, 2, 8);
 	speed |= ax_recv_buffer[6];
@@ -360,9 +360,9 @@ uint16_t ax_get_move_speed(uint8_t id)
  *
  * returns: current position, range is (0..1023)
  */
-uint16_t ax_get_current_position(uint8_t id)
+unsigned int ax_get_current_position(uint8_t id)
 {
-	uint16_t pos = 0;
+	unsigned int pos = 0;
 	uint8_t params[] = {36, 2}; // Current position address = 36
 	send_recv_uart(id, DMP_READ, params, 2, 8);
 	pos |= ax_recv_buffer[6];
@@ -378,9 +378,9 @@ uint16_t ax_get_current_position(uint8_t id)
  *
  * returns: current move speed, range is (0..1023), corresponds to ~0.1% of max speed
  */
-uint16_t ax_get_current_speed(uint8_t id)
+unsigned int ax_get_current_speed(uint8_t id)
 {
-	uint16_t speed = 0;
+	unsigned int speed = 0;
 	uint8_t params[] = {38, 2}; // Current speed address = 38
 	send_recv_uart(id, DMP_READ, params, 2, 8);
 	speed |= ax_recv_buffer[6];
@@ -389,13 +389,61 @@ uint16_t ax_get_current_speed(uint8_t id)
 	return speed;
 }
 
-uint16_t ax_get_current_load(uint8_t id)
+unsigned int ax_get_current_load(uint8_t id)
 {
-	uint16_t load = 0;
+	unsigned int load = 0;
 	uint8_t params[] = {40, 2}; // Current load address = 40
 	send_recv_uart(id, DMP_READ, params, 2, 8);
 	load |= ax_recv_buffer[6];
 	load <<= 8;
 	load |= ax_recv_buffer[5];
 	return load;
+}
+
+/*
+ * Stop servo (=set goal position to current position)
+ *
+ * id: servo id
+ */
+void ax_stop(uint8_t id)
+{
+	ax_set_goal_raw(id, ax_get_current_position(id));
+}
+
+/*
+ * Set servo goal, blocks until pos near goal OR timeout is reached while position is not changing much
+ *
+ * id: servo id
+ * angle: goal angle
+ * timeout: when to stop blocking even if goal isn't reached (seconds)
+ */
+void ax_move_blocked(uint8_t id, unsigned int angle, float timeout)
+{
+	/* How close current position has to be to goal position
+	 * Also used as the threshold required to increase wait time
+	 * Wait time will be increased when max(last 10 positions)-min(last 10 positions) > threshold
+	 * If wait time > timeout, return
+	 */
+	int threshold = 5;
+	int pos_buf[10];
+	int pos_buf_len = sizeof(pos_buf) / sizeof(pos_buf[0]);
+	int i = 0;
+	int poll_period_ms = 500;
+	float waited;
+
+	ax_set_goal_raw(id, angle);
+	while (abs((int)ax_get_current_position(id) - (int)angle) > threshold || waited < timeout) {
+		HAL_Delay(poll_period_ms);
+		pos_buf[i] = (int)ax_get_current_position(id);
+		if ((max_of_array(pos_buf, pos_buf_len) - min_of_array(pos_buf, pos_buf_len)) < threshold) {
+			waited += poll_period_ms / 1000.0f;
+		} else {
+			waited = 0.0f;
+		}
+		if (i == pos_buf_len-1) {
+			i = 0;
+		} else {
+			i++;
+		}
+	}
 }

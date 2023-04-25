@@ -10,6 +10,8 @@
 
 #include <stdbool.h>
 
+#include "stm32f4xx_hal.h"
+
 #define DEBUG_SEND 1
 #define DEBUG_RECV 1
 
@@ -30,21 +32,23 @@ void ax_deinit();
 void ax_ping(uint8_t id);
 void ax_factory_reset(uint8_t id);
 void ax_set_id(uint8_t old_id, uint8_t new_id);
-void ax_set_angle_limit(uint8_t id, uint16_t angle, bool ccw);
-uint16_t ax_get_angle_limit(uint8_t id, bool ccw);
-void ax_set_max_torque(uint8_t id, uint16_t torque);
-uint16_t ax_get_max_torque(uint8_t id);
+void ax_set_angle_limit(uint8_t id, unsigned int angle, bool ccw);
+unsigned int ax_get_angle_limit(uint8_t id, bool ccw);
+void ax_set_max_torque(uint8_t id, unsigned int torque);
+unsigned int ax_get_max_torque(uint8_t id);
 void ax_set_led(uint8_t id, bool mode);
 bool ax_get_led(uint8_t id);
 void ax_toggle_led(uint8_t id);
-void ax_set_goal_raw(uint8_t id, uint16_t angle);
-uint16_t ax_get_goal_raw(uint8_t id);
+void ax_set_goal_raw(uint8_t id, unsigned int angle);
+unsigned int ax_get_goal_raw(uint8_t id);
 void ax_set_goal_deg(uint8_t id, float angle);
-void ax_set_move_speed(uint8_t id, uint16_t speed);
-uint16_t ax_get_move_speed(uint8_t id);
-uint16_t ax_get_current_position(uint8_t id);
-uint16_t ax_get_current_speed(uint8_t id);
-uint16_t ax_get_current_load(uint8_t id);
+void ax_set_move_speed(uint8_t id, unsigned int speed);
+unsigned int ax_get_move_speed(uint8_t id);
+unsigned int ax_get_current_position(uint8_t id);
+unsigned int ax_get_current_speed(uint8_t id);
+unsigned int ax_get_current_load(uint8_t id);
+void ax_stop(uint8_t id);
+void ax_move_blocked(uint8_t id, unsigned int angle, float timeout);
 
 
 #endif /* INC_ESP_AX12A_H_ */
