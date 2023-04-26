@@ -21,6 +21,14 @@
 #define RECV_BUF_SIZE 10
 
 typedef enum {
+	SERVOID_BASE = 4,
+	SERVOID_ARM1 = 3,
+	SERVOID_ARM2 = 2,
+	SERVOID_ARM3 = 9,
+	SERVOID_CLAW = 8
+};
+
+typedef enum {
 	DMP_PING = 1,
 	DMP_READ = 2,
 	DMP_WRITE = 3,
