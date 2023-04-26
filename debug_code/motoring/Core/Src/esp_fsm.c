@@ -13,7 +13,9 @@ typedef enum {
 	ARM_INIT,
 	ARM_MOVE_TO_IDLE,
 	ARM_SEEK_CCW,
+	ARM_SEEK_EDGE_CCW,
 	ARM_SEEK_CW,
+	ARM_SEEK_EDGE_CW,
 	ARM_MOVE_TO_GRAB,
 	ARM_GRAB_CLAW,
 	ARM_MOVE_TO_DUMP
@@ -72,15 +74,18 @@ void arm_start_sm()
 		}
 		// cw edge found
 		if (angle_cw_edge == 0 && get_dist() < distance_threshold_mm) {
-			angle_cw_edge = ax_get_current_position(4);
+			arm_state = ARM_SEEK_EDGE_CCW;
 		}
+		break;
+
+	case ARM_SEEK_EDGE_CCW:
+		angle_cw_edge = ax_get_current_position(4);
 		// ccw edge found with cw edge found
-		if (angle_cw_edge != 0 && get_dist() > distance_threshold_mm) {
+		if (get_dist() > distance_threshold_mm) {
 			angle_ccw_edge = ax_get_current_position(4);
 			ax_stop(4);
 			arm_state = ARM_MOVE_TO_GRAB;
 		}
-		break;
 
 	case ARM_SEEK_CW:
 		// Set goal to cw edge if not yet set
@@ -93,15 +98,18 @@ void arm_start_sm()
 		}
 		// ccw edge found
 		if (angle_ccw_edge == 0 && get_dist() < distance_threshold_mm) {
-			angle_ccw_edge = ax_get_current_position(4);
+			arm_state = ARM_SEEK_EDGE_CW;
 		}
-		// cw edge found with ccw edge found
-		if (angle_ccw_edge != 0 && get_dist() > distance_threshold_mm) {
+		break;
+
+	case ARM_SEEK_EDGE_CW:
+		angle_ccw_edge = ax_get_current_position(4);
+		// ccw edge found with cw edge found
+		if (get_dist() > distance_threshold_mm) {
 			angle_cw_edge = ax_get_current_position(4);
 			ax_stop(4);
 			arm_state = ARM_MOVE_TO_GRAB;
 		}
-		break;
 
 	case ARM_MOVE_TO_GRAB:
 		middle_rot = (angle_ccw_edge + angle_cw_edge) / 2;
