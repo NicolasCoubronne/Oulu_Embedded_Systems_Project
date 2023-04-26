@@ -15,6 +15,22 @@
 #include "esp_ax12a.h"
 #include "util.h"
 
+void demo_init()
+{
+	uint8_t ids[] = {3, 2, 9, 8, 4};
+	uint16_t init_angles[] = {512, 700, 300, 512, 512};
+	uint16_t init_speed[] = {75, 75, 75, 50, 75};
+	float to = 1;
+
+	for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
+	  ax_set_move_speed(ids[i], init_speed[i]);
+	  HAL_Delay(1000);
+	}
+	for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
+	  ax_move_blocked(ids[i], init_angles[i], to);
+	  HAL_Delay(1000);
+	}
+}
 
 void demo1()
 {
@@ -128,4 +144,25 @@ void demo2()
 	HAL_Delay(200);
 	ax_move_blocked(id, 600, to);
 	HAL_Delay(200);
+}
+
+void demo_load()
+{
+	//uint8_t ids[] = {3, 2, 9, 8, 4};
+	float to = 1;
+	uint8_t id;
+
+	demo_init();
+
+	id = 8;
+	ax_set_max_torque(8, 600);
+	while(1) {
+		ax_move_blocked(id, 400, to);
+		HAL_Delay(1000);
+		ax_set_goal_raw(id, 600);
+		for (int i = 0; i < 100; i++) {
+			printf("load: %u\n", ax_get_current_load(id));
+			HAL_Delay(50);
+		}
+	}
 }

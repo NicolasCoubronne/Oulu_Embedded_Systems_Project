@@ -159,7 +159,7 @@ int main(void)
 
 
   //DEMO SOFTA
-  demo2();
+  demo_load();
 
 
   while (1)

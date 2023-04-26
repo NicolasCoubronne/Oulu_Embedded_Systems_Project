@@ -10,5 +10,6 @@
 
 void demo1();
 void demo2();
+void demo_load();
 
 #endif /* INC_DEMOS_H_ */

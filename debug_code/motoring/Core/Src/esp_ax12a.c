@@ -215,7 +215,7 @@ void ax_set_max_torque(uint8_t id, unsigned int torque)
 {
 	uint8_t b0 = (uint8_t)(torque >> 8);
 	uint8_t b1 = (uint8_t)torque;
-	uint8_t params[] = {14, b1, b0}; // Torque address = 14
+	uint8_t params[] = {34, b1, b0}; // Torque address = 14
 	send_recv_uart(id, DMP_WRITE, params, 3, 6);
 }
 
@@ -397,6 +397,11 @@ unsigned int ax_get_current_load(uint8_t id)
 	load |= ax_recv_buffer[6];
 	load <<= 8;
 	load |= ax_recv_buffer[5];
+	if (load < 1024) {
+		load *= -1;
+	} else {
+		load -= 1024;
+	}
 	return load;
 }
 
@@ -453,5 +458,5 @@ void ax_move_blocked(uint8_t id, unsigned int angle, float timeout)
 		{
 			HAL_Delay(poll_period_ms);
 		}
-	} while (temp > threshold && waited < timeout);
+	} while (diff > threshold && waited < timeout);
 }
