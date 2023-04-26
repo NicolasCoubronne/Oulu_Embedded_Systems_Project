@@ -8,6 +8,9 @@
  */
 
 #include "esp_ax12a.h"
+#include "tof.h"
+#include "main.h"
+#include "stm32f4xx_hal.h"
 
 typedef enum {
 	ARM_INIT,
@@ -36,7 +39,6 @@ void arm_start_sm()
 	unsigned int angle_ccw_edge, angle_cw_edge; // Angles where object edge were found
 	unsigned int middle_rot;
 	armState arm_state;
-	unsigned int sensor_distance_mm;
 	unsigned int distance_threshold_mm; // max distance where arm will consider an object to exist
 	unsigned int ccw_seek_angle_limit, cw_seek_angle_limit; // Seek area limits
 	unsigned int dump_angle;
@@ -48,6 +50,39 @@ void arm_start_sm()
 	dump_angle = 1000; // Near max limit cw
 	angle_ccw_edge = angle_cw_edge = 0; // Use 0 as the magic number where angle has not yet been found
 	arm_state = ARM_INIT;
+
+	//TOF Init
+	uint32_t refSpadCount;
+	uint8_t isApertureSpads;
+	uint8_t VhvSettings;
+	uint8_t PhaseCal;
+
+	VL53L0X_RangingMeasurementData_t RangingData;
+	static VL53L0X_Error myStatus = VL53L0X_ERROR_NONE;
+	unsigned int sensor_distance_mm;
+
+	myStatus=TOF1_VL53L0X_Init_Single(&refSpadCount,&isApertureSpads,&VhvSettings,&PhaseCal,0);
+	if (myStatus!=VL53L0X_ERROR_NONE) {
+		printf("TOF1 Initialization Error : %i\r\n", myStatus);
+	}
+
+	TOFX_VL53L0X_LongRangeSettings(TOF1);
+	VL53L0X_StartMeasurement (TOF1);
+
+	//TEST OF TOF
+/*
+while (1){
+	myStatus = VL53L0X_PerformSingleRangingMeasurement(TOF1, &RangingData);
+			if (myStatus!=VL53L0X_ERROR_NONE) {
+				Error_Handler();
+			}
+			if(RangingData.RangeStatus == 0)
+			{
+				sensor_distance_mm= RangingData.RangeMilliMeter;
+				printf("sensor value : %d \r\n", sensor_distance_mm);
+			}
+}
+*/
 
 	switch(arm_state) {
 
