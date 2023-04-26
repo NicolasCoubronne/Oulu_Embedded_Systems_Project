@@ -7,7 +7,7 @@
  *  High-level functions for arm control
  */
 
-#include "esp_ax12a.h"
+#include "math.h"
 
 unsigned int rad_to_ax(double angle)
 {
@@ -15,17 +15,35 @@ unsigned int rad_to_ax(double angle)
 	return (unsigned int)(ax_360 * (angle/(2.0*M_PI)));
 }
 
+/* Get arm rotations from object distance (pythagoras + law of cosines)
+ * https://en.wikipedia.org/wiki/Law_of_cosines
+ *
+ * angle_base_joint: base join rotation
+ * angle_middle_joint: middle joint rotation
+ * angle_claw_joint: claw joint rotation
+ */
 void arm_angles_from_dist(unsigned int distance,
-		unsigned int *angle_arm1, unsigned int *angle_arm2, unsigned int *angle_arm3)
+		unsigned int *angle_base_joint, unsigned int *angle_middle_joint, unsigned int *angle_claw_joint)
 {
-	double dist = (double)distance;
-	double arm_len_from_base = 154;
-	double arm_len_from_joint = 140;
-	angle_base = acos(pow(arm_len_from_base, 2) + pow(distance, 2) - pow(arm_len_from_joint, 2)) / (2.0 * arm_len_from_base * distance);
-	angle_joint = acos(pow(arm_len_from_base, 2) + pow(arm_len_from_joint, 2) - pow(distance, 2)) / (2.0 * arm_len_from_base * arm_len_from_joint);
-	angle_claw = acos(pow(arm_len_from_joint, 2) + pow(distance, 2) - pow(arm_len_from_base, 2)) / (2.0 * arm_len_from_joint * distance);
+	// Everything in mm
+	double angle_base_rad, angle_joint_rad, angle_claw_rad;
+	double arm_len_from_base = 154; // a in law of cosines
+	double arm_len_from_joint = 140; // b in law of cosines
+	/* Need some height offset, basically a good estimation could be:
+	 * base height - claw height + object height
+	 */
+	double height_offset = 50;
 
-	angle_base_raw = 512 + rad_to_ax(M_PI/2.0 - angle_base);
-	angle_base_joint_raw = 512 + rad_to_ax(M_PI/2.0 - angle_base);
-	angle_base_joint_raw = 512 + rad_to_ax(M_PI/2.0 - angle_base);
+	double dist = sqrt(pow((double)distance, 2) - pow(height_offset, 2)); // c in law of cosines
+
+	// beta in law of cosines
+	angle_base_rad = acos((pow(arm_len_from_base, 2) + pow(dist, 2) - pow(arm_len_from_joint, 2)) / (2.0 * arm_len_from_base * dist));
+	// gamma in law of cosines
+	angle_joint_rad = acos((pow(arm_len_from_base, 2) + pow(arm_len_from_joint, 2) - pow(dist, 2)) / (2.0 * arm_len_from_base * arm_len_from_joint));
+	// alpha in law of cosines
+	angle_claw_rad = M_PI - angle_base_rad - angle_joint_rad;
+
+	*angle_base_joint = 512 + rad_to_ax(M_PI/2.0 - angle_base_rad);
+	*angle_middle_joint = 512 + rad_to_ax(M_PI - angle_joint_rad);
+	*angle_claw_joint = 512 - rad_to_ax(M_PI/2.0 - angle_claw_rad);
 }
