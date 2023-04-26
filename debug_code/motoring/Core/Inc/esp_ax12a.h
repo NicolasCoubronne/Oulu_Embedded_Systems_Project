@@ -10,6 +10,8 @@
 
 #include <stdbool.h>
 
+#include "stm32f4xx_hal.h"
+
 #define DEBUG_SEND 1
 #define DEBUG_RECV 1
 
