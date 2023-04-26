@@ -44,7 +44,7 @@ uint8_t dmp_chksm(uint8_t* buffer)
 }
 
 int min_of_array(int *array, int len)
-{
+ {
 	int min = array[0];
 	for (int i = 0; i < len; i++) {
 		if (array[i] < min) {

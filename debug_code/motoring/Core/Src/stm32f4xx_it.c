@@ -22,6 +22,8 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,7 +43,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+extern uint8_t buf_RX[Size];
+extern uint8_t buf_TX[Size];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -55,9 +58,9 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-
+extern DMA_HandleTypeDef hdma_usart1_rx;
 /* USER CODE BEGIN EV */
-
+extern UART_HandleTypeDef huart1;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -197,6 +200,21 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
+
+/**
+  * @brief This function handles DMA2 stream2 global interrupt.
+  */
+void DMA2_Stream2_IRQHandler(void)
+{
+	 /* USER CODE END DMA2_Stream2_IRQn 0 */
+	  HAL_DMA_IRQHandler(&hdma_usart1_rx);
+	  /* USER CODE BEGIN DMA2_Stream2_IRQn 1 */
+		HAL_UART_Transmit(&huart1, buf_RX,Size, HAL_MAX_DELAY);
+		memset(buf_RX, 0, sizeof(buf_RX));
+		HAL_UART_DMAStop(&huart1);
+		HAL_UART_Receive_DMA(&huart1, buf_RX, 9);
+	  /* USER CODE END DMA2_Stream2_IRQn 1 */
+}
 
 /* USER CODE BEGIN 1 */
 

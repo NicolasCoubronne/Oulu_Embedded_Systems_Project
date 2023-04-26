@@ -12,6 +12,8 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 
+extern UART_HandleTypeDef huart1;
+
 typedef enum {
 	ARM_INIT,
 	ARM_MOVE_TO_IDLE,
@@ -36,6 +38,12 @@ unsigned int get_dist() {
 
 void arm_start_sm()
 {
+	//Bluetooth variables
+	extern uint8_t buf_RX[Size];
+	extern uint8_t buf_TX[Size];
+	uint8_t buf_len;
+
+	//Motors variables
 	unsigned int angle_ccw_edge, angle_cw_edge; // Angles where object edge were found
 	unsigned int middle_rot;
 	armState arm_state;
@@ -51,12 +59,13 @@ void arm_start_sm()
 	angle_ccw_edge = angle_cw_edge = 0; // Use 0 as the magic number where angle has not yet been found
 	arm_state = ARM_INIT;
 
-	//TOF Init
+	//TOF Variables
 	uint32_t refSpadCount;
 	uint8_t isApertureSpads;
 	uint8_t VhvSettings;
 	uint8_t PhaseCal;
 
+	//TOF Init
 	VL53L0X_RangingMeasurementData_t RangingData;
 	static VL53L0X_Error myStatus = VL53L0X_ERROR_NONE;
 	unsigned int sensor_distance_mm;
@@ -64,13 +73,14 @@ void arm_start_sm()
 	myStatus=TOF1_VL53L0X_Init_Single(&refSpadCount,&isApertureSpads,&VhvSettings,&PhaseCal,0);
 	if (myStatus!=VL53L0X_ERROR_NONE) {
 		printf("TOF1 Initialization Error : %i\r\n", myStatus);
+
 	}
 
 	TOFX_VL53L0X_LongRangeSettings(TOF1);
 	VL53L0X_StartMeasurement (TOF1);
 
 	//TEST OF TOF
-/*
+
 while (1){
 	myStatus = VL53L0X_PerformSingleRangingMeasurement(TOF1, &RangingData);
 			if (myStatus!=VL53L0X_ERROR_NONE) {
@@ -79,10 +89,12 @@ while (1){
 			if(RangingData.RangeStatus == 0)
 			{
 				sensor_distance_mm= RangingData.RangeMilliMeter;
-				printf("sensor value : %d \r\n", sensor_distance_mm);
+				//printf("sensor value : %d \r\n", sensor_distance_mm);
+				buf_len = sprintf(buf_RX, "TOF value : %d\r\n", sensor_distance_mm);
+				HAL_UART_Transmit(&huart1, (uint8_t*)buf_RX,buf_len, HAL_MAX_DELAY);
 			}
 }
-*/
+
 
 	switch(arm_state) {
 

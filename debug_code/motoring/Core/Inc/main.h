@@ -75,7 +75,7 @@ void Error_Handler(void);
 #define SWO_GPIO_Port GPIOB
 #define TOF1_IN_Pin GPIO_PIN_5
 #define TOF1_IN_GPIO_Port GPIOB
-
+#define Size 50
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
