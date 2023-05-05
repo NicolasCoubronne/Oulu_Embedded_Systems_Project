@@ -22,7 +22,7 @@ unsigned int rad_to_ax(double angle)
  * angle_middle_joint: middle joint rotation
  * angle_claw_joint: claw joint rotation
  */
-void arm_angles_from_dist(unsigned int distance,
+int arm_angles_from_dist(unsigned int distance,
 		unsigned int *angle_base_joint, unsigned int *angle_middle_joint, unsigned int *angle_claw_joint)
 {
 	/* Calculations in rads and millimeters,
@@ -33,10 +33,16 @@ void arm_angles_from_dist(unsigned int distance,
 	double base_offset_angle, claw_offset_angle;
 	double arm_len_from_base = 154.0; // a in law of cosines
 	double arm_len_from_joint = 140.0; // b in law of cosines
+	double max_distance;
 	/* Need some height offset, basically a good estimation could be:
 	 * base height - claw height + object height
 	 */
 	height_offset = 50.0;
+
+	max_distance = sqrt(pow(arm_len_from_base +arm_len_from_joint,2) -pow(height_offset,2));
+	if(distance >= max_distance) {
+		return -1;
+	}
 
 	double dist = sqrt(pow((double)distance, 2.0) - pow(height_offset, 2.0)); // c in law of cosines
 
@@ -45,7 +51,7 @@ void arm_angles_from_dist(unsigned int distance,
 	// gamma in law of cosines
 	angle_middle_joint_rad = acos((pow(arm_len_from_base, 2.0) + pow(arm_len_from_joint, 2.0) - pow(dist, 2.0)) / (2.0 * arm_len_from_base * arm_len_from_joint));
 	// alpha in law of cosines
-	angle_claw_joint_rad = M_PI - angle_base_rad - angle_joint_rad;
+	angle_claw_joint_rad = M_PI - angle_base_joint_rad - angle_middle_joint_rad;
 
 	// Servo angles will need to be offset due to height offset
 	base_offset_angle = asin(height_offset / distance);
@@ -54,4 +60,6 @@ void arm_angles_from_dist(unsigned int distance,
 	*angle_base_joint = 512 + rad_to_ax(M_PI/2.0 - angle_base_joint_rad - base_offset_angle);
 	*angle_middle_joint = 512 + rad_to_ax(M_PI - angle_middle_joint_rad);
 	*angle_claw_joint = 512 - rad_to_ax(M_PI - angle_claw_joint_rad - claw_offset_angle);
+
+	return 0;
 }

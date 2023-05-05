@@ -27,6 +27,7 @@
 
 #include "esp_ax12a.h"
 #include "util.h"
+#include "esp_arm.h"
 
 #include "demos.h"
 /* USER CODE END Includes */
@@ -57,6 +58,7 @@ DMA_HandleTypeDef hdma_usart1_rx;
 /* USER CODE BEGIN PV */
 uint8_t buf_RX[Size];
 uint8_t buf_TX[Size];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -132,6 +134,10 @@ int main(void)
 	//Start Bluetooth usart via DMA
 	HAL_UART_Transmit(&huart1, (uint8_t*)"STM -> PMOD \r\n", sizeof("STM -> PMOD \r\n"), HAL_MAX_DELAY);
 	HAL_UART_Receive_DMA (&huart1, buf_RX, 9);
+
+
+
+
 
 	//DEMO SOFTA
 	arm_start_sm();

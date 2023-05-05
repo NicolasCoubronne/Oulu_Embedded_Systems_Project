@@ -51,6 +51,10 @@ void arm_start_sm()
 	unsigned int ccw_seek_angle_limit, cw_seek_angle_limit; // Seek area limits
 	unsigned int dump_angle;
 
+	unsigned int angle_base_joint;
+	unsigned int angle_middle_joint;
+	unsigned int angle_claw_joint;
+
 	// Init limits and start values, these are just examples. TODO: Set correct values
 	distance_threshold_mm = 400;
 	ccw_seek_angle_limit = 358; // ~45 degrees ccw
@@ -79,8 +83,23 @@ void arm_start_sm()
 	TOFX_VL53L0X_LongRangeSettings(TOF1);
 	VL53L0X_StartMeasurement (TOF1);
 
-	//TEST OF TOF
+	//MOTOR INIT
+	uint8_t ids[] = {3, 2, 9, 8, 4};
+	uint16_t init_angles[] = {512, 700, 300, 512, 512};
+	uint16_t init_speed[] = {75, 75, 75, 50, 75};
+	float to = 1;
 
+	for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
+		ax_set_move_speed(ids[i], init_speed[i]);
+		HAL_Delay(1000);
+	}
+	for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
+		ax_move_blocked(ids[i], init_angles[i], to);
+		HAL_Delay(1000);
+	}
+
+	//TEST OF TOF
+	/*
 while (1){
 	myStatus = VL53L0X_PerformSingleRangingMeasurement(TOF1, &RangingData);
 			if (myStatus!=VL53L0X_ERROR_NONE) {
@@ -94,7 +113,35 @@ while (1){
 				HAL_UART_Transmit(&huart1, (uint8_t*)buf_RX,buf_len, HAL_MAX_DELAY);
 			}
 }
+	 */
 
+	//TEST MOTOR COMMAND DISTANCE
+	//DEMO DISTANCE
+	arm_angles_from_dist(200, &angle_base_joint,  &angle_middle_joint, &angle_claw_joint);
+	ax_move_blocked(9, angle_claw_joint, 2);
+	ax_move_blocked(2, angle_middle_joint, 2);
+	ax_move_blocked(3, angle_base_joint, 2);
+
+	arm_angles_from_dist(280, &angle_base_joint,  &angle_middle_joint, &angle_claw_joint);
+	ax_move_blocked(9, angle_claw_joint, 2);
+	ax_move_blocked(2, angle_middle_joint, 2);
+	ax_move_blocked(3, angle_base_joint, 2);
+
+	arm_angles_from_dist(290, &angle_base_joint,  &angle_middle_joint, &angle_claw_joint);
+		ax_move_blocked(9, angle_claw_joint, 2);
+		ax_move_blocked(2, angle_middle_joint, 2);
+		ax_move_blocked(3, angle_base_joint, 2);
+
+		arm_angles_from_dist(300, &angle_base_joint,  &angle_middle_joint, &angle_claw_joint);
+				ax_move_blocked(9, angle_claw_joint, 2);
+				ax_move_blocked(2, angle_middle_joint, 2);
+				ax_move_blocked(3, angle_base_joint, 2);
+
+
+
+
+
+	while(1){}
 
 	switch(arm_state) {
 

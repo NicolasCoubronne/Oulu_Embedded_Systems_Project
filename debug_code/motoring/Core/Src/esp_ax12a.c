@@ -93,10 +93,15 @@ void send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list,
 	/* Dont do anything except enable receiver between send and receive,
 	 * otherwise Nucleo might not be fast enough to catch return packet
 	 */
+
+	for(int i = 0; i<5;i++){
 	HAL_HalfDuplex_EnableTransmitter(huart);
 	uart_status_send = HAL_UART_Transmit(huart, ax_send_buffer, packet_size, UART_SEND_TIMEOUT);
 	HAL_HalfDuplex_EnableReceiver(huart);
 	uart_status_recv = HAL_UART_Receive(huart, ax_recv_buffer, return_len, UART_RECV_TIMEOUT);
+
+	if(uart_status_send == HAL_OK && uart_status_recv == HAL_OK) break;
+	}
 
 #if DEBUG_SEND || DEBUG_RECV
 	char temp[50];
@@ -106,6 +111,7 @@ void send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list,
 	array8_to_hex(ax_send_buffer, packet_size, temp);
 	if (uart_status_send != HAL_OK) {
 		printf("Failed to send packet %s via UART\n", temp);
+		while(1){}
 	} else {
 		printf("Sent packet %s via UART\n", temp);
 	}
@@ -115,6 +121,7 @@ void send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list,
 	array8_to_hex(ax_recv_buffer, return_len, temp);
 	if (uart_status_recv != HAL_OK) {
 		printf("Failed to receive status packet\n");
+		while(1){}
 	} else {
 		printf("Received status packet %s via UART\n", temp);
 	}
