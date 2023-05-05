@@ -37,7 +37,7 @@ int arm_angles_from_dist(unsigned int distance,
 	/* Need some height offset, basically a good estimation could be:
 	 * base height - claw height + object height
 	 */
-	height_offset = 50.0;
+	height_offset = 100;
 
 	max_distance = sqrt(pow(arm_len_from_base +arm_len_from_joint,2) -pow(height_offset,2));
 	if(distance >= max_distance) {
