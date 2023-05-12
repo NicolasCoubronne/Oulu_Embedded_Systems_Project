@@ -137,7 +137,7 @@ int main(void)
 
 	//DEMO SOFTA
 	arm_start_sm();
-	demo_load();
+	//print_angles();
 
   /* USER CODE END 2 */
 
