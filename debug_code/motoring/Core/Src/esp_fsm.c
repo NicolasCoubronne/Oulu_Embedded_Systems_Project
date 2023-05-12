@@ -101,9 +101,9 @@ void arm_start_sm()
 	unsigned int claw_angle_limit;
 
 	// Init limits and start values, these are just examples. TODO: Set correct values
-	distance_threshold_mm = 280;
-	ccw_seek_angle_limit = 308; // ~45 degrees ccw
-	cw_seek_angle_limit = 716; // ~45 degrees cw
+	distance_threshold_mm = 200;
+	ccw_seek_angle_limit = 359; // ~45 degrees ccw
+	cw_seek_angle_limit = 665; // ~45 degrees cw
 	claw_angle_limit = 600; // fully closed
 	dump_angle = 1000; // Near max limit cw
 	angle_ccw_edge = angle_cw_edge = 0; // Use 0 as the magic number where angle has not yet been found
@@ -280,13 +280,14 @@ void arm_start_sm()
 
 			while(distance > distance_threshold_mm) distance = get_dist();
 
-			arm_angles_from_dist(distance+30, &angle_base_joint,  &angle_middle_joint, &angle_claw_joint);
-			ax_move_blocked(9, angle_claw_joint, 2);
-			HAL_Delay(500);
-			ax_move_blocked(2, angle_middle_joint, 2);
-			HAL_Delay(500);
-			ax_move_blocked(3, angle_base_joint, 2);
-			HAL_Delay(1000);
+			if (arm_angles_from_dist(distance+30, &angle_base_joint,  &angle_middle_joint, &angle_claw_joint) == 0) {
+				ax_move_blocked(9, angle_claw_joint, 2);
+				HAL_Delay(500);
+				ax_move_blocked(2, angle_middle_joint, 2);
+				HAL_Delay(500);
+				ax_move_blocked(3, angle_base_joint, 2);
+				HAL_Delay(1000);
+			}
 
 			arm_state = ARM_GRAB_CLAW;
 			break;
