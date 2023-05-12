@@ -11,5 +11,6 @@
 void demo1();
 void demo2();
 void demo_load();
+void print_angles();
 
 #endif /* INC_DEMOS_H_ */

@@ -166,3 +166,26 @@ void demo_load()
 		}
 	}
 }
+
+// Print angles of servos (move them manually)
+void print_angles()
+{
+	uint8_t ids[] = {3, 2, 9, 8, 4};
+	unsigned int positions[5];
+
+	while(1) {
+		for (int i=0; i < 5; i++) {
+		  positions[i] = ax_get_current_position(ids[i]);
+		}
+		printf("ID:\t\t");
+		for (int i=0; i < 5; i++) {
+		  printf("%u\t", ids[i]);
+		}
+		printf("\nAngle:\t");
+		for (int i=0; i < 5; i++) {
+		  printf("%u\t", positions[i]);
+		}
+		printf("\n");
+		HAL_Delay(500);
+	}
+}
