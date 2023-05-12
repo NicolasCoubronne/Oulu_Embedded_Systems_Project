@@ -467,3 +467,14 @@ void ax_move_blocked(uint8_t id, unsigned int angle, float timeout)
 		}
 	} while (diff > threshold && waited < timeout);
 }
+
+/*
+ * Get current distance from goal distance (absolute value, servo angle units)
+ *
+ * id: servo id
+ */
+unsigned int ax_diff_from_goal(uint8_t id)
+{
+	int diff = abs((int)ax_get_goal_raw(id) - (int)ax_get_current_position(id));
+	return (unsigned int)diff;
+}
