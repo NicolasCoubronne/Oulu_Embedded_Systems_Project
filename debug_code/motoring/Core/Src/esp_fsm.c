@@ -126,8 +126,8 @@ void arm_start_sm()
 	//MOTOR INIT
 
 	uint8_t ids[] = {9, 3, 2, 8, 4};
-	uint16_t init_angles[] = {600, 390, 1000, claw_angle_limit_open, 512};
-	uint16_t init_speed[] = {70, 60, 70, 50, 15};
+	uint16_t init_angles[] = {600, 390, 950, claw_angle_limit_open, 512};
+	uint16_t init_speed[] = {70, 60, 70, 50, 20};
 	float to = 1;
 
 	for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
@@ -183,7 +183,6 @@ void arm_start_sm()
 			angle_ccw_edge = angle_cw_edge = 0;
 			// Set goal to ccw edge if not yet set
 			ax_set_goal_raw(4, ccw_seek_angle_limit);
-
 
 			while(1){
 				// If at edge, invert seek direction
@@ -318,11 +317,11 @@ void arm_start_sm()
 
 		case ARM_MOVE_TO_DUMP:
 			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_MOVE_TO_DUMP\r\n", sizeof("Entering state : ARM_MOVE_TO_DUMP\r\n"), HAL_MAX_DELAY);
-			ax_move_blocked(3, 620, 2);
+			ax_move_blocked(3, 512, 2);
 			HAL_Delay(1000);
-			ax_move_blocked(2, 650, 2);
+			ax_move_blocked(2, 819, 2);
 			HAL_Delay(1000);
-			ax_move_blocked(9, 160, 2);
+			ax_move_blocked(9, 512, 2);
 			HAL_Delay(1000);
 			ax_move_blocked(4, 100, 2);
 			HAL_Delay(1000);
