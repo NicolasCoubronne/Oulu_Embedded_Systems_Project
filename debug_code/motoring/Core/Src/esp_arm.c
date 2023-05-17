@@ -79,9 +79,8 @@ int arm_angles_from_dist(unsigned int distance,
 	return 0;
 }
 
-unsigned int offset_base_angle(unsigned int distance)
+unsigned int offset_base_angle(unsigned int distance, double claw_offset)
 {
-	double claw_offset = 15.0; //mm
 	double offset_angle;
 
 	offset_angle = atan(claw_offset/distance);

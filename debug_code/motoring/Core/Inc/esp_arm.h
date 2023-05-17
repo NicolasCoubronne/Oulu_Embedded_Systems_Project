@@ -12,6 +12,6 @@
 
 int arm_angles_from_dist(unsigned int distance,
 		unsigned int *angle_base_joint, unsigned int *angle_middle_joint, unsigned int *angle_claw_joint);
-unsigned int offset_base_angle(unsigned int distance);
+unsigned int offset_base_angle(unsigned int distance, double claw_offset);
 
 #endif /* INC_ESP_ARM_H_ */

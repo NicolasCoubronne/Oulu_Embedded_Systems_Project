@@ -50,6 +50,10 @@ VL53L0X_RangingMeasurementData_t RangingData;
 static VL53L0X_Error myStatus = VL53L0X_ERROR_NONE;
 unsigned int sensor_distance_mm;
 
+void bt_send(char *msg)
+{
+	HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+}
 
 unsigned int get_dist() {
 	unsigned int sensor_distance_mm= 0;
@@ -76,8 +80,8 @@ unsigned int get_dist() {
 	//while(RangingData.RangeStatus != 0) {}
 
 	//sensor_distance_mm = RangingData.RangeMilliMeter;
-	buf_len = sprintf(buf_RX, "TOF value : %d\r\n", sensor_distance_mm);
-	HAL_UART_Transmit(&huart1, (uint8_t*)buf_RX,buf_len, HAL_MAX_DELAY);
+	buf_len = sprintf((char*)buf_RX, "TOF value : %d\r\n", sensor_distance_mm);
+	//bt_send((char*)buf_RX);
 
 
 	if(sensor_distance_mm < 100) return 1000;
@@ -93,10 +97,14 @@ void arm_start_sm()
 	unsigned int middle_rot;
 	armState arm_state;
 	unsigned int distance_threshold_mm; // max distance where arm will consider an object to exist
-	unsigned int object_offset_distance;
+	unsigned int object_offset_distance_mm;
 	unsigned int ccw_seek_angle_limit, cw_seek_angle_limit; // Seek area limits
 	unsigned int dump_angle;
 	unsigned int blocked_move_timeout_ms;
+	unsigned int dist;
+	double claw_offset_mm; // mm
+
+	char temp[100];
 
 	unsigned int angle_base_joint;
 	unsigned int angle_middle_joint;
@@ -104,9 +112,14 @@ void arm_start_sm()
 	unsigned int claw_angle_limit_open;
 	unsigned int claw_angle_limit_closed;
 
-	// Init limits and start values, these are just examples. TODO: Set correct values
+	// Heuristic offsets for distance and base rotation due to claw dimensions
+	object_offset_distance_mm = -85;
+	claw_offset_mm = 25.0;
+
+	// From how far do we want to find the object
 	distance_threshold_mm = 300;
-	object_offset_distance = -80;
+
+	// Init limits and start values
 	ccw_seek_angle_limit = 205; // ~90 degrees ccw
 	cw_seek_angle_limit = 819; // ~90 degrees cw
 	claw_angle_limit_closed = 600; // fully closed
@@ -128,17 +141,20 @@ void arm_start_sm()
 
 	//MOTOR INIT
 
-	uint8_t ids[] = {9, 3, 2, 8, 4};
-	uint16_t init_angles[] = {600, 390, 950, claw_angle_limit_open, 819};
-	uint16_t init_speed[] = {70, 30, 70, 50, 20};
+	uint8_t ids[] = {3, 2, 9, 8, 4};
+	uint16_t init_angles[] = {390, 950, 600, claw_angle_limit_open, 819};
+	uint16_t init_speed[] = {30, 60, 60, 40, 20};
 
 	for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
 		ax_set_move_speed(ids[i], init_speed[i]);
 		HAL_Delay(500);
 	}
+	/* We dont need to move here because we're already always moving in init
+	 *
 	for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
 		ax_move_blocked(ids[i], init_angles[i], blocked_move_timeout_ms);
 	}
+	*/
 
 	ax_set_max_torque(8, 200);
 
@@ -155,7 +171,7 @@ void arm_start_sm()
 			sensor_distance_mm= RangingData.RangeMilliMeter;
 			//printf("sensor value : %d \r\n", sensor_distance_mm);
 			buf_len = sprintf(buf_RX, "TOF value : %d\r\n", sensor_distance_mm);
-			HAL_UART_Transmit(&huart1, (uint8_t*)buf_RX,buf_len, HAL_MAX_DELAY);
+			bt_send(buf_RX,buf_len, HAL_MAX_DELAY);
 		}
 	}
 	*/
@@ -164,19 +180,18 @@ void arm_start_sm()
 		switch(arm_state) {
 
 		case ARM_MOVE_TO_IDLE:
-			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_MOVE_TO_IDLE\r\n", sizeof("Entering state : ARM_MOVE_TO_IDLE\r\n"), HAL_MAX_DELAY);
+			bt_send("Entering state : ARM_MOVE_TO_IDLE\r\n");
 			// Reset object edges
 			angle_ccw_edge = angle_cw_edge = 0;
 			//Move to good idle position (blocked move)
 			for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
 				ax_move_blocked(ids[i], init_angles[i], blocked_move_timeout_ms);
 			}
-			//TODO: Begin seek mode (from bluetooth input?)
 			arm_state = ARM_SEEK_CCW;
 			break;
 
 		case ARM_SEEK_CCW:
-			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_SEEK_CCW\r\n", sizeof("Entering state : ARM_SEEK_CCW\r\n"), HAL_MAX_DELAY);
+			bt_send("Entering state : ARM_SEEK_CCW\r\n");
 			angle_ccw_edge = angle_cw_edge = 0;
 			// Set goal to ccw edge if not yet set
 			ax_stop(4);
@@ -190,7 +205,10 @@ void arm_start_sm()
 					break;
 				}
 				// cw edge found
-				if (get_dist() < distance_threshold_mm) {
+				if ((dist = get_dist()) < distance_threshold_mm) {
+					angle_cw_edge = ax_get_current_position(4);
+					sprintf(temp, "Object edge CW angle: %u\r\n", angle_cw_edge);
+					bt_send(temp);
 					arm_state = ARM_SEEK_EDGE_CCW;
 					break;
 				}
@@ -201,8 +219,7 @@ void arm_start_sm()
 			break;
 
 		case ARM_SEEK_EDGE_CCW:
-			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_SEEK_EDGE_CCW\r\n", sizeof("Entering state : ARM_SEEK_EDGE_CCW\r\n"), HAL_MAX_DELAY);
-			angle_cw_edge = ax_get_current_position(4);
+			bt_send("Entering state : ARM_SEEK_EDGE_CCW\r\n");
 			// Set goal to ccw edge if not yet set
 			ax_stop(4);
 			HAL_Delay(500);
@@ -215,8 +232,10 @@ void arm_start_sm()
 					break;
 				}
 				// ccw edge found with cw edge found
-				if (get_dist() > distance_threshold_mm) {
+				if ((dist = get_dist()) > distance_threshold_mm) {
 					angle_ccw_edge = ax_get_current_position(4);
+					sprintf(temp, "Object edge CCW angle: %u\r\n", angle_ccw_edge);
+					bt_send(temp);
 					ax_stop(4);
 					arm_state = ARM_MOVE_TO_GRAB;
 
@@ -227,7 +246,7 @@ void arm_start_sm()
 			break;
 
 		case ARM_SEEK_CW:
-			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_SEEK_CW\r\n", sizeof("Entering state : ARM_SEEK_CW\r\n"), HAL_MAX_DELAY);
+			bt_send("Entering state : ARM_SEEK_CW\r\n");
 			angle_ccw_edge = angle_cw_edge = 0;
 			// Set goal to cw edge if not yet set
 			ax_stop(4);
@@ -241,7 +260,10 @@ void arm_start_sm()
 					break;
 				}
 				// ccw edge found
-				if ( get_dist() < distance_threshold_mm) {
+				if ((dist = get_dist()) < distance_threshold_mm) {
+					angle_ccw_edge = ax_get_current_position(4);
+					sprintf(temp, "Object edge CCW angle: %u\r\n", angle_ccw_edge);
+					bt_send(temp);
 					arm_state = ARM_SEEK_EDGE_CW;
 					break;
 				}
@@ -252,8 +274,7 @@ void arm_start_sm()
 			break;
 
 		case ARM_SEEK_EDGE_CW:
-			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_SEEK_EDGE_CW\r\n", sizeof("Entering state : ARM_SEEK_EDGE_CW\r\n"), HAL_MAX_DELAY);
-			angle_ccw_edge = ax_get_current_position(4);
+			bt_send("Entering state : ARM_SEEK_EDGE_CW\r\n");
 			// Set goal to cw edge if not yet set
 			ax_stop(4);
 			HAL_Delay(500);
@@ -268,6 +289,8 @@ void arm_start_sm()
 				// ccw edge found with cw edge found
 				if (get_dist() > distance_threshold_mm) {
 					angle_cw_edge = ax_get_current_position(4);
+					sprintf(temp, "Object edge CW angle: %u\r\n", angle_cw_edge);
+					bt_send(temp);
 					ax_stop(4);
 					arm_state = ARM_MOVE_TO_GRAB;
 
@@ -278,32 +301,33 @@ void arm_start_sm()
 			break;
 
 		case ARM_MOVE_TO_GRAB:
-			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_MOVE_TO_GRAB\r\n", sizeof("Entering state : ARM_MOVE_TO_GRAB\r\n"), HAL_MAX_DELAY);
+			bt_send("Entering state : ARM_MOVE_TO_GRAB\r\n");
 			ax_stop(4);
 			HAL_Delay(500);
 			middle_rot = (angle_ccw_edge + angle_cw_edge) / 2;
+			sprintf(temp, "Object middle point angle: %u\r\n", middle_rot);
+			bt_send(temp);
 			ax_move_blocked(4, middle_rot, blocked_move_timeout_ms);
 			//find rotation angles for correct distance, move inblocked mode
 			unsigned int distance = get_dist();
 
 			while(distance > distance_threshold_mm) distance = get_dist();
-			ax_move_blocked(4, middle_rot - offset_base_angle(distance+object_offset_distance), blocked_move_timeout_ms);
+			sprintf(temp, "Object middle point distance: %u\r\n", distance);
+			bt_send(temp);
+			ax_move_blocked(4, middle_rot - offset_base_angle(distance+object_offset_distance_mm, claw_offset_mm), blocked_move_timeout_ms);
 
-			if (arm_angles_from_dist(distance+object_offset_distance, &angle_base_joint,  &angle_middle_joint, &angle_claw_joint) == 0) {
+			if (arm_angles_from_dist(distance+object_offset_distance_mm, &angle_base_joint,  &angle_middle_joint, &angle_claw_joint) == 0) {
 				ax_move_blocked(9, angle_claw_joint, blocked_move_timeout_ms);
 				ax_move_blocked(2, angle_middle_joint, blocked_move_timeout_ms);
 				ax_move_blocked(3, angle_base_joint, blocked_move_timeout_ms);
+				HAL_Delay(2000); // Super janky movement so wait even more
 			}
 
 			arm_state = ARM_GRAB_CLAW;
 			break;
 
 		case ARM_GRAB_CLAW:
-			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_GRAB_CLAW\r\n", sizeof("Entering state : ARM_GRAB_CLAW\r\n"), HAL_MAX_DELAY);
-			/* TODO: grab in blocked mode (wait for timeout)
-			 * IF grab angle at limit, object wasnt grabbed (goto start)
-			 * Otherwise assume we have object
-			 */
+			bt_send("Entering state : ARM_GRAB_CLAW\r\n");
 			ax_move_blocked(8, claw_angle_limit_closed, blocked_move_timeout_ms);
 			if (abs( (int ) (ax_get_current_position(8) - claw_angle_limit_closed)) > 15) {
 				arm_state = ARM_MOVE_TO_DUMP;
@@ -317,7 +341,7 @@ void arm_start_sm()
 			break;
 
 		case ARM_MOVE_TO_DUMP:
-			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_MOVE_TO_DUMP\r\n", sizeof("Entering state : ARM_MOVE_TO_DUMP\r\n"), HAL_MAX_DELAY);
+			bt_send("Entering state : ARM_MOVE_TO_DUMP\r\n");
 			ax_move_blocked(3, 512, blocked_move_timeout_ms);
 			ax_move_blocked(2, 819, blocked_move_timeout_ms);
 			ax_move_blocked(9, 512, blocked_move_timeout_ms);
@@ -327,7 +351,7 @@ void arm_start_sm()
 			break;
 
 		case ARM_ERROR_STATE:
-			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_ERROR_STATE\r\n", sizeof("Entering state : ARM_ERROR_STATE\r\n"), HAL_MAX_DELAY);
+			bt_send("Entering state : ARM_ERROR_STATE\r\n");
 			//while(1){}
 
 			arm_state = ARM_MOVE_TO_IDLE;
