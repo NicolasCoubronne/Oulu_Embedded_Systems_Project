@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "esp_fsm.h"
+#include "esp_onboard.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,7 +64,6 @@ extern TIM_HandleTypeDef htim2;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 /* USER CODE BEGIN EV */
 extern UART_HandleTypeDef huart1;
-extern armState arm_state;
 /* USER CODE END EV */
 
 /******************************************************************************/

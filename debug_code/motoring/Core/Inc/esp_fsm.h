@@ -21,17 +21,6 @@ typedef enum {
 	ARM_ERROR_STATE
 } armState;
 
-typedef enum {
-	LED_OFF,
-	LED_ON,
-	LED_BLINK
-} ledMode;
-
-extern ledMode OPERATIONAL_LED_MODE;
-extern ledMode ERROR_LED_MODE;
-extern double AVERAGE_CURRENT;
-extern unsigned int CURRENT_MEASURE_COUNT;
-
-double get_current_measure();
+void arm_start_sm();
 
 #endif /* INC_ESP_FSM_H_ */
