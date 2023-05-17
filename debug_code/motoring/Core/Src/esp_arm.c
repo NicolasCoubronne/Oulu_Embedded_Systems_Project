@@ -28,6 +28,11 @@ unsigned int rad_to_ax(double angle)
  * angle_base_joint: base join rotation
  * angle_middle_joint: middle joint rotation
  * angle_claw_joint: claw joint rotation
+ *
+ * returns:
+ * 	0 on success
+ * 	1 if the distance is too long (arm can't extend that far)
+ * 	-1 if the distance is too short (arm can't retract that close)
  */
 int arm_angles_from_dist(unsigned int distance,
 		unsigned int *angle_base_joint, unsigned int *angle_middle_joint, unsigned int *angle_claw_joint)
@@ -48,7 +53,7 @@ int arm_angles_from_dist(unsigned int distance,
 
 	max_distance = sqrt(pow(arm_len_from_base +arm_len_from_joint,2) -pow(height_offset,2));
 	if(distance >= max_distance) {
-		return -1;
+		return 1;
 	}
 
 	double dist = sqrt(pow((double)distance, 2.0) + pow(height_offset, 2.0)); // c in law of cosines

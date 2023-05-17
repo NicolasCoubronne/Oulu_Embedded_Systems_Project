@@ -24,6 +24,8 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <string.h>
+
+#include "esp_fsm.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,6 +64,7 @@ extern TIM_HandleTypeDef htim2;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 /* USER CODE BEGIN EV */
 extern UART_HandleTypeDef huart1;
+extern armState arm_state;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -208,7 +211,9 @@ void SysTick_Handler(void)
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
-	HAL_GPIO_TogglePin(LD2_GREEN_GPIO_Port, LD2_GREEN_Pin);
+	if (OPERATIONAL_LED_MODE == LED_BLINK) {
+		HAL_GPIO_TogglePin(LD2_GREEN_GPIO_Port, LD2_GREEN_Pin);
+	}
   /* USER CODE END TIM2_IRQn 0 */
   HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */
