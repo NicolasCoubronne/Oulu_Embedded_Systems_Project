@@ -12,8 +12,8 @@
 
 #include "stm32f4xx_hal.h"
 
-#define DEBUG_SEND 1
-#define DEBUG_RECV 1
+#define DEBUG_SEND 0
+#define DEBUG_RECV 0
 
 #define UART_SEND_TIMEOUT 500
 #define UART_RECV_TIMEOUT 500
@@ -48,7 +48,7 @@ unsigned int ax_get_current_position(uint8_t id);
 unsigned int ax_get_current_speed(uint8_t id);
 unsigned int ax_get_current_load(uint8_t id);
 void ax_stop(uint8_t id);
-void ax_move_blocked(uint8_t id, unsigned int angle, float timeout);
+void ax_move_blocked(uint8_t id, unsigned int angle, unsigned int timeout);
 unsigned int ax_diff_from_goal(uint8_t id);
 
 

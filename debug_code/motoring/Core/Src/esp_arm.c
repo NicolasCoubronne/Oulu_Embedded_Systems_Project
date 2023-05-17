@@ -7,7 +7,14 @@
  *  High-level functions for arm control
  */
 
-#include "math.h"
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "stm32f4xx_hal.h"
+
+#include "esp_arm.h"
 
 unsigned int rad_to_ax(double angle)
 {
@@ -37,7 +44,7 @@ int arm_angles_from_dist(unsigned int distance,
 	/* Need some height offset, basically a good estimation could be:
 	 * base height - claw height + object height
 	 */
-	height_offset = 0.0;
+	height_offset = -30.0;
 
 	max_distance = sqrt(pow(arm_len_from_base +arm_len_from_joint,2) -pow(height_offset,2));
 	if(distance >= max_distance) {
@@ -54,12 +61,16 @@ int arm_angles_from_dist(unsigned int distance,
 	angle_claw_joint_rad = M_PI - angle_base_joint_rad - angle_middle_joint_rad;
 
 	// Servo angles will need to be offset due to height offset
-	if (height_offset > 0.0) {
-		base_offset_angle = asin(height_offset / distance);
-		claw_offset_angle = acos(height_offset / distance);
+	if (height_offset < 0.0) {
+		base_offset_angle = -(M_PI/2.0 - atan(dist / -height_offset));
+		claw_offset_angle = -(atan(-height_offset / dist));
+	} else if (height_offset > 0.0) {
+		base_offset_angle = atan(height_offset / dist);
+		claw_offset_angle = M_PI/2.0 - atan(dist / height_offset);
 	} else {
 		base_offset_angle = claw_offset_angle = 0.0;
 	}
+	//printf("base offset: %.2f, claw offset: %.2f\n", base_offset_angle, claw_offset_angle);
 
 	*angle_base_joint = 512 + rad_to_ax(M_PI/2.0 - angle_base_joint_rad - base_offset_angle);
 	*angle_middle_joint = 512 + rad_to_ax(M_PI - angle_middle_joint_rad);

@@ -429,43 +429,29 @@ void ax_stop(uint8_t id)
  * angle: goal angle
  * timeout: when to stop blocking even if goal isn't reached (seconds)
  */
-void ax_move_blocked(uint8_t id, unsigned int angle, float timeout)
+void ax_move_blocked(uint8_t id, unsigned int angle, unsigned int timeout)
 {
-	/* How close current position has to be to goal position
-	 * Also used as the threshold required to increase wait time
-	 * Wait time will be increased when max(last 10 positions)-min(last 10 positions) > threshold
-	 * If wait time > timeout, return
+	/* Block until servo is threshold distance close to goal, otherwise wait until timeout
 	 */
-	int threshold = 8;
-	int pos_buf[10];
-	int pos_buf_len = sizeof(pos_buf) / sizeof(pos_buf[0]);
-	int i = 0;
-	int poll_period_ms = 500;
-	int diff;
-	unsigned int curr;
-	float waited;
+	double threshold = 10;
+	int poll_period_ms = 200;
+	unsigned int waited = 0;
+	unsigned int wait_after = 1000;
+
+	unsigned int diff, prev_diff;
 
 	ax_set_goal_raw(id, angle);
 	do {
-		curr = ax_get_current_position(id);
-		diff = abs((int)curr - (int)angle);
-		//printf("id %u current %u angle %i diff %u cmcw %u cmccw %u waited %f\n", id, curr, angle, diff, waited);
-		pos_buf[i] = (int)ax_get_current_position(id);
-		if ((max_of_array(pos_buf, pos_buf_len) - min_of_array(pos_buf, pos_buf_len)) < threshold) {
-			waited += poll_period_ms / 1000.0f;
-		} else {
-			waited = 0.0f;
-		}
-		if (i == pos_buf_len-1) {
-			i = 0;
-		} else {
-			i++;
-		}
-		if (diff > threshold && waited < timeout)
-		{
-			HAL_Delay(poll_period_ms);
+		prev_diff = ax_diff_from_goal(id);
+		HAL_Delay(poll_period_ms);
+		diff = ax_diff_from_goal(id);
+		if (abs(prev_diff - diff) < threshold) {
+			waited += poll_period_ms;
 		}
 	} while (diff > threshold && waited < timeout);
+	if (waited < wait_after) {
+		HAL_Delay(wait_after - waited);
+	}
 }
 
 /*
