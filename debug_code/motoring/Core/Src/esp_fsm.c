@@ -84,6 +84,14 @@ unsigned int get_dist() {
 	return sensor_distance_mm;
 }
 
+void stop_all_servos() {
+	uint8_t ids[] = {9, 3, 2, 8, 4};
+	for (int i=0; i < 5; i++) {
+		ax_stop(ids[i]);
+	}
+	HAL_Delay(500);
+}
+
 void arm_start_sm()
 {
 
@@ -109,7 +117,7 @@ void arm_start_sm()
 	cw_seek_angle_limit = 819; // ~90 degrees cw
 	claw_angle_limit_closed = 600; // fully closed
 	claw_angle_limit_open = 320; // fully open
-	dump_angle = 900; // Near max limit cw
+	dump_angle = 100; // Near max limit ccw
 	angle_ccw_edge = angle_cw_edge = 0; // Use 0 as the magic number where angle has not yet been found
 	arm_state = ARM_MOVE_TO_IDLE;
 
@@ -126,7 +134,7 @@ void arm_start_sm()
 	//MOTOR INIT
 
 	uint8_t ids[] = {9, 3, 2, 8, 4};
-	uint16_t init_angles[] = {600, 390, 950, claw_angle_limit_open, 512};
+	uint16_t init_angles[] = {600, 390, 950, claw_angle_limit_open, 819};
 	uint16_t init_speed[] = {70, 60, 70, 50, 20};
 	float to = 1;
 
@@ -166,9 +174,7 @@ void arm_start_sm()
 			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_MOVE_TO_IDLE\r\n", sizeof("Entering state : ARM_MOVE_TO_IDLE\r\n"), HAL_MAX_DELAY);
 			// Reset object edges
 			angle_ccw_edge = angle_cw_edge = 0;
-			for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
-				ax_stop(ids[i]);
-			}
+			stop_all_servos();
 			//Move to good idle position (blocked move)
 			for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
 				ax_move_blocked(ids[i], init_angles[i], to);
@@ -182,8 +188,8 @@ void arm_start_sm()
 			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_SEEK_CCW\r\n", sizeof("Entering state : ARM_SEEK_CCW\r\n"), HAL_MAX_DELAY);
 			angle_ccw_edge = angle_cw_edge = 0;
 			// Set goal to ccw edge if not yet set
+			stop_all_servos();
 			ax_set_goal_raw(4, ccw_seek_angle_limit);
-
 			while(1){
 				// If at edge, invert seek direction
 				if (ax_diff_from_goal(4) <= 10) {
@@ -205,6 +211,9 @@ void arm_start_sm()
 		case ARM_SEEK_EDGE_CCW:
 			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_SEEK_EDGE_CCW\r\n", sizeof("Entering state : ARM_SEEK_EDGE_CCW\r\n"), HAL_MAX_DELAY);
 			angle_cw_edge = ax_get_current_position(4);
+			// Set goal to ccw edge if not yet set
+			stop_all_servos();
+			ax_set_goal_raw(4, ccw_seek_angle_limit);
 			while(1){
 				// If at edge, go to beginning (error)
 				if (ax_diff_from_goal(4) <= 10) {
@@ -228,8 +237,8 @@ void arm_start_sm()
 			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_SEEK_CW\r\n", sizeof("Entering state : ARM_SEEK_CW\r\n"), HAL_MAX_DELAY);
 			angle_ccw_edge = angle_cw_edge = 0;
 			// Set goal to cw edge if not yet set
+			stop_all_servos();
 			ax_set_goal_raw(4, cw_seek_angle_limit);
-
 			while(1){
 				// If at edge, invert seek direction
 				if (ax_diff_from_goal(4) <= 10) {
@@ -251,6 +260,9 @@ void arm_start_sm()
 		case ARM_SEEK_EDGE_CW:
 			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_SEEK_EDGE_CW\r\n", sizeof("Entering state : ARM_SEEK_EDGE_CW\r\n"), HAL_MAX_DELAY);
 			angle_ccw_edge = ax_get_current_position(4);
+			// Set goal to cw edge if not yet set
+			stop_all_servos();
+			ax_set_goal_raw(4, cw_seek_angle_limit);
 			while(1){
 				// If at edge, go to beginning (error)
 				if (ax_diff_from_goal(4) <= 10) {
@@ -272,6 +284,7 @@ void arm_start_sm()
 
 		case ARM_MOVE_TO_GRAB:
 			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_MOVE_TO_GRAB\r\n", sizeof("Entering state : ARM_MOVE_TO_GRAB\r\n"), HAL_MAX_DELAY);
+			stop_all_servos();
 			middle_rot = (angle_ccw_edge + angle_cw_edge) / 2;
 			ax_move_blocked(4, middle_rot, 2);
 			HAL_Delay(1000);
@@ -300,6 +313,7 @@ void arm_start_sm()
 			 * IF grab angle at limit, object wasnt grabbed (goto start)
 			 * Otherwise assume we have object
 			 */
+			stop_all_servos();
 			ax_move_blocked(8, claw_angle_limit_closed, 2);
 
 			HAL_Delay(200);
@@ -317,13 +331,14 @@ void arm_start_sm()
 
 		case ARM_MOVE_TO_DUMP:
 			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_MOVE_TO_DUMP\r\n", sizeof("Entering state : ARM_MOVE_TO_DUMP\r\n"), HAL_MAX_DELAY);
+			stop_all_servos();
 			ax_move_blocked(3, 512, 2);
 			HAL_Delay(1000);
 			ax_move_blocked(2, 819, 2);
 			HAL_Delay(1000);
 			ax_move_blocked(9, 512, 2);
 			HAL_Delay(1000);
-			ax_move_blocked(4, 100, 2);
+			ax_move_blocked(4, dump_angle, 2);
 			HAL_Delay(1000);
 			ax_move_blocked(8, claw_angle_limit_open, 2);
 			HAL_Delay(1000);
@@ -332,6 +347,7 @@ void arm_start_sm()
 
 		case ARM_ERROR_STATE:
 			HAL_UART_Transmit(&huart1, (uint8_t*)"Entering state : ARM_ERROR_STATE\r\n", sizeof("Entering state : ARM_ERROR_STATE\r\n"), HAL_MAX_DELAY);
+			stop_all_servos();
 			//while(1){}
 
 			arm_state = ARM_MOVE_TO_IDLE;
