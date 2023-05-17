@@ -433,22 +433,36 @@ void ax_move_blocked(uint8_t id, unsigned int angle, unsigned int timeout)
 {
 	/* Block until servo is threshold distance close to goal, otherwise wait until timeout
 	 */
-	double threshold = 10;
+	int threshold = 10;
 	int poll_period_ms = 200;
 	unsigned int waited = 0;
 	unsigned int wait_after = 1000;
 
-	unsigned int diff, prev_diff;
+	int pos_buf[10];
+	int pos_buf_len = sizeof(pos_buf) / sizeof(pos_buf[0]);
+
+	int i;
+
+	unsigned int cur = ax_get_current_position(id);
+	for (i = 0; i < pos_buf_len; i++) {
+		pos_buf[i] = cur;
+	}
 
 	ax_set_goal_raw(id, angle);
+	HAL_Delay(poll_period_ms);
+	i = 0;
 	do {
-		prev_diff = ax_diff_from_goal(id);
-		HAL_Delay(poll_period_ms);
-		diff = ax_diff_from_goal(id);
-		if (abs(prev_diff - diff) < threshold) {
+		pos_buf[i] = ax_get_current_position(id);
+		if (i == pos_buf_len-1) {
+			i = 0;
+		} else {
+			i++;
+		}
+		if ((max_of_array(pos_buf, pos_buf_len) - min_of_array(pos_buf, pos_buf_len)) < threshold) {
 			waited += poll_period_ms;
 		}
-	} while (diff > threshold && waited < timeout);
+		HAL_Delay(poll_period_ms);
+	} while (ax_diff_from_goal(id) > threshold && waited < timeout);
 	if (waited < wait_after) {
 		HAL_Delay(wait_after - waited);
 	}
