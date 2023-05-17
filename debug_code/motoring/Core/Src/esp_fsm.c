@@ -25,6 +25,10 @@ extern UART_HandleTypeDef huart1;
 ledMode OPERATIONAL_LED_MODE = LED_OFF;
 ledMode ERROR_LED_MODE = LED_OFF;
 
+// Current measure
+double AVERAGE_CURRENT = 0.0;
+unsigned int CURRENT_MEASURE_COUNT = 0;
+
 //Bluetooth variables
 extern uint8_t buf_RX[Size];
 extern uint8_t buf_TX[Size];
@@ -43,6 +47,7 @@ void set_operation_led(ledMode led_mode)
 {
 	OPERATIONAL_LED_MODE = led_mode;
 	//TODO: Make use of PCB leds
+	//TODO: right now uses the extra nucleo green led
 	switch (led_mode) {
 	case LED_OFF:
 		HAL_GPIO_WritePin(LD2_GREEN_GPIO_Port, LD2_GREEN_Pin, GPIO_PIN_RESET);
@@ -55,6 +60,20 @@ void set_operation_led(ledMode led_mode)
 	default:
 		break;
 	}
+}
+
+void set_error_led(ledMode led_mode)
+{
+	ERROR_LED_MODE = led_mode;
+	//TODO: Make use of PCB leds
+}
+
+double get_current_measure()
+{
+	//TODO: proper implementation when we have PCB
+	static double dummy = 0.0;
+	dummy += 0.1;
+	return dummy;
 }
 
 /*
@@ -169,6 +188,8 @@ void arm_start_sm()
 
 		case ARM_MOVE_TO_IDLE:
 			bt_send("Entering state : ARM_MOVE_TO_IDLE\r\n");
+			sprintf(temp, "Average current used: %f A\r\n", AVERAGE_CURRENT);
+			bt_send(temp);
 			// Reset object edges
 			angle_ccw_edge = angle_cw_edge = 0;
 			//Move to good idle position (blocked move)

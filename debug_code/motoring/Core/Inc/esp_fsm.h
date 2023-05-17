@@ -29,5 +29,9 @@ typedef enum {
 
 extern ledMode OPERATIONAL_LED_MODE;
 extern ledMode ERROR_LED_MODE;
+extern double AVERAGE_CURRENT;
+extern unsigned int CURRENT_MEASURE_COUNT;
+
+double get_current_measure();
 
 #endif /* INC_ESP_FSM_H_ */

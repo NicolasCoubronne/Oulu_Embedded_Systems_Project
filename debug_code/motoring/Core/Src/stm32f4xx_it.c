@@ -211,13 +211,22 @@ void SysTick_Handler(void)
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
+	// Measure current draw
+	if (CURRENT_MEASURE_COUNT == 0) {
+		AVERAGE_CURRENT = get_current_measure();
+	} else {
+		AVERAGE_CURRENT += get_current_measure();
+		AVERAGE_CURRENT /= 2.0;
+	}
+	CURRENT_MEASURE_COUNT++;
+	// Set led
 	if (OPERATIONAL_LED_MODE == LED_BLINK) {
 		HAL_GPIO_TogglePin(LD2_GREEN_GPIO_Port, LD2_GREEN_Pin);
 	}
   /* USER CODE END TIM2_IRQn 0 */
   HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */
-  //HAL_GPIO_TogglePin(LD2_GREEN_GPIO_Port, LD2_GREEN_Pin);
+
   /* USER CODE END TIM2_IRQn 1 */
 }
 
