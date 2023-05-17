@@ -111,9 +111,11 @@ void arm_start_sm()
 	unsigned int distance_threshold_mm; // max distance where arm will consider an object to exist
 	unsigned int object_offset_distance_mm;
 	unsigned int ccw_seek_angle_limit, cw_seek_angle_limit; // Seek area limits
+	unsigned int claw_angle_limit_open, claw_angle_limit_closed;
 	unsigned int dump_angle;
 	unsigned int blocked_move_timeout_ms;
 	unsigned int dist;
+	unsigned int angle_middle_joint_max;
 	double claw_offset_mm; // mm
 	int status;
 	armState arm_state;
@@ -123,8 +125,6 @@ void arm_start_sm()
 	unsigned int angle_base_joint;
 	unsigned int angle_middle_joint;
 	unsigned int angle_claw_joint;
-	unsigned int claw_angle_limit_open;
-	unsigned int claw_angle_limit_closed;
 
 	// Heuristic offsets for distance and base rotation due to claw dimensions
 	object_offset_distance_mm = -85;
@@ -134,6 +134,7 @@ void arm_start_sm()
 	distance_threshold_mm = 350;
 
 	// Init limits and start values
+	angle_middle_joint_max = 1000; // MAx angle for middle joint, if we go higher than this, then assume object too close
 	ccw_seek_angle_limit = 205; // ~90 degrees ccw
 	cw_seek_angle_limit = 819; // ~90 degrees cw
 	claw_angle_limit_closed = 600; // fully closed
@@ -159,12 +160,6 @@ void arm_start_sm()
 		ax_set_move_speed(ids[i], init_speed[i]);
 		HAL_Delay(500);
 	}
-	/* We dont need to move here because we're already always moving in init
-	 *
-	for (int i=0; i < sizeof(ids)/sizeof(ids[0]); i++) {
-		ax_move_blocked(ids[i], init_angles[i], blocked_move_timeout_ms);
-	}
-	*/
 	ax_set_max_torque(8, 200);
 
 
@@ -311,16 +306,18 @@ void arm_start_sm()
 			while(distance > distance_threshold_mm) distance = get_dist();
 			sprintf(temp, "Object middle point distance: %u\r\n", distance);
 			bt_send(temp);
-			ax_move_blocked(4, middle_rot - offset_base_angle(distance+object_offset_distance_mm, claw_offset_mm), blocked_move_timeout_ms);
-
 			status = arm_angles_from_dist(distance+object_offset_distance_mm, &angle_base_joint,  &angle_middle_joint, &angle_claw_joint);
 			if (status == -1) {
-				bt_send("ERROR: Object is too close. Move object to proper distance. Resetting operation.");
+				bt_send("ERROR: Object is too close. Move object to proper distance. Resetting operation.\r\n");
 				arm_state = ARM_ERROR_STATE;
 			} else if (status == 1) {
-				bt_send("ERROR: Object is too far. Consider adjusting max seeking threshold. Resetting operation.");
+				bt_send("ERROR: Object is too far. Consider adjusting max seeking threshold. Resetting operation.\r\n");
+				arm_state = ARM_ERROR_STATE;
+			} else if (angle_middle_joint > angle_middle_joint_max) {
+				bt_send("ERROR: Impossible angle for middle joint, object is too close. Move object to proper distance. Resetting operation.\r\n");
 				arm_state = ARM_ERROR_STATE;
 			} else {
+				ax_move_blocked(4, middle_rot - offset_base_angle(distance+object_offset_distance_mm, claw_offset_mm), blocked_move_timeout_ms);
 				ax_move_blocked(9, angle_claw_joint, blocked_move_timeout_ms);
 				ax_move_blocked(2, angle_middle_joint, blocked_move_timeout_ms);
 				ax_move_blocked(3, angle_base_joint, blocked_move_timeout_ms);
@@ -333,12 +330,12 @@ void arm_start_sm()
 		case ARM_GRAB_CLAW:
 			bt_send("Entering state : ARM_GRAB_CLAW\r\n");
 			ax_move_blocked(8, claw_angle_limit_closed, blocked_move_timeout_ms);
-			if (abs( (int ) (ax_get_current_position(8) - claw_angle_limit_closed)) > 15) {
-				arm_state = ARM_MOVE_TO_DUMP;
-			} else {
+			if (ax_diff_from_goal(8) < 15) {
+				bt_send("ERROR: failed to grab object.\r\n");
 				arm_state = ARM_ERROR_STATE;
+			} else {
+				arm_state = ARM_MOVE_TO_DUMP;
 			}
-			HAL_Delay(1000);
 
 			break;
 
@@ -356,6 +353,7 @@ void arm_start_sm()
 		case ARM_ERROR_STATE:
 			bt_send("Entering state : ARM_ERROR_STATE\r\n");
 			//while(1){}
+			HAL_Delay(5000);
 			arm_state = ARM_MOVE_TO_IDLE;
 
 			break;
