@@ -69,13 +69,20 @@ UART_HandleTypeDef* get_huart(uint8_t servo_id)
  * param_list: pointer to a list of parameters
  * param_len: length of parameter list
  * return_len: length of return status packet
+ *
+ * returns:
+ * 	-1 on uart command fail for send or receive
+ * 	0 otherwise
  */
-void send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list, size_t param_len, size_t return_len)
+int send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list, size_t param_len, size_t return_len)
 {
 	int packet_size;
+	int ret_val;
 	UART_HandleTypeDef *huart;
 	HAL_StatusTypeDef uart_status_send;
 	HAL_StatusTypeDef uart_status_recv;
+
+	int retry_count = 5;
 
 	packet_size = 6 + param_len;
 
@@ -94,13 +101,17 @@ void send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list,
 	 * otherwise Nucleo might not be fast enough to catch return packet
 	 */
 
-	for(int i = 0; i<5;i++){
-	HAL_HalfDuplex_EnableTransmitter(huart);
-	uart_status_send = HAL_UART_Transmit(huart, ax_send_buffer, packet_size, UART_SEND_TIMEOUT);
-	HAL_HalfDuplex_EnableReceiver(huart);
-	uart_status_recv = HAL_UART_Receive(huart, ax_recv_buffer, return_len, UART_RECV_TIMEOUT);
+	ret_val = -1;
+	for(int i = 0; i < retry_count; i++) {
+		HAL_HalfDuplex_EnableTransmitter(huart);
+		uart_status_send = HAL_UART_Transmit(huart, ax_send_buffer, packet_size, UART_SEND_TIMEOUT);
+		HAL_HalfDuplex_EnableReceiver(huart);
+		uart_status_recv = HAL_UART_Receive(huart, ax_recv_buffer, return_len, UART_RECV_TIMEOUT);
 
-	if(uart_status_send == HAL_OK && uart_status_recv == HAL_OK) break;
+		if(uart_status_send == HAL_OK && uart_status_recv == HAL_OK) {
+			ret_val = 0;
+			break;
+		}
 	}
 
 #if DEBUG_SEND || DEBUG_RECV
@@ -126,6 +137,8 @@ void send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list,
 		printf("Received status packet %s via UART\n", temp);
 	}
 #endif
+
+	return ret_val;
 }
 
 /*
