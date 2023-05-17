@@ -50,11 +50,17 @@ VL53L0X_RangingMeasurementData_t RangingData;
 static VL53L0X_Error myStatus = VL53L0X_ERROR_NONE;
 unsigned int sensor_distance_mm;
 
+/*
+ * Send string to bluetooth
+ */
 void bt_send(char *msg)
 {
 	HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 }
 
+/*
+ * Get distance value from TOF sensor
+ */
 unsigned int get_dist() {
 	unsigned int sensor_distance_mm= 0;
 
