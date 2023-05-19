@@ -131,9 +131,11 @@ void arm_start_sm()
 	VL53L0X_StartMeasurement (TOF1);
 
 	// Test tof
+
 	/*
 	while (1) {
-		printf("%u\n", get_dist());
+		sprintf(temp, "distance: %u\n", get_dist());
+		bt_send(temp);
 		HAL_Delay(100);
 	}*/
 

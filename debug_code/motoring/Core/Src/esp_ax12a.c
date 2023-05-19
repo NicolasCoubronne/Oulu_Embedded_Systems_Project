@@ -122,7 +122,7 @@ int send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list, 
 	array8_to_hex(ax_send_buffer, packet_size, temp);
 	if (uart_status_send != HAL_OK) {
 		printf("Failed to send packet %s via UART\n", temp);
-		while(1){}
+		//while(1){}
 	} else {
 		printf("Sent packet %s via UART\n", temp);
 	}
@@ -132,7 +132,7 @@ int send_recv_uart(uint8_t servo_id, dmp_inst instruction, uint8_t *param_list, 
 	array8_to_hex(ax_recv_buffer, return_len, temp);
 	if (uart_status_recv != HAL_OK) {
 		printf("Failed to receive status packet\n");
-		while(1){}
+		//while(1){}
 	} else {
 		printf("Received status packet %s via UART\n", temp);
 	}
