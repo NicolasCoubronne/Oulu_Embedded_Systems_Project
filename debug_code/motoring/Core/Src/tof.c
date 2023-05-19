@@ -12,7 +12,7 @@
 #include <inc/vl53l0x_api.h>
 
 /* Private define ------------------------------------------------------------*/
-#define HandleI2C hi2c1;
+#define HandleI2C hi2c3;
 #define I2cDevAddr_TOF1 0x52
 #define I2cDevAddr_TOF2 0x54
 
@@ -65,9 +65,9 @@ VL53L0X_Error TOF1_VL53L0X_Init_Single(uint32_t* refSpadCount,uint8_t* isApertur
 	TOF1->I2cDevAddr = I2cDevAddr_TOF1;
 	VL53L0X_Error status = VL53L0X_ERROR_NONE;
 
-	HAL_GPIO_WritePin(TOF1_XSHUT_GPIO_Port, TOF1_XSHUT_Pin, GPIO_PIN_RESET); // Disable XSHUT
+	HAL_GPIO_WritePin(TOF2_XSHUT_GPIO_Port, TOF2_XSHUT_Pin, GPIO_PIN_RESET); // Disable XSHUT
 	HAL_Delay(20);
-	HAL_GPIO_WritePin(TOF1_XSHUT_GPIO_Port, TOF1_XSHUT_Pin, GPIO_PIN_SET); // Enable XSHUT
+	HAL_GPIO_WritePin(TOF2_XSHUT_GPIO_Port, TOF2_XSHUT_Pin, GPIO_PIN_SET); // Enable XSHUT
 	HAL_Delay(20);
 
 	//Device initialization
@@ -83,47 +83,8 @@ VL53L0X_Error TOF1_VL53L0X_Init_Single(uint32_t* refSpadCount,uint8_t* isApertur
 	if (mode==0) status=VL53L0X_SetDeviceMode(TOF1, VL53L0X_DEVICEMODE_SINGLE_RANGING);
 	else{
 		VL53L0X_SetDeviceMode(TOF1, VL53L0X_DEVICEMODE_CONTINUOUS_RANGING);
-		status = VL53L0X_SetGpioConfig (TOF1, TOF1_IN_Pin,  VL53L0X_DEVICEMODE_CONTINUOUS_RANGING,  VL53L0X_GPIOFUNCTIONALITY_NEW_MEASURE_READY,  VL53L0X_INTERRUPTPOLARITY_HIGH);
+		status = VL53L0X_SetGpioConfig (TOF1, TOF2_IN_Pin,  VL53L0X_DEVICEMODE_CONTINUOUS_RANGING,  VL53L0X_GPIOFUNCTIONALITY_NEW_MEASURE_READY,  VL53L0X_INTERRUPTPOLARITY_HIGH);
 	}
-
-	return status;
-
-}
-
-VL53L0X_Error TOF2_VL53L0X_Init(uint32_t refSpadCount,uint8_t isApertureSpads,uint8_t VhvSettings,uint8_t PhaseCal)
-{
-	TOF2->I2cHandle = &HandleI2C;
-	TOF2->I2cDevAddr = I2cDevAddr_TOF1;
-	VL53L0X_Error status = VL53L0X_ERROR_NONE;
-
-	/*
-	HAL_GPIO_WritePin(TOF2_XSHUT_GPIO_Port, TOF2_XSHUT_Pin, GPIO_PIN_RESET); // Disable XSHUT
-	HAL_Delay(20);
-	HAL_GPIO_WritePin(TOF2_XSHUT_GPIO_Port, TOF2_XSHUT_Pin, GPIO_PIN_SET); // Enable XSHUT
-	HAL_Delay(20);
-	 */
-	//Device initialization
-	VL53L0X_WaitDeviceBooted( TOF2 );
-
-	//0x52 -> 0x54
-	HAL_GPIO_WritePin(TOF1_XSHUT_GPIO_Port, TOF1_XSHUT_Pin, GPIO_PIN_RESET); // Disable XSHUT de TOF1
-	HAL_Delay(20);
-	status=VL53L0X_SetDeviceAddress(TOF2,I2cDevAddr_TOF2);
-	if (status!=VL53L0X_ERROR_NONE) return status;
-	HAL_GPIO_WritePin(TOF1_XSHUT_GPIO_Port, TOF1_XSHUT_Pin, GPIO_PIN_SET); // Enable XSHUT de TOF1
-	HAL_Delay(20);
-	TOF2->I2cDevAddr = I2cDevAddr_TOF2;
-
-	status = VL53L0X_DataInit( TOF2 );
-	if (status!=VL53L0X_ERROR_NONE) return status;
-	VL53L0X_StaticInit( TOF2 );
-	//SPADs calibration
-	VL53L0X_PerformRefSpadManagement(TOF2, &refSpadCount, &isApertureSpads);
-	//Temperature calibration
-	VL53L0X_PerformRefCalibration(TOF2, &VhvSettings, &PhaseCal);
-	//System settings: Mode Single Ranging
-	VL53L0X_SetDeviceMode(TOF2, VL53L0X_DEVICEMODE_SINGLE_RANGING);
-
 
 	return status;
 

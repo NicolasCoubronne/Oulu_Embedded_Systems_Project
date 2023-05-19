@@ -130,6 +130,13 @@ void arm_start_sm()
 	TOFX_VL53L0X_LongRangeSettings(TOF1);
 	VL53L0X_StartMeasurement (TOF1);
 
+	// Test tof
+	/*
+	while (1) {
+		printf("%u\n", get_dist());
+		HAL_Delay(100);
+	}*/
+
 	//MOTOR INIT
 	uint8_t ids[] = {3, 2, 9, 8, 4};
 	uint16_t init_angles[] = {390, 950, 600, claw_angle_limit_open, 819};

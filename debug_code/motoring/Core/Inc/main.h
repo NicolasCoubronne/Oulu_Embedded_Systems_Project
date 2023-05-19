@@ -67,6 +67,10 @@ void Error_Handler(void);
 #define LD2_GREEN_GPIO_Port GPIOA
 #define TOF1_XSHUT_Pin GPIO_PIN_4
 #define TOF1_XSHUT_GPIO_Port GPIOC
+#define TOF2_IN_Pin GPIO_PIN_8
+#define TOF2_IN_GPIO_Port GPIOC
+#define TOF2_XSHUT_Pin GPIO_PIN_12
+#define TOF2_XSHUT_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
