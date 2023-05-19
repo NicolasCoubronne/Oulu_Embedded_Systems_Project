@@ -8,6 +8,11 @@
 #ifndef INC_ESP_ONBOARD_H_
 #define INC_ESP_ONBOARD_H_
 
+#define OPERATION_LED_PORT LED_EXT_1_GPIO_Port
+#define OPERATION_LED_PIN LED_EXT_1_Pin
+#define ERROR_LED_PORT LED_EXT_2_GPIO_Port
+#define ERROR_LED_PIN LED_EXT_2_Pin
+
 typedef enum {
 	LED_OFF,
 	LED_ON,

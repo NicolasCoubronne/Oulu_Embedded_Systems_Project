@@ -136,15 +136,13 @@ int main(void)
 	ax_init(&huart4, NULL);
 
 	//Start Bluetooth usart via DMA
-	/*
 	HAL_UART_Transmit(&huart1, (uint8_t*)"STM -> PMOD \r\n", sizeof("STM -> PMOD \r\n"), HAL_MAX_DELAY);
 	HAL_UART_Receive_DMA (&huart1, buf_RX, 9);
 
 	HAL_TIM_Base_Start_IT(&htim2);
-	*/
 
-	//arm_start_sm();
-	print_angles();
+	arm_start_sm();
+	//print_angles();
 
   /* USER CODE END 2 */
 
@@ -454,10 +452,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LD2_GREEN_Pin|TOF2_XSHUT_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, LED_EXT_2_Pin|LED_EXT_1_Pin|TOF1_XSHUT_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(TOF1_XSHUT_GPIO_Port, TOF1_XSHUT_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LD2_GREEN_Pin|TOF2_XSHUT_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -465,19 +463,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : LED_EXT_2_Pin LED_EXT_1_Pin TOF1_XSHUT_Pin */
+  GPIO_InitStruct.Pin = LED_EXT_2_Pin|LED_EXT_1_Pin|TOF1_XSHUT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
   /*Configure GPIO pins : LD2_GREEN_Pin TOF2_XSHUT_Pin */
   GPIO_InitStruct.Pin = LD2_GREEN_Pin|TOF2_XSHUT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : TOF1_XSHUT_Pin */
-  GPIO_InitStruct.Pin = TOF1_XSHUT_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(TOF1_XSHUT_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : TOF2_IN_Pin */
   GPIO_InitStruct.Pin = TOF2_IN_Pin;

@@ -20,15 +20,13 @@ unsigned int CURRENT_MEASURE_COUNT = 0;
 void set_operation_led(ledMode led_mode)
 {
 	OPERATIONAL_LED_MODE = led_mode;
-	//TODO: Make use of PCB leds
-	//TODO: right now uses the extra nucleo green led
 	switch (led_mode) {
 	case LED_OFF:
-		HAL_GPIO_WritePin(LD2_GREEN_GPIO_Port, LD2_GREEN_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(OPERATION_LED_PORT, OPERATION_LED_PIN, GPIO_PIN_RESET);
 		break;
 
 	case LED_ON:
-		HAL_GPIO_WritePin(LD2_GREEN_GPIO_Port, LD2_GREEN_Pin, GPIO_PIN_SET);
+		HAL_GPIO_WritePin(OPERATION_LED_PORT, OPERATION_LED_PIN, GPIO_PIN_SET);
 		break;
 
 	default:
@@ -39,7 +37,18 @@ void set_operation_led(ledMode led_mode)
 void set_error_led(ledMode led_mode)
 {
 	ERROR_LED_MODE = led_mode;
-	//TODO: Make use of PCB leds
+	switch (led_mode) {
+	case LED_OFF:
+		HAL_GPIO_WritePin(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_PIN_RESET);
+		break;
+
+	case LED_ON:
+		HAL_GPIO_WritePin(ERROR_LED_PORT, ERROR_LED_PIN, GPIO_PIN_SET);
+		break;
+
+	default:
+		break;
+	}
 }
 
 double get_current_measure()

@@ -343,7 +343,9 @@ void arm_start_sm()
 		case ARM_ERROR_STATE:
 			bt_send("Entering state : ARM_ERROR_STATE\r\n");
 			//while(1){}
+			set_error_led(LED_ON);
 			HAL_Delay(5000);
+			set_error_led(LED_OFF);
 			arm_state = ARM_MOVE_TO_IDLE;
 
 			break;
