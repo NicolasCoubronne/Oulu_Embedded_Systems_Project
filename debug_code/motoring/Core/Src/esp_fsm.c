@@ -157,7 +157,7 @@ void arm_start_sm()
 
 		case ARM_MOVE_TO_IDLE:
 			bt_send("Entering state : ARM_MOVE_TO_IDLE\r\n");
-			sprintf(temp, "Average current used: %f A\r\n", AVERAGE_CURRENT);
+			sprintf(temp, "Voltage data from sensor: %f\r\n", get_current_measure());
 			bt_send(temp);
 			// Reset object edges
 			angle_ccw_edge = angle_cw_edge = 0;
@@ -311,6 +311,9 @@ void arm_start_sm()
 				ax_move_blocked(9, angle_claw_joint, blocked_move_timeout_ms);
 				ax_move_blocked(2, angle_middle_joint, blocked_move_timeout_ms);
 				ax_move_blocked(3, angle_base_joint, blocked_move_timeout_ms);
+				ax_move_blocked(2, angle_middle_joint - 20, blocked_move_timeout_ms);
+				ax_move_blocked(9, angle_claw_joint - 10, blocked_move_timeout_ms);
+				ax_move_blocked(2, angle_middle_joint - 40, blocked_move_timeout_ms);
 				HAL_Delay(2000); // Super janky movement so wait even more
 				arm_state = ARM_GRAB_CLAW;
 			}
@@ -319,6 +322,8 @@ void arm_start_sm()
 
 		case ARM_GRAB_CLAW:
 			bt_send("Entering state : ARM_GRAB_CLAW\r\n");
+			sprintf(temp, "Voltage data from sensor: %f\r\n", get_current_measure());
+			bt_send(temp);
 			ax_move_blocked(8, claw_angle_limit_closed, blocked_move_timeout_ms);
 			if (ax_diff_from_goal(8) < 15) {
 				bt_send("ERROR: failed to grab object.\r\n");
@@ -335,7 +340,12 @@ void arm_start_sm()
 			ax_move_blocked(2, 819, blocked_move_timeout_ms);
 			ax_move_blocked(9, 512, blocked_move_timeout_ms);
 			ax_move_blocked(4, dump_angle, blocked_move_timeout_ms);
+			ax_move_blocked(2, 810, blocked_move_timeout_ms);
+			ax_move_blocked(9, 730, blocked_move_timeout_ms);
+			ax_move_blocked(3, 700, blocked_move_timeout_ms);
 			ax_move_blocked(8, claw_angle_limit_open, blocked_move_timeout_ms);
+			ax_move_blocked(2, 880, blocked_move_timeout_ms);
+			ax_move_blocked(4, dump_angle-10, blocked_move_timeout_ms);
 			arm_state = ARM_MOVE_TO_IDLE;
 
 			break;

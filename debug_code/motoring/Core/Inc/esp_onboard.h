@@ -21,7 +21,7 @@ typedef enum {
 
 extern ledMode OPERATIONAL_LED_MODE;
 extern ledMode ERROR_LED_MODE;
-extern double AVERAGE_CURRENT;
+extern uint32_t AVERAGE_CURRENT;
 extern unsigned int CURRENT_MEASURE_COUNT;
 
 void set_operation_led(ledMode led_mode);

@@ -12,8 +12,8 @@
 
 #include "stm32f4xx_hal.h"
 
-#define DEBUG_SEND 1
-#define DEBUG_RECV 1
+#define DEBUG_SEND 0
+#define DEBUG_RECV 0
 
 #define UART_SEND_TIMEOUT 500
 #define UART_RECV_TIMEOUT 500

@@ -211,13 +211,15 @@ void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
 	// Measure current draw
+	/*
 	if (CURRENT_MEASURE_COUNT == 0) {
 		AVERAGE_CURRENT = get_current_measure();
 	} else {
 		AVERAGE_CURRENT += get_current_measure();
-		AVERAGE_CURRENT /= 2.0;
-	}
-	CURRENT_MEASURE_COUNT++;
+		AVERAGE_CURRENT /= 2;
+	}*/
+	//printf("current: %f\n", get_current_measure());
+	//CURRENT_MEASURE_COUNT++;
 	// Set led
 	if (OPERATIONAL_LED_MODE == LED_BLINK) {
 		HAL_GPIO_TogglePin(OPERATION_LED_PORT, OPERATION_LED_PIN);
