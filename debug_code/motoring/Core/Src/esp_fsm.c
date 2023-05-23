@@ -4,7 +4,7 @@
  *  Created on: Apr 25, 2023
  *      Author: Jussi Virtanen
  *
- *  Robot arm state machine proto
+ *  Robot arm state machine
  */
 
 #include <stdio.h>
@@ -38,6 +38,8 @@ unsigned int sensor_distance_mm;
 
 /*
  * Send string to bluetooth
+ *
+ * msg: pointer to the message
  */
 void bt_send(char *msg)
 {
@@ -46,6 +48,8 @@ void bt_send(char *msg)
 
 /*
  * Get distance value from TOF sensor
+ *
+ * returns: approximate distance in mm
  */
 unsigned int get_dist() {
 	unsigned int sensor_distance_mm= 0;
@@ -81,6 +85,9 @@ unsigned int get_dist() {
 	return sensor_distance_mm;
 }
 
+/* Start the arm state machine
+ * Further implementation details are in the documents
+ */
 void arm_start_sm()
 {
 

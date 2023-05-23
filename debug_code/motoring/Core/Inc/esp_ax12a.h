@@ -3,6 +3,9 @@
  *
  *  Created on: Apr 6, 2023
  *      Author: Jussi Virtanen
+ *
+ *      Interface for AX-12A servos for ESP (header)
+ *      More documentation in implementation file
  */
 
 #ifndef INC_ESP_AX12A_H_

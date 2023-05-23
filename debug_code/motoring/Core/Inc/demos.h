@@ -3,6 +3,9 @@
  *
  *  Created on: Apr 21, 2023
  *      Author: tim
+ *
+ *      Demo codes for the arm operations (header)
+ *      More documentation in implementation file
  */
 
 #ifndef INC_DEMOS_H_

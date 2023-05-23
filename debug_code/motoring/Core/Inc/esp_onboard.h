@@ -3,6 +3,9 @@
  *
  *  Created on: May 17, 2023
  *      Author: tim
+ *
+ *      Interface for the onboard leds & current sensor (header)
+ *      More documentation in implementation file
  */
 
 #ifndef INC_ESP_ONBOARD_H_

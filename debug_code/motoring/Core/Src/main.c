@@ -145,8 +145,8 @@ int main(void)
 
 	HAL_TIM_Base_Start_IT(&htim2);
 
+	// Start main functionality (state machine)
 	arm_start_sm();
-	//print_angles();
 
   /* USER CODE END 2 */
 

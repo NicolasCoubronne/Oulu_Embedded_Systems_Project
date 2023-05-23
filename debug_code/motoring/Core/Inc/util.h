@@ -3,6 +3,9 @@
  *
  *  Created on: Apr 6, 2023
  *      Author: Jussi Virtanen
+ *
+ *      Assorted utilities used by the project (header)
+ *      More documentation in implementation file
  */
 
 #ifndef INC_UTIL_H_

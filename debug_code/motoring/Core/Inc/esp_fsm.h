@@ -3,6 +3,9 @@
  *
  *  Created on: May 17, 2023
  *      Author: tim
+ *
+ *      Robot arm state machine (header)
+ *      More documentation in implementation file
  */
 
 #ifndef INC_ESP_FSM_H_

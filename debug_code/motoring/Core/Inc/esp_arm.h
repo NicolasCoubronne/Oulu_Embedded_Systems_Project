@@ -3,6 +3,9 @@
  *
  *  Created on: Apr 26, 2023
  *      Author: tim
+ *
+ *      High-level functions for arm control (header)
+ *      More documentation in implementation file
  */
 
 #ifndef INC_ESP_ARM_H_

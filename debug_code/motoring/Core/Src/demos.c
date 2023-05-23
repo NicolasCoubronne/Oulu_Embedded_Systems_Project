@@ -3,6 +3,11 @@
  *
  *  Created on: Apr 21, 2023
  *      Author: tim
+ *
+ *      demo codes for the arm operations, left here for legacy purposes
+ *
+ *      only thing of use is the print_angles which shows current angle of servo,
+ *      useful for finding servo positions for some scenarios
  */
 
 #include "main.h"

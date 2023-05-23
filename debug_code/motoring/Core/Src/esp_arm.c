@@ -16,6 +16,12 @@
 
 #include "esp_arm.h"
 
+
+/* Convert radians to ax servo angle units
+ * angle: angle in radians
+ *
+ * returns: angle in servo angle units
+ */
 unsigned int rad_to_ax(double angle)
 {
 	double ax_360 = 1023.0 / 300.0 * 360.0;
@@ -84,6 +90,14 @@ int arm_angles_from_dist(unsigned int distance,
 	return 0;
 }
 
+/* Get offset angle of base rotation based on the required offset distance
+ * Needed since the angle differs based on distance
+ *
+ * distance: required offset distance (roughly along the tangent of the circle movement of the base)
+ * claw_offset: sideways offset required by the claw (in open position it's not perfectly centered)
+ *
+ * returns: the offset angle required for the base rotation
+ */
 unsigned int offset_base_angle(unsigned int distance, double claw_offset)
 {
 	double offset_angle;

@@ -158,7 +158,7 @@ void ax_ping(uint8_t id)
 
 /*
  * Factory reset a servo
- * Will not change ID
+ * Will not change ID (or does it...)
  *
  * id: servo ID
  */
@@ -409,6 +409,13 @@ unsigned int ax_get_current_speed(uint8_t id)
 	return speed;
 }
 
+/*
+ * Get current servo load
+ *
+ * id: servo id
+ *
+ * returns: servo load
+ */
 unsigned int ax_get_current_load(uint8_t id)
 {
 	unsigned int load = 0;

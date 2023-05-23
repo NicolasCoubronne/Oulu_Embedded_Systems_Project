@@ -3,6 +3,8 @@
  *
  *  Created on: Apr 6, 2023
  *      Author: Jussi Virtanen
+ *
+ *      Assorted utilities used by the project
  */
 
 #include <inttypes.h>
@@ -13,6 +15,10 @@
 
 /*
  * Convert array to hexadecimal string
+ *
+ * ar: pointer to the array
+ * len: length of the array
+ * buf: char buffer where the string is stored
  */
 void array8_to_hex(uint8_t *ar, size_t len, char *buf)
 {
@@ -32,6 +38,10 @@ void array8_to_hex(uint8_t *ar, size_t len, char *buf)
 
 /*
  * Dynamixel Protocl checksum
+ *
+ * buffer: pointer to the array with the dynamixel commands
+ *
+ * returns: checksum according to https://emanual.robotis.com/docs/en/dxl/protocol1/#checksum-instruction-packet
  */
 uint8_t dmp_chksm(uint8_t* buffer)
 {
@@ -43,6 +53,12 @@ uint8_t dmp_chksm(uint8_t* buffer)
 	return ~((uint8_t)checksum);
 }
 
+/* Min value of array
+ * array: the array
+ * len: length of the array
+ *
+ * returns: minimum value of the array
+ */
 int min_of_array(int *array, int len)
  {
 	int min = array[0];
@@ -54,6 +70,12 @@ int min_of_array(int *array, int len)
 	return min;
 }
 
+/* Max value of array
+ * array: the array
+ * len: length of the array
+ *
+ * returns: maximum value of the array
+ */
 int max_of_array(int *array, int len)
 {
 	int max = array[0];

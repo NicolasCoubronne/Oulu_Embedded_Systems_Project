@@ -3,6 +3,8 @@
  *
  *  Created on: May 17, 2023
  *      Author: tim
+ *
+ *      Interface for the onboard leds & current sensor
  */
 
 #include "main.h"
@@ -17,6 +19,11 @@ ledMode ERROR_LED_MODE = LED_OFF;
 uint32_t AVERAGE_CURRENT = 0;
 unsigned int CURRENT_MEASURE_COUNT = 0;
 
+/* Set the mode of the operation led
+ * Part of the blinking is implemented in timer interrupt
+ *
+ * led_mode: enum of the led mode
+ */
 void set_operation_led(ledMode led_mode)
 {
 	OPERATIONAL_LED_MODE = led_mode;
@@ -34,6 +41,10 @@ void set_operation_led(ledMode led_mode)
 	}
 }
 
+/* Set the mode of the error led
+ *
+ * led_mode: enum of the led mode
+ */
 void set_error_led(ledMode led_mode)
 {
 	ERROR_LED_MODE = led_mode;
@@ -51,6 +62,13 @@ void set_error_led(ledMode led_mode)
 	}
 }
 
+/* Get current measurement from the current sensor
+ * This is not actually working correctly, the range of the sensor is too high for our implementation
+ * and the precision of the ADC is not enough to get any meaningful data from the sensor (it's basically noise)
+ * Therefore we didn't even do the voltage->current conversion of the input value
+ *
+ * returns: the raw voltage from the sensor which would correspond to some amperage
+ */
 double get_current_measure()
 {
 	double adc_val;
@@ -58,6 +76,6 @@ double get_current_measure()
 	HAL_ADC_PollForConversion(&hadc1, 100);
 	//adc_val = (HAL_ADC_GetValue(&hadc1) / 4096.0 - 1.65) * 10.0;
 	adc_val = ((double)HAL_ADC_GetValue(&hadc1) / 4096.0 * 3.282);// - (3.282/2.0);
-	HAL_ADC_Stop(&hadc1)
+	HAL_ADC_Stop(&hadc1);
 	return adc_val;
 }
