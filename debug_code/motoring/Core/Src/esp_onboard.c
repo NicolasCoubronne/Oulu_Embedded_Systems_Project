@@ -58,7 +58,6 @@ double get_current_measure()
 	HAL_ADC_PollForConversion(&hadc1, 100);
 	//adc_val = (HAL_ADC_GetValue(&hadc1) / 4096.0 - 1.65) * 10.0;
 	adc_val = ((double)HAL_ADC_GetValue(&hadc1) / 4096.0 * 3.282);// - (3.282/2.0);
+	HAL_ADC_Stop(&hadc1)
 	return adc_val;
-
-	return HAL_ADC_Stop(&hadc1);
 }
